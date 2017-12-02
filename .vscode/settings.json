@@ -1,0 +1,29 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/*.spec.ts": true,
+    "e2e": true,
+    "src/assets/.gitkeep": true,
+    "src/typings.d.ts": true,
+    "src/environments": true,
+    "src/main.ts": true,
+    "src/polyfills.ts": true,
+    "src/test.ts": true,
+    "src/tsconfig.app.json": true,
+    "src/tsconfig.spec.json": true,
+    "src/favicon.ico": true,
+    "src/index.html": true,
+    ".gitignore": true,
+    "karma.conf.js": true,
+    "package-lock.json": true,
+    "protractor.conf.js": true,
+    "README.md": true,
+    "tsconfig.json": true,
+    "tslint.json": true,
+    ".editorconfig": true
+  }
+}
