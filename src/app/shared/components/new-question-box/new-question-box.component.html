@@ -1,0 +1,43 @@
+<div class="NewQuestionBox pt1">
+  <div class="New-question-box__container">
+    <div class="New-question-box__header">
+      <div class="New-question-box__header--title mb1">写下你的问题</div>
+      <div class="New-question-box__header--subtitle">描述精确的问题更易得到解答</div>
+    </div>
+    <div class="New-question-box__body">
+      <div class="New-question__title">
+        <mat-form-field>
+          <textarea matInput
+                    matTextareaAutosize
+                    matAutosizeMinRows="2"
+                    placeholder="问题标题"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="New-question__tags">
+        <mat-form-field>
+          <input matInput
+                 type="text"
+                 placeholder="添加话题">
+        </mat-form-field>
+      </div>
+      <div class="New-question__description">
+        <p>问题描述（可选）：</p>
+        <div>
+          <mat-form-field>
+            <textarea matInput
+                      matTextareaAutosize
+                      matAutosizeMinRows="3"
+                      placeholder="问题背景、条件等详细信息"></textarea>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-checkbox>匿名提问</mat-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="New-question-box__footer mt1">
+      <button mat-raised-button
+              color="primary">提交问题</button>
+    </div>
+  </div>
+</div>
