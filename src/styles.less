@@ -3,14 +3,31 @@
 @import '~normalize.css/normalize.css';
 
 // import material theme
-// indigo-pink
-// deeppurple-amber
-// pink-bluegrey
-// purple-green
 // @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 @import '../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
 // @import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
 // @import '../node_modules/@angular/material/prebuilt-themes/purple-green.css';
+
+// 定义 Material Icons 字体
+@font-face {
+  font-family: 'Material Icons';
+  src: url(/assets/fonts/MaterialIcons-Regular.woff2),
+  url(/assets/fonts/MaterialIcons-Regular.woff),
+  url(/assets/fonts/MaterialIcons-Regular.ttf);
+}
+
+body .material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
 
 html, body {
   height: 100%;
@@ -35,4 +52,23 @@ body {
 .flex-column {
   display: flex;
   flex-direction: column;
+}
+
+body {
+  .mat-dialog-container,
+  .mat-card,
+  .mat-button,
+  {
+    border-radius: 0;
+  }
+}
+
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 100%;
+  // background: lightgrey;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 156, 156, 0.87);
 }
