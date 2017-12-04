@@ -9,6 +9,9 @@ const routes: Routes = [
     path: 'sign', loadChildren: 'app/sign/sign.module#SignModule'
   },
   {
+    path: 'question', loadChildren: 'app/question/question.module#QuestionModule'
+  },
+  {
     path: '', redirectTo: '/home', pathMatch: 'full'
   },
   {
