@@ -2,12 +2,31 @@
   display: flex;
   flex-direction: row;
 }
+
 .Home-page__main {
-  width: 75rem;
-  // flex-grow: 8;
+  width: 70%; // flex-grow: 8;
 }
+
 .Home-page__aside {
-  width: 25rem;
-  margin-left: 1rem;
-  // flex-grow: 2;
+  width: 30%;
+  margin-left: 1rem; // flex-grow: 2;
+}
+
+// @media screen and (max-width: 1200px) {
+//   .HomePage {
+
+//   }
+// }
+
+@media screen and (max-width: 600px) {
+  .HomePage {
+    flex-direction: column;
+  }
+  .Home-page__main {
+    width: 100%;
+  }
+  .Home-page__aside {
+    width: 100%;
+    margin-left: 0;
+  }
 }
