@@ -1,7 +1,6 @@
 <div class="RecommendList mt1">
-  <app-recommend-card></app-recommend-card>
-  <app-recommend-card></app-recommend-card>
-  <app-recommend-card></app-recommend-card>
-  <app-recommend-card></app-recommend-card>
-  <app-recommend-card></app-recommend-card>
+  <ng-template [ngIf]="questions && questions.length > 0">
+    <app-recommend-card *ngFor="let question of questions"
+                        [question]="question"></app-recommend-card>
+  </ng-template>
 </div>

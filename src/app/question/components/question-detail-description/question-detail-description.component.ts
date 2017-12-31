@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-question-detail-description',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./question-detail-description.component.less']
 })
 export class QuestionDetailDescriptionComponent implements OnInit {
+
+  @Input()
+  public question: any;
 
   constructor() { }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-recommend-card',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recommend-card.component.less']
 })
 export class RecommendCardComponent implements OnInit {
+
+  @Input()
+  public question: any;
 
   constructor() { }
 

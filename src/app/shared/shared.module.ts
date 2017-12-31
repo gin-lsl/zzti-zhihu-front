@@ -21,6 +21,7 @@ import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { CommonOperationComponent } from './components/common-operation/common-operation.component';
 import { MyServiceCardComponent } from './components/my-service-card/my-service-card.component';
 import { NewQuestionBoxComponent } from './components/new-question-box/new-question-box.component';
+import { HttpClientModule } from '@angular/common/http';
 
 /**
  * Material 模块
@@ -54,6 +55,7 @@ const components = [
   imports: [
     CommonModule,
     RouterModule,
+    HttpClientModule,
     ...materialModules,
   ],
   declarations: [
@@ -64,6 +66,7 @@ const components = [
   ],
   exports: [
     RouterModule,
+    HttpClientModule,
     ...materialModules,
     ...components,
   ]
