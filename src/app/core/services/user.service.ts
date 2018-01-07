@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ISignIn } from '../../utils/index';
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { PartialObserver } from 'rxjs/Observer';
 import 'rxjs/add/operator/filter';
 
 @Injectable()
