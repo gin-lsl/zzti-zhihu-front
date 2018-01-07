@@ -22,8 +22,8 @@
     "package-lock.json": true,
     "protractor.conf.js": true,
     "README.md": true,
-    "tsconfig.json": true,
-    "tslint.json": true,
+    // "tsconfig.json": true,
+    // "tslint.json": true,
     ".editorconfig": true
   }
 }

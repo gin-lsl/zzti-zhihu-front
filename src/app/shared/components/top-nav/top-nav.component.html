@@ -5,6 +5,9 @@
      routerLink="/home/explore">发现</a>
   <a mat-button
      routerLink="/sign">话题</a>
+  <a *ngIf="email"
+     mat-button
+     routerLink="/sign">{{ email }}</a>
   <span>
     <i class="material-icons">search</i>
   </span>
