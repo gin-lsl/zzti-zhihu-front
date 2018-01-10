@@ -1,27 +1,38 @@
-<div class="QuestionAnswerCard">
-  <article class="Question-answer mb1">
+<div class="QuestionAnswerCard mb05">
+  <article class="Question-answer">
     <mat-card>
       <mat-card-header>
-        <div mat-card-avatar></div>
+        <div mat-card-avatar
+             style="background: url(http://placehold.it/40x40)"></div>
         <mat-card-title>测试用户名</mat-card-title>
         <mat-card-subtitle>用户签名，用户签名</mat-card-subtitle>
       </mat-card-header>
+      <mat-card-content [class.short]="isShort">
+        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
+          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
+        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
+          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
+        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
+          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
+        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
+          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
+        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
+          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
+        <div>
+        </div>
+      </mat-card-content>
       <mat-card-content>
-        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
-          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
-        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
-          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
-        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
-          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
-        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
-          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
-        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
-          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
+        <span *ngIf="isShort"
+              (click)="toggleShort()"
+              role="button">
+          <span>展开全部</span>
+          <mat-icon role="button">expand_more</mat-icon>
+        </span>
       </mat-card-content>
       <mat-card-actions>
         <button mat-button>
@@ -33,6 +44,9 @@
         </button>
         <button mat-button>Like</button>
         <button mat-button>Share</button>
+        <span *ngIf="!isShort"
+              (click)="toggleShort()"
+              role="button">收起 ^</span>
       </mat-card-actions>
     </mat-card>
   </article>

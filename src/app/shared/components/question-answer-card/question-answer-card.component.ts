@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuestionAnswerCardComponent implements OnInit {
 
+  /**
+   * 只显示一部分
+   */
+  public isShort: boolean = true;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  /**
+   * 切换显示方式, 全部显示或者只显示一部分
+   */
+  public toggleShort(): void {
+    this.isShort = !this.isShort;
   }
 
 }

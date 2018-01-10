@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import {
   MatButtonModule,
@@ -22,7 +23,8 @@ import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { CommonOperationComponent } from './components/common-operation/common-operation.component';
 import { MyServiceCardComponent } from './components/my-service-card/my-service-card.component';
 import { NewQuestionBoxComponent } from './components/new-question-box/new-question-box.component';
-import { HttpClientModule } from '@angular/common/http';
+import { QuestionAnswerCardComponent } from './components/question-answer-card/question-answer-card.component';
+import { QuestionAnswerListComponent } from './components/question-answer-list/question-answer-list.component';
 
 /**
  * Material 模块
@@ -50,6 +52,8 @@ const components = [
   CommonOperationComponent,
   MyServiceCardComponent,
   NewQuestionBoxComponent,
+  QuestionAnswerCardComponent,
+  QuestionAnswerListComponent,
 ];
 
 @NgModule({
