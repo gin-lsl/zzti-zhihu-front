@@ -1,13 +1,22 @@
 <div class="QuestionAnswerCard mb05">
   <article class="Question-answer">
     <mat-card>
+      <mat-card-content *ngIf="answer.aboutMe" class="about-me">
+        <span>赞同了回答</span>
+        <span>1个月前</span>
+      </mat-card-content>
+      <mat-card-content>
+        <h3>
+          <a>{{ answer?.questionId }}</a>
+        </h3>
+      </mat-card-content>
       <mat-card-header>
         <div mat-card-avatar
              style="background: url(http://placehold.it/40x40)"></div>
-        <mat-card-title>测试用户名</mat-card-title>
+        <mat-card-title>{{ answer?.answerer?.username }}</mat-card-title>
         <mat-card-subtitle>用户签名，用户签名</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content [class.short]="isShort">
+      <mat-card-content [class.short]="_isShort">
         <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
           corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
@@ -27,11 +36,12 @@
         </div>
       </mat-card-content>
       <mat-card-content>
-        <span *ngIf="isShort"
-              (click)="toggleShort()"
-              role="button">
-          <span>展开全部</span>
-          <mat-icon role="button">expand_more</mat-icon>
+        <span *ngIf="_isShort"
+              class="Expand-toggle__wrap">
+          <span class="Expand-toggle__text">展开全部</span>
+          <mat-icon role="button"
+                    (click)="toggleShort()"
+                    class="Expand-toggle__icon">expand_more</mat-icon>
         </span>
       </mat-card-content>
       <mat-card-actions>
@@ -44,9 +54,13 @@
         </button>
         <button mat-button>Like</button>
         <button mat-button>Share</button>
-        <span *ngIf="!isShort"
-              (click)="toggleShort()"
-              role="button">收起 ^</span>
+        <span *ngIf="!_isShort"
+              class="Expand-toggle__wrap">
+          <span class="Expand-toggle__text">收起</span>
+          <mat-icon class="Expand-toggle__icon"
+                    (click)="toggleShort()"
+                    role="button">expand_less</mat-icon>
+        </span>
       </mat-card-actions>
     </mat-card>
   </article>

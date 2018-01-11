@@ -3,9 +3,16 @@
   color: #E5DDF2;
   background: #673ab7;
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  .mat-toolbar {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between
+  }
   a {
-    height: 3rem;
-    line-height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center; // height: 3rem;
+    // line-height: 3rem;
     font-size: 1.1rem;
     span {
       width: 3rem;
@@ -16,8 +23,40 @@
   }
 }
 
+.Link-wrap,
+.Search-wrap,
+.User-wrap {
+  display: flex;
+}
+
+a.Icon-wrap {
+  margin: 1rem;
+  width: 2rem;
+  height: 2rem;
+  &:hover {
+    color: #adadad;
+  }
+}
+
+.User-wrap__avatar {
+  margin-left: 1.5rem;
+}
+
+.mat-input-element {
+  font: inherit;
+  background: 0 0;
+  color: currentColor;
+  border: none;
+  outline: 0;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
 @media screen and (max-width: 600px) {
-  .TopNav {
+  .TopNav .mat-toolbar {
     flex-direction: row;
     padding: 0;
   }

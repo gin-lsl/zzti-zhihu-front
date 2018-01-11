@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Answer } from '../../../utils/index';
 
 @Component({
   selector: 'app-question-answer-card',
@@ -10,7 +11,10 @@ export class QuestionAnswerCardComponent implements OnInit {
   /**
    * 只显示一部分
    */
-  public isShort: boolean = true;
+  public _isShort: boolean = true;
+
+  @Input()
+  public answer: Answer;
 
   constructor() { }
 
@@ -21,7 +25,7 @@ export class QuestionAnswerCardComponent implements OnInit {
    * 切换显示方式, 全部显示或者只显示一部分
    */
   public toggleShort(): void {
-    this.isShort = !this.isShort;
+    this._isShort = !this._isShort;
   }
 
 }

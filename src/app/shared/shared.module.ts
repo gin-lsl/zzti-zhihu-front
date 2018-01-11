@@ -17,6 +17,7 @@ import {
   MatAutocompleteModule,
   MatIconModule,
   MatChipsModule,
+  MatToolbarModule,
 } from '@angular/material';
 
 import { TopNavComponent } from './components/top-nav/top-nav.component';
@@ -42,6 +43,7 @@ const materialModules = [
   MatAutocompleteModule,
   MatIconModule,
   MatChipsModule,
+  MatToolbarModule,
 ];
 
 /**
