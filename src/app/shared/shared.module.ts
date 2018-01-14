@@ -18,7 +18,10 @@ import {
   MatIconModule,
   MatChipsModule,
   MatToolbarModule,
+  MatMenuModule,
 } from '@angular/material';
+
+import { QuillModule } from 'ngx-quill';
 
 import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { CommonOperationComponent } from './components/common-operation/common-operation.component';
@@ -44,6 +47,7 @@ const materialModules = [
   MatIconModule,
   MatChipsModule,
   MatToolbarModule,
+  MatMenuModule,
 ];
 
 /**
@@ -64,6 +68,7 @@ const components = [
     RouterModule,
     HttpClientModule,
     FormsModule,
+    QuillModule,
     ...materialModules,
   ],
   declarations: [
@@ -76,6 +81,7 @@ const components = [
     RouterModule,
     HttpClientModule,
     FormsModule,
+    QuillModule,
     ...materialModules,
     ...components,
   ]

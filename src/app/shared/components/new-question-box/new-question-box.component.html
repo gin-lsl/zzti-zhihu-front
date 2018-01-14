@@ -10,14 +10,26 @@
           <textarea matInput
                     matTextareaAutosize
                     matAutosizeMinRows="2"
+                    [(ngModel)]="questionModel.title"
+                    name="questionModel.title"
                     placeholder="问题标题"></textarea>
         </mat-form-field>
       </div>
       <div class="New-question__tags">
         <mat-form-field>
-          <input matInput
-                 type="text"
-                 placeholder="添加话题">
+          <mat-chip-list #tagChipList>
+            <mat-chip *ngFor="let tag of questionModel.tags"
+                      [selectable]="true"
+                      [removable]="true"
+                      (onRemove)="remove(tag)">
+              <span>{{ tag }}</span>
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="添加话题"
+                   [matChipInputFor]="tagChipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeyCodes"
+                   [matChipInputAddOnBlur]="true" (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
         </mat-form-field>
       </div>
       <div class="New-question__description">
@@ -27,17 +39,21 @@
             <textarea matInput
                       matTextareaAutosize
                       matAutosizeMinRows="3"
+                      [(ngModel)]="questionModel.description"
+                      name="questionModel.description"
                       placeholder="问题背景、条件等详细信息"></textarea>
           </mat-form-field>
         </div>
         <div>
-          <mat-checkbox>匿名提问</mat-checkbox>
+          <mat-checkbox [(ngModel)]="questionModel.isAnonymous"
+                        name="questionModel.isAnonymous">匿名提问</mat-checkbox>
         </div>
       </div>
     </div>
     <div class="New-question-box__footer mt1">
       <button mat-raised-button
-              color="primary">提交问题</button>
+              color="primary"
+              (click)="onSubmit()">提交问题</button>
     </div>
   </div>
 </div>

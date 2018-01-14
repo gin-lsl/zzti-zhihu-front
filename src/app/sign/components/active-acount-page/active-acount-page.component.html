@@ -1,0 +1,44 @@
+<div class="ActiveAcountPage">
+  <div *ngIf="!user">
+    <!-- user 空 -->
+    <div>账户激活失败, 请尝试重新注册!</div>
+  </div>
+  <div *ngIf="user"
+       class="Set-user-info__container">
+    <mat-form-field>
+      <input type="text"
+             disabled
+             matInput
+             placeholder="邮箱"
+             value="{{ user.email }}"
+             name="user.email">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text"
+             matInput
+             placeholder="用户名"
+             [(ngModel)]="user.username"
+             name="user.username">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="password"
+             matInput
+             placeholder="密码"
+             [(ngModel)]="user.password"
+             name="user.password">
+    </mat-form-field>
+    <mat-form-field>
+      <input type="password"
+             matInput
+             placeholder="重复密码"
+             [(ngModel)]="user.passwordRepeat"
+             name="user.passwordRepeat">
+    </mat-form-field>
+    <div class="mb1 btn-submit">
+      <button mat-raised-button
+              class="w100per"
+              color="primary"
+              (click)="onSubmit()">注册</button>
+    </div>
+  </div>
+</div>

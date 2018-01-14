@@ -18,6 +18,9 @@ const routes: Routes = [
     path: 'user', loadChildren: 'app/user/user.module#UserModule'
   },
   {
+    path: 'ask', loadChildren: 'app/ask/ask.module#AskModule'
+  },
+  {
     path: '**', redirectTo: '/home', pathMatch: 'full'
   }
 ];

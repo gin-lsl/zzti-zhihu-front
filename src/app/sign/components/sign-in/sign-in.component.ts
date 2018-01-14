@@ -3,6 +3,7 @@ import { SignService } from '../../../core/services/sign.service';
 import { ErrorCodeEnum } from '../../../utils/index';
 import { UserService } from '../../../core/services/user.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -26,6 +27,7 @@ export class SignInComponent implements OnInit, OnDestroy {
   constructor(
     private _signService: SignService,
     private _userService: UserService,
+    private _router: Router,
   ) { }
 
   ngOnInit() {
@@ -43,12 +45,11 @@ export class SignInComponent implements OnInit, OnDestroy {
       .subscribe(r => {
         console.log('r: ', r);
         if (r.success) {
-          console.log('登录成功');
+          this._router.navigateByUrl('/');
         } else {
           console.log('登录失败', ErrorCodeEnum[r.errorCode]);
         }
       });
-    console.log('模拟登录成功,推入新的用户信息值');
   }
 
   ngOnDestroy() {

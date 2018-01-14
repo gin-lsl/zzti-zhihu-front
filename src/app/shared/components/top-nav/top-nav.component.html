@@ -9,9 +9,6 @@
          routerLink="/home/explore">发现</a>
       <a mat-button
          routerLink="/sign">话题</a>
-      <a *ngIf="email"
-         mat-button
-         routerLink="/sign">{{ email }}</a>
     </div>
     <!-- 搜索框 -->
     <div class="Search-wrap">
@@ -24,7 +21,8 @@
       </a>
     </div>
     <!-- 用户 -->
-    <div class="User-wrap">
+    <div *ngIf="loginedUser"
+         class="User-wrap">
       <a class="Icon-wrap"
          role="button">
         <mat-icon>notifications_black</mat-icon>
@@ -33,12 +31,36 @@
          role="button">
         <mat-icon>question_answer_black</mat-icon>
       </a>
-      <a class="User-wrap__avatar"
-         role="link"
-         [routerLink]="['/user/test']"
-         title="荷兰酒">
+      <!-- [routerLink]="['/user', loginedUser.id]" -->
+      <a mat-button
+         [matMenuTriggerFor]="topNavUserMenu"
+         class="User-wrap__avatar"
+         role="button"
+         title="{{ loginedUser.username }}">
         <img src="http://spacehold.it/40x40"
-             alt="荷兰酒">
+             alt="{{ loginedUser.username }}">
+      </a>
+      <mat-menu #topNavUserMenu="matMenu"
+                [overlapTrigger]="false">
+        <a role="button"
+           [routerLink]="['/user', loginedUser.id]"
+           mat-menu-item>
+          <mat-icon>person_outline_black</mat-icon>
+          <span>我的主页</span>
+        </a>
+        <a role="button"
+           mat-menu-item>
+          <mat-icon>exit_to_app_black</mat-icon>
+          <span>退出</span>
+        </a>
+      </mat-menu>
+    </div>
+    <div *ngIf="!loginedUser"
+         class="User-wrap">
+      <a class="Icon-wrap"
+         role="button"
+         routerLink="/sign">
+        <span>登录</span>
       </a>
     </div>
   </mat-toolbar>

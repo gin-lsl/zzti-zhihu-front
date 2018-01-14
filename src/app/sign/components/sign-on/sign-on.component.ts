@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 import { ErrorCodeEnum } from '../../../utils/index';
 import { UserService } from '../../../core/services/user.service';
-import { Subscription } from 'rxjs/Subscription';
+import { SignService } from '../../../core/services/sign.service';
 
 @Component({
   selector: 'app-sign-on',
@@ -17,35 +18,38 @@ export class SignOnComponent implements OnInit, OnDestroy {
 
   public passwordRepeat: string;
 
-  private userSubjectSubscription: Subscription;
+  private userSubjectSub: Subscription;
 
   constructor(
-    private _httpClient: HttpClient,
     private _userService: UserService,
+    private _signService: SignService,
+    private _router: Router,
   ) { }
 
   ngOnInit() {
     console.log('SignOnComponent OnInit');
-    this.userSubjectSubscription = this._userService.user$$.subscribe(r => {
+    this.userSubjectSub = this._userService.user$$.subscribe(r => {
       console.log('SignOnComponent: ', r);
     });
   }
 
   public onSubmit(): void {
-    const body = { email: this.email, password: this.password, passwordRepeat: this.passwordRepeat };
-    // alert(`'email: ', ${this.email}, ', password: ', ${this.password}`);
-    this._httpClient.post('http://localhost:3000/users/signon', body)
-      .subscribe((r: any) => {
-        console.log('r: ', r);
+    this._signService.signOn(this.email)
+      .subscribe(r => {
         if (!r.success) {
-          const errorCode = ErrorCodeEnum[r.errorCode];
-          console.log('a: ', errorCode);
+          console.log('注册失败 -> errorCode: ', r.errorCode, ', errorMessage: ', r.errorMessage);
+        } else {
+          this._router.navigate(['/sign/active'], {
+            queryParams: {
+              'key': r.successResult
+            }
+          });
         }
       });
   }
 
   ngOnDestroy() {
-    this.userSubjectSubscription.unsubscribe();
+    this.userSubjectSub.unsubscribe();
   }
 
 }
