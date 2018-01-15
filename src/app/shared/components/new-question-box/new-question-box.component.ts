@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { API_HOST, ACCESS_TOKEN } from '../../../utils/index';
 
 @Component({
   selector: 'app-new-question-box',
@@ -11,54 +7,27 @@ import { API_HOST, ACCESS_TOKEN } from '../../../utils/index';
 })
 export class NewQuestionBoxComponent implements OnInit {
 
-  public questionModel: any;
+  public search: string;
 
-  public separatorKeyCodes = [ENTER, COMMA];
+  public searchedList: Array<any>;
 
-  constructor(
-    private _httpClient: HttpClient,
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    this.questionModel = {};
-  }
-
-  public onSubmit(): void {
-    console.log('questionModel: ', this.questionModel);
-    const access_token = localStorage.getItem(ACCESS_TOKEN);
-    this._httpClient
-      .post(API_HOST + '/questions/post', this.questionModel, {
-        headers: new HttpHeaders().append('Authorization', access_token)
-      })
-      .subscribe(r => {
-        console.log('r: ', r);
-      });
-  }
-
-  public remove(tag: any): void {
-
-  }
-
-  public add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = (event.value || '').trim();
-
-    if (!this.questionModel.tags) {
-      this.questionModel.tags = [];
-    }
-
-    if (this.questionModel.tags.length >= 5) {
-      return;
-    }
-
-    if (value) {
-      console.log('test: ', value);
-      this.questionModel.tags.push(value);
-    }
-
-    if (input) {
-      input.value = '';
-    }
+    this.searchedList = [
+      'lorem loremlorem loremlorem loremlorem loremlorem loremlorem lorem',
+      'test texttest texttest texttest texttest texttest texttest texttest texttest texttest texttest text',
+      '测试文本标题 测试文本标题 测试文本标题 测试文本标题 测试文本标题 测试文本标题 测试文本标题 测试文本标题 测试文本标题 测试文本标题 ',
+      '多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题',
+      '呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, ',
+      '多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题',
+      '呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, ',
+      '多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题',
+      '呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, ',
+      '多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题',
+      '多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题多余的问题',
+      '呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, 呵呵哒, ',
+    ]
   }
 
 }

@@ -1,6 +1,42 @@
 <div class="NewQuestionBox pt1">
   <div class="New-question-box__container">
-    <div class="New-question-box__header">
+    <h3>提问指导</h3>
+    <hr>
+    <main>
+      <h4>欢迎来到中原工学院学工办知乎!</h4>
+      <p>我们以及社区中的每个人都非常乐意帮助你，但是你应该明白，并不是每个问题都能得到满意的解答。</p>
+      <p>为了增加你所提出的问题得到回复的机会，请阅读这里的一些提示：</p>
+      <section>
+        <h4>先尝试查找</h4>
+        <p>在提出自己的问题之前，先搜索一下已经存在的问题，看看是否能从已有的问题中找到答案。很多时候，已经有其他人提问过相似的问题，也许能为你提供一些帮助。</p>
+        <p>大量重复的问题可能会干扰其他人的视线，甚至会造成其他人不高兴，以至于你的问题一直得不到解答！</p>
+        <p>所以，先在这里搜索一下吧~</p>
+        <mat-form-field class="w100per">
+          <input type="search"
+                 matInput
+                 [(ngModel)]="search"
+                 name="search">
+        </mat-form-field>
+        <mat-nav-list *ngIf="search">
+          <a mat-list-item
+             [routerLink]="['/questions', searched]"
+             *ngFor="let searched of searchedList">{{ searched }}</a>
+        </mat-nav-list>
+      </section>
+      <section class="more-info">
+        <h4>把情况说明白</h4>
+        <p>文字表述可能并不是很好，但是它却是最通用的方式，相信我，没人会想花费精力去听毫无关系的人发送的语言之类的东西。</p>
+        <p>所以，请尽可能把遇到的问题解释清楚。附上自己遇到的问题的详细说明，可以加上图片等，但是最好不要是视频或者音频。原因同上，相信我，不要挑战人们的耐心。</p>
+        <h4>说明自己问题的独特性</h4>
+        <p>互联网上每天都很生成大量的信息，有的很有用，有的毫无价值。</p>
+        <p>为了证明自己自己查找过现有的资料，请说明自己遇到的问题与其他的问题有什么不同的地方。这样可以让人们更好的理解你，也可以更好的帮助自己和后来的人。</p>
+        <h4>保持宽容的心态</h4>
+        <p>也许人们的回复并不跟问题有直接的关系，但是请不要过于苛责回复你的人。</p>
+        <p>有时问题的答案会在大家的讨论过程中逐渐浮出水面。</p>
+        <p>所以，如果问题一时半会儿没有得到正确的解答，不要过于慌张，也不要烦躁。这样不会对问题有任何帮助，反而会降低自己的判断力。</p>
+      </section>
+    </main>
+    <!-- <div class="New-question-box__header">
       <div class="New-question-box__header--title mb1">写下你的问题</div>
       <div class="New-question-box__header--subtitle">描述精确的问题更易得到解答</div>
     </div>
@@ -54,6 +90,6 @@
       <button mat-raised-button
               color="primary"
               (click)="onSubmit()">提交问题</button>
-    </div>
+    </div> -->
   </div>
 </div>

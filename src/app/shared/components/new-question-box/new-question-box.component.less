@@ -1,17 +1,10 @@
-.NewQuestionBox {
-}
-mat-form-field {
-  width: 100%;
-}
-.New-question-box__header {
-  text-align: center;
-  .New-question-box__header--title {
-    font-size: 1.7rem;
-  }
-}
-.New-question-box__footer {
-  text-align: center;
-  button {
-    width: 100%;
+:host {
+   ::ng-deep {
+    .mat-list-item-content {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 1.5rem;
+      white-space: nowrap;
+    }
   }
 }

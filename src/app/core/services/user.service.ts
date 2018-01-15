@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { isNullOrUndefined } from 'util';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
-import { ISignIn, ACCESS_TOKEN, SIGNED_USER_ID, SIGNED_USER_EMAIL, User, API_HOST, API } from '../../utils/index';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ISignIn, ACCESS_TOKEN, SIGNED_USER_ID, SIGNED_USER_EMAIL, User, API_HOST, API } from '../../utils/index';
 
+/**
+ * 用户信息Service, 可订阅 user$$, 获取最新User对象; 用户未登录则为`null`; 订阅即可获得最近一次的数据;
+ */
 @Injectable()
 export class UserService {
 
@@ -15,10 +18,10 @@ export class UserService {
    */
   public user$$: BehaviorSubject<ISignIn | User> = new BehaviorSubject<ISignIn | User>(null);
 
-  /**
-   * 登录用户的用户信息
-   */
-  public signedUser: ISignIn | User;
+  // /**
+  //  * 登录用户的用户信息
+  //  */
+  // public signedUser: ISignIn | User;
 
   private readonly apiInitUser: string = API_HOST + '/users/init';
 
