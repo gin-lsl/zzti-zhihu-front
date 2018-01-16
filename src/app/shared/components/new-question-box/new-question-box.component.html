@@ -1,6 +1,6 @@
-<div class="NewQuestionBox pt1">
+<div class="NewQuestionBox">
   <div class="New-question-box__container">
-    <h3>提问指导</h3>
+    <h3 #markTitle>提问指导</h3>
     <hr>
     <main>
       <h4>欢迎来到中原工学院学工办知乎!</h4>
@@ -9,19 +9,39 @@
       <section>
         <h4>先尝试查找</h4>
         <p>在提出自己的问题之前，先搜索一下已经存在的问题，看看是否能从已有的问题中找到答案。很多时候，已经有其他人提问过相似的问题，也许能为你提供一些帮助。</p>
-        <p>大量重复的问题可能会干扰其他人的视线，甚至会造成其他人不高兴，以至于你的问题一直得不到解答！</p>
+        <p [@searchBoxState]="searchBoxHasFocus">大量重复的问题可能会干扰其他人的视线，甚至会造成其他人不高兴，以至于你的问题一直得不到解答！</p>
         <p>所以，先在这里搜索一下吧~</p>
-        <mat-form-field class="w100per">
-          <input type="search"
-                 matInput
-                 [(ngModel)]="search"
-                 name="search">
-        </mat-form-field>
-        <mat-nav-list *ngIf="search">
-          <a mat-list-item
-             [routerLink]="['/questions', searched]"
-             *ngFor="let searched of searchedList">{{ searched }}</a>
-        </mat-nav-list>
+        <div class="search-box-wrapper"
+             [class.brace-container]="searchBoxHasFocus === 'focus'">
+          <div class="search-box"
+               [class.search-focus]="searchBoxHasFocus === 'focus'">
+            <mat-card class="Search-card">
+              <mat-card-content>
+                <mat-form-field class="w100per">
+                  <input type="search"
+                         matInput
+                         [(ngModel)]="search"
+                         name="search"
+                         autocomplete="off"
+                         placeholder="Search..."
+                         (click)="onSearchBoxFocus()"
+                         (keydown)="_keydown($event)"
+                         (blur)="onSearchBoxUnfocus()"
+                         [@searchBoxState]="searchBoxHasFocus">
+                </mat-form-field>
+              </mat-card-content>
+            </mat-card>
+            <mat-card *ngIf="search">
+              <mat-card-content>
+                <mat-nav-list>
+                  <a mat-list-item
+                     [routerLink]="['/questions', searched]"
+                     *ngFor="let searched of searchedList">{{ searched }}</a>
+                </mat-nav-list>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
       </section>
       <section class="more-info">
         <h4>把情况说明白</h4>

@@ -30,7 +30,7 @@ export class CommonOperationComponent implements OnInit {
       return;
     }
     this._matDialog
-      .open(NewQuestionBoxComponent, { width: '40rem', height: '34rem' })
+      .open(NewQuestionBoxComponent, { width: '40rem', height: '80vh' })
       .afterClosed()
       .subscribe(res => {
         console.log('Dialog result: ', res);
