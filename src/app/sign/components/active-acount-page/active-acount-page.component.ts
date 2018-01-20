@@ -43,7 +43,6 @@ export class ActiveAcountPageComponent implements OnInit {
     this._userService.initUser(this.user)
       .subscribe(r => {
         if (r.success) {
-          this._signService.cacheUserStorage(r.successResult);
           this._router.navigateByUrl('/users/' + r.successResult.id);
         }
       });

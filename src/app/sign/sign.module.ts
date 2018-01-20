@@ -14,6 +14,7 @@ import { ActiveAcountPageComponent } from './components/active-acount-page/activ
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     SignRoutingModule,
     SharedModule,
   ],

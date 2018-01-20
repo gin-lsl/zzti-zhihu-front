@@ -1,29 +1,30 @@
 <div class="SignIn">
   <div class="Form__sign-in pt1">
-    <mat-form-field>
-      <input type="text"
-             matInput
-             [(ngModel)]='email'
-             name='email'
-             placeholder="Email">
-    </mat-form-field>
-    <mat-form-field>
-      <input type="password"
-             matInput
-             [(ngModel)]='password'
-             name='password'
-             placeholder="Password">
-    </mat-form-field>
-    <div class="mb1 btn-submit">
-      <button mat-raised-button
-              class="w100per"
-              color="primary"
-              (click)="onSubmit()">登录</button>
-    </div>
-    <div class="mb1 btn-cancel">
-      <button mat-button
-              class="w100per"
-              color="primary">取消</button>
-    </div>
+    <form [formGroup]="formGroup"
+          (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input type="text"
+               matInput
+               formControlName="email"
+               placeholder="Email">
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password"
+               matInput
+               formControlName="password"
+               placeholder="Password">
+      </mat-form-field>
+      <div class="mb1 btn-submit">
+        <button mat-raised-button
+                class="w100per"
+                color="primary"
+                (click)="onSubmit()">登录</button>
+      </div>
+      <div class="mb1 btn-cancel">
+        <button mat-button
+                class="w100per"
+                color="primary">取消</button>
+      </div>
+    </form>
   </div>
 </div>

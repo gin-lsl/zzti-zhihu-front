@@ -10,11 +10,19 @@
     </div>
     <mat-tab-group>
       <mat-tab label="登录">
-        <app-sign-in></app-sign-in>
+        <app-sign-in (submit)="onSignInSubmit($event)"></app-sign-in>
       </mat-tab>
       <mat-tab label="注册">
-        <app-sign-on></app-sign-on>
+        <app-sign-on (submit)="onSignOnSubmit($event)"></app-sign-on>
       </mat-tab>
     </mat-tab-group>
+  </div>
+  <div>
+    <span>SignOnError: </span>
+    <span>{{ authSignOnError$ | async | json }}</span>
+  </div>
+  <div>
+    <span>SignInError: </span>
+    <span>{{ authSignInError$ | async | json }}</span>
   </div>
 </div>
