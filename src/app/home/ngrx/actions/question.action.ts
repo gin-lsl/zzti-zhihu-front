@@ -24,9 +24,7 @@ export class Loading implements Action {
 
 export class LoadSuccess implements Action {
   readonly type = QuestionActionTypes.LoadSuccess;
-  constructor(public payload: any) {
-    console.log('LoadSuccess: ', payload);
-  }
+  constructor(public payload: any) { }
 }
 
 export class LoadFailure implements Action {
