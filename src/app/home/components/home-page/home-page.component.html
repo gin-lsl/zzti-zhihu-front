@@ -1,7 +1,7 @@
 <div class="HomePage">
   <main class="Home-page__main">
     <app-common-operation></app-common-operation>
-    <app-recommend-list></app-recommend-list>
+    <app-recommend-list [questions]="questionLoadSuccess$ | async"></app-recommend-list>
   </main>
   <aside class="Home-page__aside ml05">
     <app-my-service-card></app-my-service-card>

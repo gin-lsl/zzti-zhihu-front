@@ -1,7 +1,10 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import {
+  createFeatureSelector as cfs,
+  createSelector as cs,
+  ActionReducerMap
+} from '@ngrx/store';
 import * as fromRoot from '../../../ngrx/reducers/index';
-import * as fromAuth from '../reducers/auth.reducer';
-import { ActionReducerMap } from '@ngrx/store/src/models';
+import * as fromAuth from './auth.reducer';
 
 export interface CoreState {
   auth: fromAuth.State;
@@ -15,17 +18,29 @@ export const reducers: ActionReducerMap<CoreState> = {
   auth: fromAuth.reducer,
 };
 
-export const selectCoreState = createFeatureSelector<CoreState>('core');
+export const selectCoreState = cfs<CoreState>('core');
 
-export const selectAuthStatusState = createSelector(selectCoreState, (state: CoreState) => {
-  console.log('------------------AuthState: ', state);
-  return state.auth;
-});
+export const selectAuthStatusState = cs(
+  selectCoreState,
+  (state: CoreState) => state.auth
+);
 
-export const getSignedIn = createSelector(selectAuthStatusState, fromAuth.getSignedIn);
+export const getSignedIn = cs(
+  selectAuthStatusState,
+  fromAuth.getSignedIn
+);
 
-export const getUser = createSelector(selectAuthStatusState, fromAuth.getUser);
+export const getUser = cs(
+  selectAuthStatusState,
+  fromAuth.getUser
+);
 
-export const getSignOnError = createSelector(selectAuthStatusState, fromAuth.getSignOnError);
+export const getSignOnError = cs(
+  selectAuthStatusState,
+  fromAuth.getSignOnError
+);
 
-export const getSignInError = createSelector(selectAuthStatusState, fromAuth.getSignInError);
+export const getSignInError = cs(
+  selectAuthStatusState,
+  fromAuth.getSignInError
+);

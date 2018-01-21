@@ -17,11 +17,11 @@ export class AuthEffects {
    * 登录
    */
   @Effect()
-  signIn$ = this.actions$
+  signIn$ = this._actions$
     .ofType(authAction.AuthActionTypes.SignIn)
     .map((action: authAction.SignIn) => action.payload)
     .exhaustMap(_ => (
-      this.signService
+      this._signService
         .signIn(_.email, _.password)
         .map(data => (
           data.success
@@ -35,11 +35,11 @@ export class AuthEffects {
    * 注册
    */
   @Effect()
-  signOn$ = this.actions$
+  signOn$ = this._actions$
     .ofType(authAction.AuthActionTypes.SignOn)
     .map((action: authAction.SignOn) => action.payload)
     .exhaustMap(_ => (
-      this.signService.signOn(_)
+      this._signService.signOn(_)
         .map(data => (
           data.success
             ? new authAction.SignOnSuccess(data.successResult.access_token)
@@ -49,7 +49,7 @@ export class AuthEffects {
     ));
 
   constructor(
-    private actions$: Actions,
-    private signService: SignService,
+    private _actions$: Actions,
+    private _signService: SignService,
   ) { }
 }
