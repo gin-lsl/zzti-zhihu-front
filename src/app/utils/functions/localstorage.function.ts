@@ -27,3 +27,21 @@ export function clearUserStorage(): void {
   localStorage.removeItem(SIGNED_USER_ID);
   localStorage.removeItem(SIGNED_USER_EMAIL);
 }
+
+/**
+ * 从 `localStorage` 解析出用户数据, 如果没有数据, 会把用户相关的 `localStorage` 数据清除
+ */
+export function parseUserStorage(): ISignIn | User | null {
+  const id = localStorage.getItem(SIGNED_USER_ID);
+  const email = localStorage.getItem(SIGNED_USER_EMAIL);
+  const access_token = localStorage.getItem(ACCESS_TOKEN);
+  if (id && email && access_token) {
+    return {
+      id,
+      email,
+      access_token,
+    };
+  }
+  clearUserStorage();
+  return null;
+}

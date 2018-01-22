@@ -29,6 +29,7 @@ import { MyServiceCardComponent } from './components/my-service-card/my-service-
 import { NewQuestionBoxComponent } from './components/new-question-box/new-question-box.component';
 import { QuestionAnswerCardComponent } from './components/question-answer-card/question-answer-card.component';
 import { QuestionAnswerListComponent } from './components/question-answer-list/question-answer-list.component';
+import { TopNavContainerComponent } from './containers/top-nav-container/top-nav-container.component';
 
 /**
  * Material 模块
@@ -60,6 +61,7 @@ const components = [
   NewQuestionBoxComponent,
   QuestionAnswerCardComponent,
   QuestionAnswerListComponent,
+  TopNavContainerComponent,
 ];
 
 @NgModule({

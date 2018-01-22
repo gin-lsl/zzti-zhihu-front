@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { isNullOrUndefined } from 'util';
 import 'rxjs/add/operator/filter';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ISignIn, ACCESS_TOKEN, SIGNED_USER_ID, SIGNED_USER_EMAIL, User, API_HOST, API } from '../../utils/index';
+import { parseUserStorage } from '../../utils/functions/localstorage.function';
 
 /**
  * 用户信息Service, 可订阅 user$$, 获取最新User对象; 用户未登录则为`null`; 订阅即可获得最近一次的数据;
@@ -24,6 +25,8 @@ export class UserService {
   // public signedUser: ISignIn | User;
 
   private readonly apiInitUser: string = API_HOST + '/users/init';
+
+  private readonly apiLoadUserInformation: string = API_HOST;
 
   constructor(
     private _httpClient: HttpClient,
@@ -85,7 +88,21 @@ export class UserService {
    * @param user 用户信息
    */
   public initUser(user: any): Observable<API<any>> {
+
     return this._httpClient.post(this.apiInitUser, user) as Observable<API<any>>;
+  }
+
+  /**
+   * 加载用户信息
+   */
+  public loadUserInformation(): Observable<API<any> | null> {
+
+    const user = parseUserStorage();
+    if (!user) {
+      return Observable.of(null);
+    }
+    return this._httpClient.get(this.apiLoadUserInformation,
+      { headers: new HttpHeaders().append('Authorization', user.access_token) }) as Observable<API<any>>;
   }
 
 }
