@@ -64,11 +64,11 @@ export class AuthEffects {
    * 加载当前已登录用户的信息
    */
   @Effect()
-  loadUserInformation$ = this._actions$
+  loadLogedUserInformation$ = this._actions$
     .ofType(authAction.AuthActionTypes.LoadUserInformation)
     .map((action: authAction.LoadUserInformation) => action.payload)
     .exhaustMap(_ => (
-      this._userService.loadUserInformation()
+      this._userService.loadLogedUserInformation()
         .map(data => (
           data == null && data.success
             ? new authAction.LoadUserInformationSuccess(data.successResult)

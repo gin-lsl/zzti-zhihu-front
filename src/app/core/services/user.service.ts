@@ -93,9 +93,9 @@ export class UserService {
   }
 
   /**
-   * 加载用户信息
+   * 加载已登录用户信息
    */
-  public loadUserInformation(): Observable<API<any> | null> {
+  public loadLogedUserInformation(): Observable<API<any> | null> {
 
     const user = parseUserStorage();
     if (!user) {
@@ -103,6 +103,15 @@ export class UserService {
     }
     return this._httpClient.get(this.apiLoadUserInformation,
       { headers: new HttpHeaders().append('Authorization', user.access_token) }) as Observable<API<any>>;
+  }
+
+  /**
+   * 加载用户的信息
+   *
+   * @param id 用户id
+   */
+  public loadPlainUserInformation(id: string): Observable<API<any> | null> {
+    return this._httpClient.get(this.apiLoadUserInformation) as Observable<API<any>>;
   }
 
 }

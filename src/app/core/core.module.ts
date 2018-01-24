@@ -10,7 +10,7 @@ import { AuthEffects } from './ngrx/effects/auth.effects';
 @NgModule({
   imports: [
     CommonModule,
-    StoreModule.forFeature('core', reducers),
+    StoreModule.forFeature('coreModule', reducers),
     EffectsModule.forFeature([AuthEffects]),
   ],
   providers: [
