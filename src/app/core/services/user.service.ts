@@ -26,7 +26,7 @@ export class UserService {
 
   private readonly apiInitUser: string = API_HOST + '/users/init';
 
-  private readonly apiLoadUserInformation: string = API_HOST;
+  private readonly apiLoadUserInformation: string = API_HOST + '/users';
 
   constructor(
     private _httpClient: HttpClient,
@@ -111,7 +111,8 @@ export class UserService {
    * @param id 用户id
    */
   public loadPlainUserInformation(id: string): Observable<API<any> | null> {
-    return this._httpClient.get(this.apiLoadUserInformation) as Observable<API<any>>;
+    console.log('id: ', id);
+    return this._httpClient.get(`${this.apiLoadUserInformation}/${id}`) as Observable<API<any>>;
   }
 
 }

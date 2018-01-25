@@ -1,26 +1,47 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as userAction from '../../../core/ngrx/actions/user.action';
 import * as fromUser from '../../../core/ngrx/reducers/user.reducer';
 import * as fromCore from '../../../core/ngrx/reducers/index';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../../utils/index';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-user-main-page',
   templateUrl: './user-main-page.component.html',
   styleUrls: ['./user-main-page.component.less']
 })
-export class UserMainPageComponent implements OnInit {
+export class UserMainPageComponent implements OnInit, OnDestroy {
 
   @Input()
   public user$: Observable<User>;
 
-  constructor(private store: Store<fromUser.State>) {
-    this.user$ = store.select(fromCore.getLogedUser);
+  private paramMapSubscription: Subscription;
+
+  constructor(
+    private store: Store<fromUser.State>,
+    private activatedRoute: ActivatedRoute,
+  ) {
+    this.user$ = store.select(fromCore.getUser);
   }
 
   ngOnInit() {
+    this.paramMapSubscription = this.activatedRoute
+      .paramMap
+      .subscribe(paramMap => {
+        const id = paramMap.get('id');
+        if (id) {
+          this.store.dispatch(new userAction.Load(id));
+        } else {
+          this.store.dispatch(new userAction.LoadFailure('用户不存在'));
+        }
+      });
+  }
+
+  ngOnDestroy() {
+    this.paramMapSubscription && this.paramMapSubscription.unsubscribe();
   }
 
 }

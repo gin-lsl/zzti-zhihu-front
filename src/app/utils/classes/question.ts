@@ -32,6 +32,11 @@ export class Question {
    */
   public answerList?: AnswerList;
 
+  /**
+   * 点赞的用户id
+   */
+  public upUsersId: string[];
+
 }
 
 /**

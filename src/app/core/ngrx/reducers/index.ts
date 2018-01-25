@@ -23,12 +23,16 @@ export const reducers: ActionReducerMap<CoreState> = {
 
 export const selectCoreModuleState = cfs<CoreState>('coreModule');
 
-export const selectAuthStatusState = cs(selectCoreModuleState, (state: CoreState) => state.auth);
+export const selectAuthState = cs(selectCoreModuleState, state => state.auth);
 
-export const getSignedIn = cs(selectAuthStatusState, fromAuth.getSignedIn);
+export const seelctUserState = cs(selectCoreModuleState, state => state.user);
 
-export const getLogedUser = cs(selectAuthStatusState, fromAuth.getUser);
+export const getSignedIn = cs(selectAuthState, fromAuth.getSignedIn);
 
-export const getSignOnError = cs(selectAuthStatusState, fromAuth.getSignOnError);
+export const getLogedUser = cs(selectAuthState, fromAuth.getUser);
 
-export const getSignInError = cs(selectAuthStatusState, fromAuth.getSignInError);
+export const getSignOnError = cs(selectAuthState, fromAuth.getSignOnError);
+
+export const getSignInError = cs(selectAuthState, fromAuth.getSignInError);
+
+export const getUser = cs(seelctUserState, fromUser.getUser);

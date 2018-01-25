@@ -23,8 +23,8 @@ export class UserEffects {
       this._userService.loadPlainUserInformation(_)
         .map(data => (
           data.success
-            ? Observable.of(new userAction.LoadSuccess(data.successResult))
-            : Observable.of(new userAction.LoadFailure(new ResponseError(data.errorCode, data.errorMessage)))
+            ? new userAction.LoadSuccess(data.successResult)
+            : new userAction.LoadFailure(new ResponseError(data.errorCode, data.errorMessage))
         ))
         .catch((error: API) => Observable.of(new userAction.LoadFailure(new ResponseError(error.errorCode, error.errorMessage))))
     ));

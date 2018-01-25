@@ -13,12 +13,12 @@ export class UserMainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.httpClient
-      .get('http://localhost:3000/questions')
-      .subscribe((r: any) => {
-        console.log('r: ', r);
-        // this.questions = r.successResult;
-      });
+    // this.httpClient
+    //   .get('http://localhost:3000/questions')
+    //   .subscribe((r: any) => {
+    //     console.log('r: ', r);
+    //     // this.questions = r.successResult;
+    //   });
   }
 
 }
