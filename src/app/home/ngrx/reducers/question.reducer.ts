@@ -1,5 +1,5 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { QuestionActions, QuestionActionTypes } from '../actions/question.action';
+import { QuestionActions, QuestionActionTypesEnum } from '../actions/question.action';
 import { Question } from '../../../utils/index';
 
 export interface State extends EntityState<Question> {
@@ -17,29 +17,29 @@ export const initailState: State = adapter.getInitialState({
 export function reducer(state = initailState, action: QuestionActions): State {
   switch (action.type) {
 
-    case QuestionActionTypes.LoadSuccess:
+    case QuestionActionTypesEnum.LoadSuccess:
       return adapter.addAll(action.payload.map(item => ({ ...item, id: item._id })), state);
 
-    case QuestionActionTypes.UpSuccess: {
+    case QuestionActionTypesEnum.UpSuccess: {
       const id = action.payload.questionId;
       return adapter.updateOne({
         id,
         changes: {
-          upUsersId: [
-            ...state.entities[id].upUsersId,
+          upUserIds: [
+            ...state.entities[id].upUserIds,
             action.payload.userId
           ]
         }
       }, state);
     }
 
-    case QuestionActionTypes.CancelUpSuccess: {
+    case QuestionActionTypesEnum.CancelUpSuccess: {
       const id = action.payload.questionId;
       const userId = action.payload.userId;
       return adapter.updateOne({
         id,
         changes: {
-          upUsersId: state.entities[id].upUsersId.filter(_ => _ !== userId)
+          upUserIds: state.entities[id].upUserIds.filter(_ => _ !== userId)
         }
       }, state);
     }

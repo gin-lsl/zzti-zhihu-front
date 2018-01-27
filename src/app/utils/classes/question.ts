@@ -10,33 +10,47 @@ export class Question {
   /**
    * ID
    */
-  public id: string;
+  id: string;
 
   /**
    * 标题
    */
-  public title: string;
+  title: string;
 
   /**
    * 描述
    */
-  public description: string;
+  description: string;
 
   /**
-   * 提问者
+   * 用户ID
    */
-  public asker?: User;
+  userId: string;
 
   /**
-   * 回答列表
+   * 标签
    */
-  public answerList?: AnswerList;
+  tags: Array<string>;
 
   /**
-   * 点赞的用户id
+   * 收藏此问题的用户id
    */
-  public upUsersId: string[];
+  collectUserIds: Array<string>;
 
+  /**
+   * 给此问题点赞的用户
+   */
+  upUserIds: Array<string>;
+
+  /**
+   * 反对此问题的用户
+   */
+  downUserIds: Array<string>;
+
+  /**
+   * 是否是匿名用户提问
+   */
+  isAnonymous: boolean;
 }
 
 /**

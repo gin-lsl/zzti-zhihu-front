@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
-import { SignService } from './services/sign.service';
+import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { reducers } from './ngrx/reducers/index';
 import { EffectsModule } from '@ngrx/effects';
@@ -15,7 +15,7 @@ import { UserEffects } from './ngrx/effects/user.effect';
     EffectsModule.forFeature([AuthEffects, UserEffects]),
   ],
   providers: [
-    SignService,
+    AuthService,
     UserService,
   ]
 })

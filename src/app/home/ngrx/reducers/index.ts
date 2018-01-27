@@ -5,6 +5,8 @@ import {
 } from '@ngrx/store';
 import * as fromRoot from '../../../ngrx/reducers/index';
 import * as fromQuestion from './question.reducer';
+import * as fromAuth from '../../../core/ngrx/reducers/index';
+import { Question } from '../../../utils/index';
 
 export interface QuestionState {
   questions: fromQuestion.State;
@@ -44,5 +46,14 @@ export const getCurrentSelectQuestion = cs(
 
 export const getLoadedQuestions = cs(
   getQuestionEntities,
-  Object.values,
+  fromAuth.getLogedUser,
+  (state, auth) => {
+    return Object
+      .values(state)
+      .map(s => ({
+        ...s,
+        upCount: s.upUserIds ? s.upUserIds.length : 0,
+        hasUp: s.upUserIds.includes(auth.id),
+      }));
+  },
 );

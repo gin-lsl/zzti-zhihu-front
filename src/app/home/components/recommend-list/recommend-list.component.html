@@ -18,7 +18,7 @@
         <button mat-button
                 (click)="onUpOrCancelQuestion(question.id, true)">
           <i class="material-icons agree-up">play_arrow</i>
-          <span>{{ question.upUsersId ? question.upUsersId.length : 0 }}</span>
+          <span>{{ question.upUserIds ? question.upUserIds.length : 0 }}</span>
         </button>
         <button mat-button
                 (click)="onUpOrCancelQuestion(question.id, false)">

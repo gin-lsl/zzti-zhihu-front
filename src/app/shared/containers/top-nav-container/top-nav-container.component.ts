@@ -15,7 +15,9 @@ export class TopNavContainerComponent implements OnInit, AfterViewInit {
   public user$: Observable<User | ISignIn>;
 
   constructor(private store: Store<fromAuth.State>) {
-    this.user$ = store.select(fromAuth.getLogedUser);
+    this.user$ = store
+      .select(fromAuth.getLogedUser)
+      .map(user => Object.keys(user).length > 0 ? user : null);
   }
 
   ngOnInit() {

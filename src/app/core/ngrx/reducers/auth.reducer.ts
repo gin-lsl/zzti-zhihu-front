@@ -1,10 +1,10 @@
-import { AuthActions, AuthActionTypes } from '../actions/auth.action';
+import * as authAction from '../actions/auth.action';
 import { User, API, ISignIn, ResponseError } from '../../../utils/index';
 import { cacheUserStorage, parseUserStorage, clearUserStorage } from '../../../utils/functions/localstorage.function';
 
 export interface State {
   signedIn: boolean;
-  user: User | ISignIn | null;
+  user: User | ISignIn | null | any;
   activeKey: string | null;
   signInError: ResponseError | null;
   signOnError: ResponseError | null;
@@ -12,20 +12,22 @@ export interface State {
 
 const initialState: State = {
   signedIn: false,
-  user: parseUserStorage(),
+  user: parseUserStorage() || {},
   activeKey: null,
   signInError: null,
   signOnError: null,
 };
 
-export function reducer(state = initialState, action: AuthActions): State {
+export function reducer(state = initialState, action: authAction.AuthActions): State {
   switch (action.type) {
 
-    case AuthActionTypes.AuthInitial:
+    case authAction.AuthActionTypesEnum.AuthInitial:
       return { ...initialState };
 
-    case AuthActionTypes.SignInSuccess:
+    case authAction.AuthActionTypesEnum.ClearLogedUserStateSuccess:
+      return { ...state, user: {} };
 
+    case authAction.AuthActionTypesEnum.SignInSuccess:
       cacheUserStorage(action.payload);
       return {
         ...state,
@@ -36,34 +38,34 @@ export function reducer(state = initialState, action: AuthActions): State {
         signOnError: null,
       };
 
-    case AuthActionTypes.SignInFailure:
+    case authAction.AuthActionTypesEnum.SignInFailure:
       return {
         ...initialState,
         signInError: { ...action.payload },
       };
 
-    case AuthActionTypes.SignOnSuccess:
+    case authAction.AuthActionTypesEnum.SignOnSuccess:
       return {
         ...state,
         activeKey: action.payload,
       };
 
-    case AuthActionTypes.SignOnFailure:
+    case authAction.AuthActionTypesEnum.SignOnFailure:
       return {
         ...state,
         signOnError: { ...action.payload }
       };
 
-    case AuthActionTypes.SignOut:
+    case authAction.AuthActionTypesEnum.SignOut:
       return initialState;
 
-    case AuthActionTypes.LoadUserInformationSuccess:
+    case authAction.AuthActionTypesEnum.LoadUserInformationSuccess:
       return {
         ...state,
         user: { ...action.payload },
       };
 
-    case AuthActionTypes.LoadUserInformationFailure:
+    case authAction.AuthActionTypesEnum.LoadUserInformationFailure:
       clearUserStorage();
       return initialState;
 

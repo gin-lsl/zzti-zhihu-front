@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-export enum QuestionActionTypes {
+export enum QuestionActionTypesEnum {
   Load = '[Question] Load',
   Loading = '[Question] Loading',
   LoadSuccess = '[Question] LoadSuccess',
@@ -14,7 +14,7 @@ export enum QuestionActionTypes {
 }
 
 export class Load implements Action {
-  readonly type = QuestionActionTypes.Load;
+  readonly type = QuestionActionTypesEnum.Load;
   /**
    * @todo 此方法需要完善
    *
@@ -24,27 +24,27 @@ export class Load implements Action {
 }
 
 export class Loading implements Action {
-  readonly type = QuestionActionTypes.Loading;
+  readonly type = QuestionActionTypesEnum.Loading;
   constructor(public payload: string) { }
 }
 
 export class LoadSuccess implements Action {
-  readonly type = QuestionActionTypes.LoadSuccess;
+  readonly type = QuestionActionTypesEnum.LoadSuccess;
   constructor(public payload: any) { }
 }
 
 export class LoadFailure implements Action {
-  readonly type = QuestionActionTypes.LoadFailure;
+  readonly type = QuestionActionTypesEnum.LoadFailure;
   constructor(public payload: any) { }
 }
 
 export class Up implements Action {
-  readonly type = QuestionActionTypes.Up;
+  readonly type = QuestionActionTypesEnum.Up;
   constructor(public payload: string) { }
 }
 
 export class UpSuccess implements Action {
-  readonly type = QuestionActionTypes.UpSuccess;
+  readonly type = QuestionActionTypesEnum.UpSuccess;
   constructor(public payload: {
     userId: string,
     questionId: string
@@ -52,17 +52,17 @@ export class UpSuccess implements Action {
 }
 
 export class UpFailure implements Action {
-  readonly type = QuestionActionTypes.UpFailure;
+  readonly type = QuestionActionTypesEnum.UpFailure;
   constructor(public payload: any) { }
 }
 
 export class CancelUp implements Action {
-  readonly type = QuestionActionTypes.CancelUp;
+  readonly type = QuestionActionTypesEnum.CancelUp;
   constructor(public payload: string) { }
 }
 
 export class CancelUpSuccess implements Action {
-  readonly type = QuestionActionTypes.CancelUpSuccess;
+  readonly type = QuestionActionTypesEnum.CancelUpSuccess;
   constructor(public payload: {
     userId: string,
     questionId: string,
@@ -70,7 +70,7 @@ export class CancelUpSuccess implements Action {
 }
 
 export class CancelUpFailure implements Action {
-  readonly type = QuestionActionTypes.CancelUpFailure;
+  readonly type = QuestionActionTypesEnum.CancelUpFailure;
   constructor(public payload: any) { }
 }
 

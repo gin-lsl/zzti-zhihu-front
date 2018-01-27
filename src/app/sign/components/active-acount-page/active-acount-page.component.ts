@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
-import { SignService } from '../../../core/services/sign.service';
+import { AuthService } from '../../../core/services/auth.service';
 import { UserService } from '../../../core/services/user.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class ActiveAcountPageComponent implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
-    private _signService: SignService,
+    private _authSerivice: AuthService,
     private _userService: UserService,
   ) { }
 
@@ -26,7 +26,7 @@ export class ActiveAcountPageComponent implements OnInit {
     this._activatedRoute.queryParamMap
       .switchMap(p => {
         this.access_token = p.get('key');
-        return this._signService.activeAcount(this.access_token);
+        return this._authSerivice.activeAcount(this.access_token);
       })
       .subscribe(r => {
         if (r.success) {

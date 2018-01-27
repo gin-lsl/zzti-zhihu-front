@@ -12,7 +12,7 @@ export class TopNavComponent {
    * 已登录用户的用户信息
    */
   @Input()
-  public loginedUser: User | ISignIn;
+  public loginedUser: User | ISignIn | any = {};
 
   constructor() { }
 

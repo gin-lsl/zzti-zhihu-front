@@ -9,9 +9,9 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/exhaustMap';
 import 'rxjs/add/operator/do';
 import * as authAction from '../actions/auth.action';
-import { SignService } from '../../services/sign.service';
+import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
-import { ResponseError, API } from '../../../utils/index';
+import { ResponseError, API, clearUserStorage } from '../../../utils/index';
 import { parseUserStorage } from '../../../utils/functions/localstorage.function';
 
 @Injectable()
@@ -22,10 +22,10 @@ export class AuthEffects {
    */
   @Effect()
   signIn$ = this._actions$
-    .ofType(authAction.AuthActionTypes.SignIn)
+    .ofType(authAction.AuthActionTypesEnum.SignIn)
     .map((action: authAction.SignIn) => action.payload)
     .exhaustMap(_ => (
-      this._signService
+      this._authService
         .signIn(_.email, _.password)
         .map(data => (
           data.success
@@ -40,10 +40,10 @@ export class AuthEffects {
    */
   @Effect()
   signOn$ = this._actions$
-    .ofType(authAction.AuthActionTypes.SignOn)
+    .ofType(authAction.AuthActionTypesEnum.SignOn)
     .map((action: authAction.SignOn) => action.payload)
     .exhaustMap(_ => (
-      this._signService.signOn(_)
+      this._authService.signOn(_)
         .map(data => (
           data.success
             ? new authAction.SignOnSuccess(data.successResult.access_token)
@@ -57,7 +57,7 @@ export class AuthEffects {
    */
   @Effect({ dispatch: false })  // 阻止继续分发事件
   signInSuccess$ = this._actions$
-    .ofType(authAction.AuthActionTypes.SignInSuccess)
+    .ofType(authAction.AuthActionTypesEnum.SignInSuccess)
     .do(() => this._router.navigate(['/']));
 
   /**
@@ -65,7 +65,7 @@ export class AuthEffects {
    */
   @Effect()
   loadLogedUserInformation$ = this._actions$
-    .ofType(authAction.AuthActionTypes.LoadUserInformation)
+    .ofType(authAction.AuthActionTypesEnum.LoadUserInformation)
     .map((action: authAction.LoadUserInformation) => action.payload)
     .exhaustMap(_ => (
       this._userService.loadLogedUserInformation()
@@ -77,10 +77,27 @@ export class AuthEffects {
         .catch(() => Observable.of(new authAction.LoadUserInformationFailure()))
     ));
 
+  /**
+   * 初始化用户状态
+   */
+  @Effect()
+  clearLogedUserState$ = this._actions$
+    .ofType(authAction.AuthActionTypesEnum.ClearLogedUserState)
+    .do(() => {
+      clearUserStorage();
+    })
+    .exhaustMap(() => Observable.of(new authAction.ClearLogedUserStateSuccess()));
+
+  // checkSignState$ = this._actions$
+  //   .ofType(authAction.AuthActionTypes.CheckSignState)
+  //   .exhaustMap(_ => {
+  //     return;
+  //   });
+
   constructor(
     private _router: Router,
     private _actions$: Actions,
-    private _signService: SignService,
+    private _authService: AuthService,
     private _userService: UserService,
   ) { }
 }

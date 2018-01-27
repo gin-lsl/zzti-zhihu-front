@@ -1,4 +1,4 @@
-import { UserActions, UserActionTypesEnum } from '../actions/user.action';
+import * as userAction from '../actions/user.action';
 import { User } from '../../../utils/index';
 
 export interface State {
@@ -13,22 +13,22 @@ const initialState: State = {
   loadFailureError: null,
 };
 
-export function reducer(state = initialState, action: UserActions): State {
+export function reducer(state = initialState, action: userAction.UserActions): State {
   switch (action.type) {
-    case UserActionTypesEnum.SignSuccess:
+    case userAction.UserActionTypesEnum.SignSuccess:
       return {
         ...state,
         signedIn: true,
         user: action.payload
       };
 
-    case UserActionTypesEnum.SignOut:
+    case userAction.UserActionTypesEnum.SignOut:
       return initialState;
 
-    case UserActionTypesEnum.LoadSuccess:
+    case userAction.UserActionTypesEnum.LoadSuccess:
       return { ...state, user: { ...action.payload } };
 
-    case UserActionTypesEnum.LoadFailure:
+    case userAction.UserActionTypesEnum.LoadFailure:
       return { ...initialState, loadFailureError: action.payload };
 
     default: {

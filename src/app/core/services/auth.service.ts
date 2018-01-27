@@ -5,7 +5,7 @@ import { UserService } from './user.service';
 import { API, ISignIn, User, API_HOST } from '../../utils/index';
 
 @Injectable()
-export class SignService {
+export class AuthService {
 
   /** 登录请求接口 */
   private readonly apiSignIn: string = API_HOST + '/users/signin';
