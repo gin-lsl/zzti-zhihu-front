@@ -16,16 +16,27 @@
       </mat-card-content>
       <mat-card-actions>
         <button mat-button
-                (click)="onUpOrCancelQuestion(question.id, true)">
-          <i class="material-icons agree-up">play_arrow</i>
-          <span>{{ question.upUserIds ? question.upUserIds.length : 0 }}</span>
+                [disabled]="question.hasDown"
+                [title]="question.hasUp ? '取消支持' : '支持'"
+                (click)="onUpOrCancelQuestion(question.id, !question.hasUp)">
+          <i class="material-icons agree-up"
+             [class.has-true]="question.hasUp">play_arrow</i>
+          <span>{{ question.upCount }}</span>
         </button>
         <button mat-button
-                (click)="onUpOrCancelQuestion(question.id, false)">
-          <i class="material-icons agree-down">play_arrow</i>
-          <span>0</span>
+                [disabled]="question.hasUp"
+                [title]="question.hasDown ? '取消反对' : '反对'"
+                (click)="onDownOrCancelQuestion(question.id, !question.hasDown)">
+          <i class="material-icons agree-down"
+             [class.has-true]="question.hasDown">play_arrow</i>
+          <span>{{ question.downCount }}</span>
         </button>
-        <button mat-button>Like</button>
+        <button mat-button
+                [title]="question.hasLike ? '取消收藏' : '收藏'"
+                (click)="onLikeOrUnlikeQuestion(question.id, !question.hasLike)">
+          <i class="material-icons"
+             [class.has-true]="question.hasLike">favorite_black</i>
+        </button>
         <button mat-button>Share</button>
       </mat-card-actions>
     </mat-card>

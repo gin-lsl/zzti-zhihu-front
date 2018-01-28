@@ -1,6 +1,15 @@
 import { ErrorCodeEnum } from '../enums/ErrorCode.enum';
 
+/**
+ * 响应错误
+ */
 export class ResponseError {
+
+  /**
+   * 未知错误
+   */
+  public static readonly UNDEFINED_ERROR?: ResponseError = new ResponseError(ErrorCodeEnum.UNDEFINED_ERROR, '发生未知错误, 请重试');
+
   /**
    * 错误代码
    */

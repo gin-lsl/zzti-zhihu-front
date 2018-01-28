@@ -1,16 +1,36 @@
 import { Action } from '@ngrx/store';
 
+interface QuestionAndUser {
+  questionId: string;
+  userId: string;
+}
+
 export enum QuestionActionTypesEnum {
   Load = '[Question] Load',
   Loading = '[Question] Loading',
   LoadSuccess = '[Question] LoadSuccess',
   LoadFailure = '[Question] LoadFailure',
+
   Up = '[Question] Up',
   UpSuccess = '[Question] Up Success',
   UpFailure = '[Question] Up Failure',
   CancelUp = '[Question] Cancel Up',
   CancelUpSuccess = '[Question] Cancel Up Success',
   CancelUpFailure = '[Question] Cancel Up Failure',
+
+  Down = '[Question] Down',
+  DownSuccess = '[Question] Down Success',
+  DownFailure = '[Question] Down Failure',
+  CancelDown = '[Question] Cancel Down',
+  CancelDownSuccess = '[Question] Cancel Down Success',
+  CancelDownFailure = '[Question] Cancel Down Failure',
+
+  Like = '[Question] Like',
+  LikeSuccess = '[Question] Like Success',
+  LikeFailure = '[Question] Like Failure',
+  UnLike = '[Question] UnLike',
+  UnLikeSuccess = '[Question] UnLike Success',
+  UnLikeFailure = '[Question] UnLike Failure',
 }
 
 export class Load implements Action {
@@ -45,10 +65,10 @@ export class Up implements Action {
 
 export class UpSuccess implements Action {
   readonly type = QuestionActionTypesEnum.UpSuccess;
-  constructor(public payload: {
-    userId: string,
-    questionId: string
-  }) { }
+  readonly payload: QuestionAndUser;
+  constructor(questionId: string, userId: string) {
+    this.payload = { questionId, userId };
+  }
 }
 
 export class UpFailure implements Action {
@@ -63,14 +83,86 @@ export class CancelUp implements Action {
 
 export class CancelUpSuccess implements Action {
   readonly type = QuestionActionTypesEnum.CancelUpSuccess;
-  constructor(public payload: {
-    userId: string,
-    questionId: string,
-  }) { }
+  readonly payload: QuestionAndUser;
+  constructor(questionId: string, userId: string) {
+    this.payload = { questionId, userId };
+  }
 }
 
 export class CancelUpFailure implements Action {
   readonly type = QuestionActionTypesEnum.CancelUpFailure;
+  constructor(public payload: any) { }
+}
+
+export class Down implements Action {
+  readonly type = QuestionActionTypesEnum.Down;
+  constructor(public payload: string) { }
+}
+
+export class DownSuccess implements Action {
+  readonly type = QuestionActionTypesEnum.DownSuccess;
+  readonly payload: QuestionAndUser;
+  constructor(questionId: string, userId: string) {
+    this.payload = { questionId, userId };
+  }
+}
+
+export class DownFailure implements Action {
+  readonly type = QuestionActionTypesEnum.DownFailure;
+  constructor(public payload: any) { }
+}
+
+export class CancelDown implements Action {
+  readonly type = QuestionActionTypesEnum.CancelDown;
+  constructor(public payload: string) { }
+}
+
+export class CancelDownSuccess implements Action {
+  readonly type = QuestionActionTypesEnum.CancelDownSuccess;
+  readonly payload: QuestionAndUser;
+  constructor(questionId: string, userId: string) {
+    this.payload = { questionId, userId };
+  }
+}
+
+export class CancelDownFailure implements Action {
+  readonly type = QuestionActionTypesEnum.CancelDownFailure;
+  constructor(public payload: any) { }
+}
+
+export class Like implements Action {
+  readonly type = QuestionActionTypesEnum.Like;
+  constructor(public payload: string) { }
+}
+
+export class LikeSuccess implements Action {
+  readonly type = QuestionActionTypesEnum.LikeSuccess;
+  readonly payload: QuestionAndUser;
+  constructor(questionId: string, userId: string) {
+    this.payload = { userId, questionId };
+  }
+}
+
+export class LikeFailure implements Action {
+  readonly type = QuestionActionTypesEnum.LikeFailure;
+  constructor(public payload: any) { }
+}
+
+export class UnLike implements Action {
+  readonly type = QuestionActionTypesEnum.UnLike;
+  constructor(public payload: string) { }
+}
+
+export class UnLikeSuccess implements Action {
+  readonly type = QuestionActionTypesEnum.UnLikeSuccess;
+  readonly payload: QuestionAndUser;
+  constructor(questionId: string, userId: string) {
+    this.payload = { questionId, userId };
+  }
+}
+
+export class UnLikeFailure implements Action {
+  readonly type = QuestionActionTypesEnum.UnLikeFailure;
   constructor(public payload: any) { }
 }
 
@@ -79,9 +171,24 @@ export type QuestionActions
   | Loading
   | LoadSuccess
   | LoadFailure
+
   | Up
   | UpSuccess
   | UpFailure
   | CancelUp
   | CancelUpSuccess
-  | CancelUpFailure;
+  | CancelUpFailure
+
+  | Down
+  | DownSuccess
+  | DownFailure
+  | CancelDown
+  | CancelDownSuccess
+  | CancelDownFailure
+
+  | Like
+  | LikeSuccess
+  | LikeFailure
+  | UnLike
+  | UnLikeSuccess
+  | UnLikeFailure;

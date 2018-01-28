@@ -4,7 +4,7 @@ import { Question } from '../../../utils/index';
 import { Observable } from 'rxjs/Observable';
 import * as fromQuestion from '../../ngrx/reducers/index';
 import * as questionAction from '../../ngrx/actions/question.action';
-import { QuestionUpOrCancel } from '../recommend-list/recommend-list.component';
+import { QuestionActionPayload } from '../recommend-list/recommend-list.component';
 
 @Component({
   templateUrl: './home-page.component.html',
@@ -22,12 +22,16 @@ export class HomePageComponent implements OnInit {
     this.store.dispatch(new questionAction.Load(10));
   }
 
-  public onUpOrCancelQuestion(payload: QuestionUpOrCancel): void {
-    if (payload.isUp) {
-      this.store.dispatch(new questionAction.Up(payload.questionId));
-    } else {
-      this.store.dispatch(new questionAction.CancelUp(payload.questionId));
-    }
+  public onUpOrCancelQuestion(payload: QuestionActionPayload): void {
+    this.store.dispatch(payload.isTrue ? new questionAction.Up(payload.id) : new questionAction.CancelUp(payload.id));
+  }
+
+  public onDownOrCancelQuestion(payload: QuestionActionPayload): void {
+    this.store.dispatch(payload.isTrue ? new questionAction.Down(payload.id) : new questionAction.CancelDown(payload.id));
+  }
+
+  public onLikeOrUnlikeQuestion(payload: QuestionActionPayload): void {
+    this.store.dispatch(payload.isTrue ? new questionAction.Like(payload.id) : new questionAction.UnLike(payload.id));
   }
 
 }

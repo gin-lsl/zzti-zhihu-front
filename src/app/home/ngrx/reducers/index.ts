@@ -52,8 +52,11 @@ export const getLoadedQuestions = cs(
       .values(state)
       .map(s => ({
         ...s,
-        upCount: s.upUserIds ? s.upUserIds.length : 0,
         hasUp: s.upUserIds.includes(auth.id),
+        hasDown: s.downUserIds.includes(auth.id),
+        hasLike: s.saveUserIds.includes(auth.id),
+        upCount: s.upUserIds ? s.upUserIds.length : 0,
+        downCount: s.downUserIds ? s.downUserIds.length : 0,
       }));
   },
 );

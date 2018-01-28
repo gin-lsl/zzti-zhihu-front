@@ -111,7 +111,7 @@ export class UserService {
    * @param id 用户id
    */
   public loadPlainUserInformation(id: string): Observable<API<any> | null> {
-    console.log('id: ', id);
+
     return this._httpClient.get(`${this.apiLoadUserInformation}/${id}`) as Observable<API<any>>;
   }
 
