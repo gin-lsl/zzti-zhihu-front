@@ -4,7 +4,7 @@ import { cacheUserStorage, parseUserStorage, clearUserStorage } from '../../../u
 
 export interface State {
   signedIn: boolean;
-  user: User | ISignIn | null;
+  user: User | ISignIn | null | any;
   activeKey: string | null;
   signInError: ResponseError | null;
   signOnError: ResponseError | null;
@@ -12,7 +12,7 @@ export interface State {
 
 const initialState: State = {
   signedIn: false,
-  user: parseUserStorage() || null,
+  user: parseUserStorage() || {},
   activeKey: null,
   signInError: null,
   signOnError: null,
@@ -25,7 +25,7 @@ export function reducer(state = initialState, action: authAction.AuthActions): S
       return { ...initialState };
 
     case authAction.AuthActionTypesEnum.ClearLogedUserStateSuccess:
-      return { ...state, user: null };
+      return { ...state, user: {} };
 
     case authAction.AuthActionTypesEnum.SignInSuccess:
       cacheUserStorage(action.payload);

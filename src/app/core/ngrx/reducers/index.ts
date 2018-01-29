@@ -7,21 +7,21 @@ import * as fromRoot from '../../../ngrx/reducers/index';
 import * as fromAuth from './auth.reducer';
 import * as fromUser from './user.reducer';
 
-export interface CoreState {
+export interface CoreModuleState {
   auth: fromAuth.State;
   user: fromUser.State;
 }
 
 export interface State extends fromRoot.State {
-  coreModule: CoreState;
+  coreModule: CoreModuleState;
 }
 
-export const reducers: ActionReducerMap<CoreState> = {
+export const reducers: ActionReducerMap<CoreModuleState> = {
   auth: fromAuth.reducer,
   user: fromUser.reducer,
 };
 
-export const selectCoreModuleState = cfs<CoreState>('coreModule');
+export const selectCoreModuleState = cfs<CoreModuleState>('coreModule');
 
 export const selectAuthState = cs(selectCoreModuleState, state => state.auth);
 

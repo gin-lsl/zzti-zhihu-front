@@ -12,7 +12,7 @@ import { ExplorePageComponent } from './components/explore-page/explore-page.com
 import { RecommendListComponent } from './components/recommend-list/recommend-list.component';
 import { RecommendCardComponent } from './components/recommend-card/recommend-card.component';
 
-import { reducers } from './ngrx/reducers/index';
+import * as fromQuestionModule from './ngrx/reducers/index';
 import { QuestionEffects } from './ngrx/effects/question.effect';
 
 @NgModule({
@@ -20,7 +20,7 @@ import { QuestionEffects } from './ngrx/effects/question.effect';
     CommonModule,
     HomeRoutingModule,
     SharedModule,
-    StoreModule.forFeature('question', reducers),
+    StoreModule.forFeature('questionModule', fromQuestionModule.reducers),
     EffectsModule.forFeature([QuestionEffects]),
   ],
   declarations: [

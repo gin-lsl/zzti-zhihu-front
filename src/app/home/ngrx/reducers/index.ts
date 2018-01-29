@@ -8,19 +8,19 @@ import * as fromQuestion from './question.reducer';
 import * as fromAuth from '../../../core/ngrx/reducers/index';
 import { Question } from '../../../utils/index';
 
-export interface QuestionState {
+export interface QuestionModuleState {
   questions: fromQuestion.State;
 }
 
 export interface State extends fromRoot.State {
-  questions: QuestionState;
+  questions: QuestionModuleState;
 }
 
-export const reducers: ActionReducerMap<QuestionState> = {
+export const reducers: ActionReducerMap<QuestionModuleState> = {
   questions: fromQuestion.reducer,
 };
 
-export const selectQuestionState = cfs<QuestionState>('question');
+export const selectQuestionState = cfs<QuestionModuleState>('questionModule');
 
 export const getQuestionEntitiesState = cs(
   selectQuestionState,
