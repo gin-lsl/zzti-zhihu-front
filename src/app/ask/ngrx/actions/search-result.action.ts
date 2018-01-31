@@ -2,7 +2,8 @@ import { Action } from '@ngrx/store';
 
 export enum SearchResultActionTypesEnum {
   Load = '[SearchResult] Load',
-  LoadSuccess = '[SearchResult] LoadSuccess'
+  LoadSuccess = '[SearchResult] Load Success',
+  LoadFailure = '[SearchResult] Load Failure',
 }
 
 export class Load implements Action {
@@ -15,6 +16,12 @@ export class LoadSuccess implements Action {
   constructor(public payload: any) { }
 }
 
+export class LoadFailure implements Action {
+  readonly type = SearchResultActionTypesEnum.LoadFailure;
+  constructor(public payload: any) { }
+}
+
 export type SearchResultActions
   = Load
-  | LoadSuccess;
+  | LoadSuccess
+  | LoadFailure;

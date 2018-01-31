@@ -25,7 +25,11 @@ export const selectAskModuleState = cfs<AskModuleState>('askModule');
 
 export const selectSearchTextState = cs(selectAskModuleState, state => state.searchText);
 
-export const seelctSearchResultsState = cs(selectAskModuleState, state => state.searchResults);
+export const selectSearchResultsState = cs(selectAskModuleState, state => state.searchResults);
+
+export const {
+  selectAll: getAllSearchResult,
+} = fromSearchResult.adapter.getSelectors(selectSearchResultsState);
 
 // export const getSignedIn = cs(selectAuthState, fromAuth.getSignedIn);
 

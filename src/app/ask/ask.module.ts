@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { AskRoutingModule } from './ask-routing.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 import { QuillModule } from 'ngx-quill';
 
-import { AskPageComponent } from './components/ask-page/ask-page.component';
 import { SharedModule } from '../shared/shared.module';
-import { AskPreComponent } from './components/ask-pre/ask-pre.component';
-import { AskPrePageComponent } from './containers/ask-pre-page/ask-pre-page.component';
-import { EffectsModule } from '@ngrx/effects';
-import { SearchTextEffects } from './ngrx/effects/search-text.effect';
-import { StoreModule } from '@ngrx/store';
+import { AskRoutingModule } from './ask-routing.module';
+
+import { SearchEffects } from './ngrx/effects/search.effect';
 import * as fromAskModule from './ngrx/reducers/index';
+import { AskPageComponent } from './components/ask-page/ask-page.component';
+import { AskPreComponent } from './components/ask-pre/ask-pre.component';
+import { AskPrePageContainerComponent } from './containers/ask-pre-page-container/ask-pre-page-container.component';
+import { AskPageContainerComponent } from './containers/ask-page-container/ask-page-container.component';
 
 @NgModule({
   imports: [
@@ -20,12 +21,13 @@ import * as fromAskModule from './ngrx/reducers/index';
     SharedModule,
     QuillModule,
     StoreModule.forFeature('askModule', fromAskModule.reducers),
-    EffectsModule.forFeature([SearchTextEffects]),
+    EffectsModule.forFeature([SearchEffects]),
   ],
   declarations: [
     AskPageComponent,
     AskPreComponent,
-    AskPrePageComponent,
+    AskPrePageContainerComponent,
+    AskPageContainerComponent,
   ]
 })
 export class AskModule { }

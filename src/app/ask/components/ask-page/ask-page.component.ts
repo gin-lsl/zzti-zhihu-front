@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { ACCESS_TOKEN, API_HOST } from '../../../utils/index';
@@ -16,6 +16,9 @@ export class AskPageComponent implements OnInit {
 
   public separatorKeyCodes = [ENTER, COMMA];
 
+  @Output()
+  public submit: EventEmitter<any> = new EventEmitter();
+
   constructor(
     private _httpClient: HttpClient,
   ) { }
@@ -27,6 +30,7 @@ export class AskPageComponent implements OnInit {
   public onSubmit(): void {
     console.log('questionModel: ', this.questionModel);
     const access_token = localStorage.getItem(ACCESS_TOKEN);
+    this.submit.emit(this.questionModel);
     // this._httpClient
     //   .post(API_HOST + '/questions/post', this.questionModel, {
     //     headers: new HttpHeaders().append('Authorization', access_token)

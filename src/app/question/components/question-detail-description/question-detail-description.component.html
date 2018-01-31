@@ -23,7 +23,8 @@
     <div class="Question-detail-description__body">
       <h2 class="Question-detail-description__title">{{ question?.title }}</h2>
       <div class="Question-detail-description__content">
-        <p>{{ question?.description }}</p>
+        <!-- <p>{{ question?.description }}</p> -->
+        <div [innerHTML]="question.description"></div>
       </div>
     </div>
   </div>

@@ -11,6 +11,13 @@
     flex-direction: column;
   }
 }
+:host {
+  ::ng-deep {
+    img {
+      max-width: 15rem;
+    }
+  }
+}
 @media screen and (max-width: 600px) {
   .QuestionDetailDescription {
     padding: 0 0.5rem;

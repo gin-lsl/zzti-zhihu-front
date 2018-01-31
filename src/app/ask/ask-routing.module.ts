@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AskPageComponent } from './components/ask-page/ask-page.component';
-import { AskPrePageComponent } from './containers/ask-pre-page/ask-pre-page.component';
+import { AskPrePageContainerComponent } from './containers/ask-pre-page-container/ask-pre-page-container.component';
+import { AskPageContainerComponent } from './containers/ask-page-container/ask-page-container.component';
 
 const routes: Routes = [
-  { path: '', component: AskPageComponent },
-  { path: 'pre', component: AskPrePageComponent },
+  { path: 'post', component: AskPageContainerComponent },
+  { path: 'pre', component: AskPrePageContainerComponent },
 ];
 
 @NgModule({
