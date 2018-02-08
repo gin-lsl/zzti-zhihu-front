@@ -3,10 +3,8 @@
     <div class="Question-detail-description__header">
       <div class="Question-detail-description__tags">
         <mat-chip-list>
-          <mat-chip color="primary">人性</mat-chip>
-          <mat-chip color="primary">中国</mat-chip>
-          <mat-chip color="primary">中国人</mat-chip>
-          <mat-chip color="primary">细节</mat-chip>
+          <mat-chip *ngFor="let tag of question.tags"
+                    color="primary">{{ tag }}</mat-chip>
         </mat-chip-list>
       </div>
       <div class="Question-detail-description__profile">

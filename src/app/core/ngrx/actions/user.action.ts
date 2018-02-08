@@ -10,6 +10,7 @@ export enum UserActionTypesEnum {
   Load = '[User] Load',
   LoadSuccess = '[User] LoadSuccess',
   LoadFailure = '[User] LoadFailure',
+  ChangePostedSort = '[User] Change Posted Sort',
 }
 
 export class SignIn implements Action {
@@ -50,6 +51,11 @@ export class LoadFailure implements Action {
   constructor(public payload: any) { }
 }
 
+export class ChangePostedSort implements Action {
+  readonly type = UserActionTypesEnum.ChangePostedSort;
+  constructor(public payload: 'NEWER_TO_OLDER' | 'OLDER_TO_NEWER' | 'AGREE') { }
+}
+
 export type UserActions
   = SignIn
   | SignOut
@@ -58,4 +64,5 @@ export type UserActions
   | SignInRedirect
   | Load
   | LoadSuccess
-  | LoadFailure;
+  | LoadFailure
+  | ChangePostedSort;

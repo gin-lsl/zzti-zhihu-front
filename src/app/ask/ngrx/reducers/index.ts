@@ -6,10 +6,12 @@ import {
 import * as fromRoot from '../../../ngrx/reducers/index';
 import * as fromSearchText from './search-text.reducer';
 import * as fromSearchResult from './search-result.reducer';
+import * as fromAsk from './ask.reducer';
 
 export interface AskModuleState {
   searchText: fromSearchText.State;
   searchResults: fromSearchResult.State;
+  ask: fromAsk.State;
 }
 
 export interface State extends fromRoot.State {
@@ -19,6 +21,7 @@ export interface State extends fromRoot.State {
 export const reducers: ActionReducerMap<AskModuleState> = {
   searchText: fromSearchText.reducer,
   searchResults: fromSearchResult.reducer,
+  ask: fromAsk.reducer,
 };
 
 export const selectAskModuleState = cfs<AskModuleState>('askModule');
@@ -26,6 +29,8 @@ export const selectAskModuleState = cfs<AskModuleState>('askModule');
 export const selectSearchTextState = cs(selectAskModuleState, state => state.searchText);
 
 export const selectSearchResultsState = cs(selectAskModuleState, state => state.searchResults);
+
+export const selectAskState = cs(selectAskModuleState, state => state.ask);
 
 export const {
   selectAll: getAllSearchResult,
@@ -40,3 +45,5 @@ export const {
 // export const getSignInError = cs(selectAuthState, fromAuth.getSignInError);
 
 // export const getUser = cs(seelctUserState, fromUser.getUser);
+
+export const getHasOldAsk = cs(selectAskState, fromAsk.getHasOld);

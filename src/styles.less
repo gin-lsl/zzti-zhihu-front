@@ -126,6 +126,9 @@ body {
   .w100per {
     width: 100%;
   }
+  .w-auto {
+    width: auto;
+  }
 }
 
 body {
@@ -140,6 +143,11 @@ body {
     color: #ffab82;
     background: black;
     padding: 0.5rem;
+    overflow: scroll;
+  }
+  a.highlight-link:hover,
+  .highlight-link a:hover {
+    text-decoration: underline;
   }
 }
 
@@ -153,7 +161,7 @@ a {
 
 ::-webkit-scrollbar {
   width: 7px;
-  height: 100%;
+  height: 7px;
   // background: lightgrey;
 }
 

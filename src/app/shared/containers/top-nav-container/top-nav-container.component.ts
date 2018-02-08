@@ -25,12 +25,10 @@ export class TopNavContainerComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.store.dispatch(new authAction.CheckSignState());
-    this.store.dispatch({
-      type: 'A_INCREMENT'
-    });
-    this.store.dispatch({
-      type: 'B_INCREMENT'
-    });
+  }
+
+  public onSignOut(): void {
+    this.store.dispatch(new authAction.ClearLogedUserState());
   }
 
 }

@@ -3,6 +3,7 @@
     <mat-tab-group>
       <mat-tab label="动态">
         <h3>我的动态</h3>
+        <!-- <div>{{ myPostQuestions$ | async | json }}</div> -->
         <app-question-answer-list></app-question-answer-list>
       </mat-tab>
       <mat-tab label="回答">
@@ -10,8 +11,18 @@
         <app-question-answer-list></app-question-answer-list>
       </mat-tab>
       <mat-tab label="提问">
-        <h3>我的提问</h3>
-        <app-question-answer-list></app-question-answer-list>
+        <div class="List__header">
+          <h3>我的提问</h3>
+          <mat-form-field class="w-auto">
+            <mat-select value="NEWER_TO_OLDER"
+                        (valueChange)="onMyPostQuestionSortChange($event)">
+              <mat-option [value]="'NEWER_TO_OLDER'">从新到旧</mat-option>
+              <mat-option [value]="'OLDER_TO_NEWER'">从旧到新</mat-option>
+              <mat-option [value]="'AGREE'">点赞数</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <app-question-answer-list [answers]="myPostQuestions$ | async"></app-question-answer-list>
       </mat-tab>
       <mat-tab label="收藏">
         <h3>我收藏的</h3>

@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AskRoutingModule } from './ask-routing.module';
 
 import { SearchEffects } from './ngrx/effects/search.effect';
+import { AskEffects } from './ngrx/effects/ask.effect';
 import * as fromAskModule from './ngrx/reducers/index';
 import { AskPageComponent } from './components/ask-page/ask-page.component';
 import { AskPreComponent } from './components/ask-pre/ask-pre.component';
@@ -21,7 +22,7 @@ import { AskPageContainerComponent } from './containers/ask-page-container/ask-p
     SharedModule,
     QuillModule,
     StoreModule.forFeature('askModule', fromAskModule.reducers),
-    EffectsModule.forFeature([SearchEffects]),
+    EffectsModule.forFeature([SearchEffects, AskEffects]),
   ],
   declarations: [
     AskPageComponent,

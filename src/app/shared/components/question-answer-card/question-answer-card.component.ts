@@ -14,7 +14,7 @@ export class QuestionAnswerCardComponent implements OnInit {
   public _isShort: boolean = true;
 
   @Input()
-  public answer: Answer;
+  public answer: any;
 
   constructor() { }
 

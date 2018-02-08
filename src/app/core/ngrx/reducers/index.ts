@@ -25,7 +25,24 @@ export const selectCoreModuleState = cfs<CoreModuleState>('coreModule');
 
 export const selectAuthState = cs(selectCoreModuleState, state => state.auth);
 
-export const seelctUserState = cs(selectCoreModuleState, state => state.user);
+export const selectUserState = cs(selectCoreModuleState, state => state.user);
+
+export const getUserPostedSort = cs(selectCoreModuleState, state => state.user.postedSort);
+
+export const getUserPostedQuestions = cs(selectCoreModuleState, getUserPostedSort, (state, sort) => {
+  if (state.user.user) {
+    const postedQuestions = ((state.user.user as any).postedQuestions as Array<any>);
+    if (sort === 'NEWER_TO_OLDER') {
+      return postedQuestions.sort((p, c) => ((new Date(p.postDateTime) as any) - (new Date(c.postDateTime) as any)));
+    } else if (sort === 'OLDER_TO_NEWER') {
+      return postedQuestions.sort((p, c) => ((new Date(c.postDateTime) as any) - (new Date(p.postDateTime) as any)));
+    } else if (sort === 'AGREE') {
+      return postedQuestions.sort((p, c) => (c.upUserIds.length - p.upUserIds.length));
+    }
+  } else {
+    return [];
+  }
+});
 
 export const getSignedIn = cs(selectAuthState, fromAuth.getSignedIn);
 
@@ -35,4 +52,4 @@ export const getSignOnError = cs(selectAuthState, fromAuth.getSignOnError);
 
 export const getSignInError = cs(selectAuthState, fromAuth.getSignInError);
 
-export const getUser = cs(seelctUserState, fromUser.getUser);
+export const getUser = cs(selectUserState, fromUser.getUser);

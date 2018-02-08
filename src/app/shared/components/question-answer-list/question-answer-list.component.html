@@ -1,6 +1,7 @@
 <div class="QuestionAnswerList">
   <div *ngIf="answers"
        class="Question-answer__list">
-    <app-question-answer-card *ngFor="let answer of answers"></app-question-answer-card>
+    <app-question-answer-card *ngFor="let answer of answers"
+                              [answer]="answer"></app-question-answer-card>
   </div>
 </div>

@@ -1,14 +1,10 @@
 <div class="QuestionAnswerCard mb05">
   <article class="Question-answer">
     <mat-card>
-      <mat-card-content *ngIf="answer.aboutMe" class="about-me">
+      <mat-card-content *ngIf="answer?.aboutMe"
+                        class="about-me">
         <span>赞同了回答</span>
         <span>1个月前</span>
-      </mat-card-content>
-      <mat-card-content>
-        <h3>
-          <a>{{ answer?.questionId }}</a>
-        </h3>
       </mat-card-content>
       <mat-card-header>
         <div mat-card-avatar
@@ -16,23 +12,13 @@
         <mat-card-title>{{ answer?.answerer?.username }}</mat-card-title>
         <mat-card-subtitle>用户签名，用户签名</mat-card-subtitle>
       </mat-card-header>
+      <mat-card-content class="mt1 mb05">
+        <h3>
+          <a class="highlight-link" [routerLink]="['/question', answer.id]">{{ answer.title }}</a>
+        </h3>
+      </mat-card-content>
       <mat-card-content [class.short]="_isShort">
-        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
-          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
-        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
-          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
-        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
-          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
-        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
-          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
-        <p>知乎让我用手机验证我一点都没有手机换号的顾虑，毕竟这就不是一个能让我产生多少依赖的地方。当然，也许我对任何地方都不会产生这种奇怪的感情。</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi optio alias eius praesentium aliquam libero nam culpa
-          corporis sit mollitia iste vel vitae obcaecati, molestiae unde totam nesciunt fugit. Ut.</p>
-        <div>
+        <div [innerHTML]="answer?.description">
         </div>
       </mat-card-content>
       <mat-card-content>

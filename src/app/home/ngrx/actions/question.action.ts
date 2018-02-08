@@ -11,6 +11,10 @@ export enum QuestionActionTypesEnum {
   LoadSuccess = '[Question] LoadSuccess',
   LoadFailure = '[Question] LoadFailure',
 
+  LoadOne = '[Question] Load One',
+  LoadOneSuccess = '[Question] Load One Success',
+  LoadOneFailure = '[Question] Load One Failure',
+
   Up = '[Question] Up',
   UpSuccess = '[Question] Up Success',
   UpFailure = '[Question] Up Failure',
@@ -56,6 +60,31 @@ export class LoadSuccess implements Action {
 export class LoadFailure implements Action {
   readonly type = QuestionActionTypesEnum.LoadFailure;
   constructor(public payload: any) { }
+}
+
+export class LoadOne implements Action {
+  readonly type = QuestionActionTypesEnum.LoadOne;
+  readonly payload: { questionId: string, isWannaNativateTo: boolean };
+  /**
+   * @param questionId questionId
+   * @param isWannaNativateTo 是否导航到此问题页面
+   */
+  constructor(private questionId: string, private isWannaNativateTo: boolean) {
+    this.payload = {
+      questionId,
+      isWannaNativateTo
+    };
+  }
+}
+
+export class LoadOneSuccess implements Action {
+  readonly type = QuestionActionTypesEnum.LoadOneSuccess;
+  constructor(public payload: any) { }
+}
+
+export class LoadOneFailure implements Action {
+  readonly type = QuestionActionTypesEnum.LoadOneFailure;
+  constructor(public paylaod: any) { }
 }
 
 export class Up implements Action {
@@ -171,6 +200,10 @@ export type QuestionActions
   | Loading
   | LoadSuccess
   | LoadFailure
+
+  | LoadOne
+  | LoadOneSuccess
+  | LoadOneFailure
 
   | Up
   | UpSuccess

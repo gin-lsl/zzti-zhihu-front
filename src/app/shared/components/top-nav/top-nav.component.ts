@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { User, ISignIn } from '../../../utils/index';
 
 @Component({
@@ -14,6 +14,13 @@ export class TopNavComponent {
   @Input()
   public loginedUser: User | ISignIn | any = {};
 
+  @Output()
+  public signOut: EventEmitter<any> = new EventEmitter();
+
   constructor() { }
+
+  public onExit(): void {
+    this.signOut.emit();
+  }
 
 }

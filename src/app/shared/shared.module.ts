@@ -20,6 +20,7 @@ import {
   MatToolbarModule,
   MatMenuModule,
   MatSnackBarModule,
+  MatSelectModule,
 } from '@angular/material';
 
 import { QuillModule } from 'ngx-quill';
@@ -51,6 +52,7 @@ const materialModules = [
   MatToolbarModule,
   MatMenuModule,
   MatSnackBarModule,
+  MatSelectModule,
 ];
 
 /**

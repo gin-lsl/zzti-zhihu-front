@@ -1,3 +1,4 @@
 <div class="AskPageContainer">
-  <app-ask-page (submit)="onSubmitPostAsk($event)"></app-ask-page>
+  <app-ask-page [questionModel]="ask$ | async"
+                (submit)="onSubmitPostAsk($event)"></app-ask-page>
 </div>

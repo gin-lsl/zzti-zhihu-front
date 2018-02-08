@@ -1,32 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as fromAskModule from '../../ngrx/reducers/index';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
+import * as fromAskModule from '../../ngrx/reducers/index';
+import * as askAction from '../../ngrx/actions/ask.action';
+import * as fromRoot from '../../../ngrx/reducers/index';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-ask-page-container',
   templateUrl: './ask-page-container.component.html',
   styleUrls: ['./ask-page-container.component.less']
 })
-export class AskPageContainerComponent implements OnInit {
+export class AskPageContainerComponent implements OnInit, OnDestroy {
+
+  // private hasOldSubscription: Subscription;
+
+  public ask$: Observable<any>;
 
   constructor(
-    private store: Store<fromAskModule.State>,
+    private _store: Store<fromAskModule.State>,
     private _httpClient: HttpClient,
+    // private _router: Router,
   ) {
+    this.ask$ = _store.select(fromAskModule.selectAskState);
+    this.ask$.subscribe(state => {
+      console.log('askState: ', state);
+    });
+    // this.hasOldSubscription = _store
+    //   // .select(fromAskModule.getHasOldAsk)
+    //   .map(state => {
+    //     return {
+
+    //     }
+    //   })
+    //   .subscribe(hasOld => {
+    //     if (!hasOld) {
+    //       _router.navigateByUrl('/ask/pre');
+    //     }
+    //   });
   }
 
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    // this.hasOldSubscription.unsubscribe;
+  }
+
   public onSubmitPostAsk(ask: any): void {
     console.log('onSubmitPostAsk: ', ask);
-    const access_token = localStorage.getItem('ACCESS__TOKEN');
-    this._httpClient
-      .post('http://localhost:3000/questions/post', ask, { headers: new HttpHeaders().append('Authorization', access_token) })
-      .subscribe(res => {
-        console.log('res: ', res);
-      });
+    this._store.dispatch(new askAction.Post(ask));
   }
 
 }

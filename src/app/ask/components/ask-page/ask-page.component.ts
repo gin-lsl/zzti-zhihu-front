@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, EventEmitter, Output, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { ACCESS_TOKEN, API_HOST } from '../../../utils/index';
@@ -12,6 +12,7 @@ import { MatChipInputEvent } from '@angular/material';
 })
 export class AskPageComponent implements OnInit {
 
+  @Input()
   public questionModel: any;
 
   public separatorKeyCodes = [ENTER, COMMA];
@@ -23,21 +24,10 @@ export class AskPageComponent implements OnInit {
     private _httpClient: HttpClient,
   ) { }
 
-  ngOnInit() {
-    this.questionModel = {};
-  }
+  ngOnInit() { }
 
   public onSubmit(): void {
-    console.log('questionModel: ', this.questionModel);
-    const access_token = localStorage.getItem(ACCESS_TOKEN);
     this.submit.emit(this.questionModel);
-    // this._httpClient
-    //   .post(API_HOST + '/questions/post', this.questionModel, {
-    //     headers: new HttpHeaders().append('Authorization', access_token)
-    //   })
-    //   .subscribe(r => {
-    //     console.log('r: ', r);
-    //   });
   }
 
   public remove(tagIndex: number): void {

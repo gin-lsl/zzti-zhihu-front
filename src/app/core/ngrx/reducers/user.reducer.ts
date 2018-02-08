@@ -5,12 +5,14 @@ export interface State {
   signedIn: boolean;
   user: User | null;
   loadFailureError: any;
+  postedSort: 'NEWER_TO_OLDER' | 'OLDER_TO_NEWER' | 'AGREE';
 }
 
 const initialState: State = {
   signedIn: false,
   user: null,
   loadFailureError: null,
+  postedSort: 'NEWER_TO_OLDER',
 };
 
 export function reducer(state = initialState, action: userAction.UserActions): State {
@@ -30,6 +32,12 @@ export function reducer(state = initialState, action: userAction.UserActions): S
 
     case userAction.UserActionTypesEnum.LoadFailure:
       return { ...initialState, loadFailureError: action.payload };
+
+    case userAction.UserActionTypesEnum.ChangePostedSort:
+      return {
+        ...state,
+        postedSort: action.payload,
+      };
 
     default: {
       return state;

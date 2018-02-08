@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
+import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/empty';
@@ -9,9 +10,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/exhaustMap';
 import * as questionAction from '../actions/question.action';
-import { API, ResponseError, parseUserStorage, ErrorCodeEnum, API_HOST } from '../../../utils/index';
-import { MatSnackBar } from '@angular/material';
 import * as authAction from '../../../core/ngrx/actions/auth.action';
+import { API, ResponseError, parseUserStorage, ErrorCodeEnum, API_HOST } from '../../../utils/index';
+import { Router } from '@angular/router';
 
 const NO_AUTH_POP_ALITER = ['操作失败, 请先登录.', 'close', { duration: 2000 }];
 
@@ -217,11 +218,37 @@ export class QuestionEffects {
         .catch(error => Observable.of(new questionAction.UnLikeFailure(ResponseError.UNDEFINED_ERROR)));
     });
 
+  /**
+   * 加载某个问题信息
+   */
+  @Effect()
+  loadOne$: Observable<Action> = this._actions$
+    .ofType(questionAction.QuestionActionTypesEnum.LoadOne)
+    .map((action: questionAction.LoadOne) => action.payload)
+    .exhaustMap(payload => {
+      const user = parseUserStorage();
+      console.log('loadOne$: ', payload);
+      return this._httpClient.get(`${this.apiLoad}/${payload.questionId}`, {
+        headers: new HttpHeaders().append('Authorization', user.access_token)
+      })
+        .map((data: API) => {
+          if (data.success) {
+            if (payload.isWannaNativateTo) {
+              this._router.navigateByUrl('/question/' + payload.questionId);
+            }
+            return new questionAction.LoadOneSuccess(data.successResult);
+          } else {
+            return new questionAction.LoadOneFailure(new ResponseError(data.errorCode, data.errorMessage));
+          }
+        });
+    });
+
   constructor(
     private _actions$: Actions,
     private _httpClient: HttpClient,
     private _snackBar: MatSnackBar,
     private _store: Store<any>,
+    private _router: Router,
   ) { }
 
   /**
