@@ -7,11 +7,12 @@ import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router
 
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+import { NgrxModule } from './ngrx/ngrx.module';
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { reducers, metaReducers } from './ngrx/reducers/index';
+import { reducers, metaReducers } from './ngrx/root/reducers/index';
 import { CustomRouterStateSerializer } from './utils/index';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -25,6 +26,7 @@ import { EffectsModule } from '@ngrx/effects';
     NoopAnimationsModule,
     SharedModule,
     CoreModule,
+    NgrxModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreRouterConnectingModule.forRoot({
       stateKey: 'routerState',

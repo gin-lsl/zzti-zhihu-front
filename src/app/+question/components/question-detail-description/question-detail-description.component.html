@@ -1,0 +1,30 @@
+<div class="QuestionDetailDescription mb1">
+  <div class="Question-detail-description">
+    <div class="Question-detail-description__header">
+      <div class="Question-detail-description__tags">
+        <mat-chip-list>
+          <mat-chip *ngFor="let tag of question.tags"
+                    color="primary">{{ tag }}</mat-chip>
+        </mat-chip-list>
+      </div>
+      <div class="Question-detail-description__profile">
+        <div>
+          <span>关注者</span>
+          <span>2340</span>
+        </div>
+        <div>
+          <span>被浏览</span>
+          <span>32940324</span>
+        </div>
+      </div>
+    </div>
+    <div class="Question-detail-description__body">
+      <div class="Question-detail-description__vote">
+        <app-votecell [vote]="question"></app-votecell>
+      </div>
+      <div class="Question-detail-description__content">
+        <div [innerHTML]="question.description"></div>
+      </div>
+    </div>
+  </div>
+</div>

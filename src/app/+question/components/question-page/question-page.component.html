@@ -1,0 +1,27 @@
+<div class="QuestionPage"
+     *ngIf="question">
+  <div class="QuestionPage__header">
+    <h2>{{ question.title }}</h2>
+    <hr>
+  </div>
+  <div class="QuestionPage__body">
+    <div class="QuestionPage__main">
+      <app-question-detail-description [question]="question"></app-question-detail-description>
+      <app-question-answer-list></app-question-answer-list>
+      <app-reply-box (submit)="onSubmitReply($event)"></app-reply-box>
+    </div>
+    <div class="QuestionPage__sidebar">
+      <div class="QuestionPage__profiles">
+        <p>提问:
+          <span>{{ question.postDateTime }}</span>
+        </p>
+        <p>访问:
+          <span>{{ question.upCount }}</span>
+        </p>
+        <p>编辑:
+          <span>{{ 11 }} months ago </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

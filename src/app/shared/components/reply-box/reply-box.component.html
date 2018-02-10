@@ -1,0 +1,11 @@
+<div class="ReplyBox">
+  <div class="ReplyBox__editor mb1">
+    <quill-editor [(ngModel)]="content"
+                  name="content"></quill-editor>
+  </div>
+  <div class="ReplyBox__action">
+    <button mat-raised-button
+            color="primary"
+            (click)="onSubmit()">提交回复</button>
+  </div>
+</div>

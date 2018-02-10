@@ -14,7 +14,8 @@
       </mat-card-header>
       <mat-card-content class="mt1 mb05">
         <h3>
-          <a class="highlight-link" [routerLink]="['/question', answer.id]">{{ answer.title }}</a>
+          <a class="highlight-link"
+             [routerLink]="['/question', answer.id]">{{ answer.title }}</a>
         </h3>
       </mat-card-content>
       <mat-card-content [class.short]="_isShort">
@@ -32,11 +33,14 @@
       </mat-card-content>
       <mat-card-actions>
         <button mat-button>
-          <i class="material-icons">thumb_up</i>
-          <span>1.5K</span>
+          <i class="material-icons"
+             [class.has-true]="answer.hasUp">thumb_up</i>
+          <span>{{ answer.upCount }}</span>
         </button>
         <button mat-button>
-          <i class="material-icons">thumb_down</i>
+          <i class="material-icons"
+             [class.has-true]="answer.hasDown">thumb_down</i>
+          <span>{{ answer.downCount }}</span>
         </button>
         <button mat-button>Like</button>
         <button mat-button>Share</button>

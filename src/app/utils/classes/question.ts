@@ -33,6 +33,11 @@ export class Question {
   tags: Array<string>;
 
   /**
+   * 发布日期
+   */
+  postDateTime: Date;
+
+  /**
    * 收藏此问题的用户id
    */
   collectUserIds: Array<string>;
