@@ -7,7 +7,8 @@
   <div class="QuestionPage__body">
     <div class="QuestionPage__main">
       <app-question-detail-description [question]="question"></app-question-detail-description>
-      <app-question-answer-list></app-question-answer-list>
+      <!-- <app-question-answer-list [answers]="replies$ | async"></app-question-answer-list> -->
+      <app-question-reply-list-container></app-question-reply-list-container>
       <app-reply-box (submit)="onSubmitReply($event)"></app-reply-box>
     </div>
     <div class="QuestionPage__sidebar">

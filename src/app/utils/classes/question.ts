@@ -1,7 +1,3 @@
-import { User } from './user';
-import { Answer, AnswerList } from './answer';
-
-
 /**
  * 问题
  */
@@ -35,7 +31,7 @@ export class Question {
   /**
    * 发布日期
    */
-  postDateTime: Date;
+  createAt: Date;
 
   /**
    * 收藏此问题的用户id

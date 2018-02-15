@@ -23,11 +23,18 @@ export function reducer(state = initailState, action: QuestionActions): State {
         currentQuestionId: null,
       };
 
-    case QuestionActionTypesEnum.LoadOneSuccess:
+    case QuestionActionTypesEnum.LoadOneSuccess: {
+      if ((state.ids as string[]).includes(action.payload.id)) {
+        return {
+          ...adapter.updateOne(action.payload, state),
+          currentQuestionId: action.payload.id,
+        };
+      }
       return {
         ...adapter.addOne(action.payload, state),
         currentQuestionId: action.payload.id,
       };
+    }
 
     case QuestionActionTypesEnum.UpSuccess: {
       const id = action.payload.questionId;

@@ -52,9 +52,9 @@ export const getUserPostedQuestions = cs(selectCoreModuleState, getUserPostedSor
         downCount: q.downUserIds ? q.downUserIds.length : 0,
       }));
     if (sort === 'NEWER_TO_OLDER') {
-      return postedQuestions.sort((p, c) => ((new Date(p.postDateTime) as any) - (new Date(c.postDateTime) as any)));
+      return postedQuestions.sort((p, c) => ((new Date(p.createAt) as any) - (new Date(c.createAt) as any)));
     } else if (sort === 'OLDER_TO_NEWER') {
-      return postedQuestions.sort((p, c) => ((new Date(c.postDateTime) as any) - (new Date(p.postDateTime) as any)));
+      return postedQuestions.sort((p, c) => ((new Date(c.createAt) as any) - (new Date(p.createAt) as any)));
     } else if (sort === 'AGREE') {
       return postedQuestions.sort((p, c) => (c.upUserIds.length - p.upUserIds.length));
     }

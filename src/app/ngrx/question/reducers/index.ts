@@ -24,7 +24,7 @@ export const selectQuestionState = cfs<QuestionModuleState>('questionModule');
 
 export const getQuestionEntitiesState = cs(
   selectQuestionState,
-  state => state.questions
+  state => state ? state.questions : null
 );
 
 export const getCurrentSelectQuestionId = cs(
@@ -42,6 +42,10 @@ export const {
 export const getCurrentSelectQuestion = cs(
   getQuestionEntities,
   getCurrentSelectQuestionId,
+  (entities, currId) => {
+    console.log('entities: ', entities  );
+    return entities[currId];
+  }
 );
 
 export const getLoadedQuestions = cs(
