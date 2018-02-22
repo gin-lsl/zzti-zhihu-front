@@ -1,0 +1,4 @@
+<div class="UserHeaderContainer">
+  <app-user-header [user]="user$ | async"
+                   (follow)="onToggleFollow($event)"></app-user-header>
+</div>

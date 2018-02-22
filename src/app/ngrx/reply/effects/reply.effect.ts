@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
+import { MatSnackBar } from '@angular/material';
 import * as replyAction from '../actions/reply.action';
+import * as authAction from '../../core/actions/auth.action';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { API_HOST, parseUserStorage, API, ResponseError } from '../../../utils/index';
+import { API_HOST, parseUserStorage, API, ResponseError, ErrorCodeEnum, NO_AUTH_POP_ALITER } from '../../../utils/index';
 
 @Injectable()
 export class ReplyEffects {
@@ -43,6 +45,7 @@ export class ReplyEffects {
     .exhaustMap((action: replyAction.Post) => {
       const user = parseUserStorage();
       if (!user) {
+        this.checkShowAuthPop();
         return Observable.empty();
       }
       return this._httpClient
@@ -59,5 +62,18 @@ export class ReplyEffects {
   constructor(
     private _actions$: Actions,
     private _httpClient: HttpClient,
+    private _snackBar: MatSnackBar,
+    private _store: Store<any>,
   ) { }
+
+  /**
+   * 根据错误码检查是否需要登录提示
+   * @param errorCode 错误码
+   */
+  checkShowAuthPop(errorCode: ErrorCodeEnum = ErrorCodeEnum.AUTHORIZATION): void {
+    if (errorCode === ErrorCodeEnum.AUTHORIZATION) {
+      this._snackBar.open.apply(this._snackBar, NO_AUTH_POP_ALITER);
+      this._store.dispatch(new authAction.ClearLogedUserState());
+    }
+  }
 }

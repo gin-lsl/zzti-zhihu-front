@@ -15,6 +15,7 @@ import * as fromQuestion from '../../../ngrx/question/reducers/index';
 import * as fromReply from '../../../ngrx/reply/reducers/index';
 import * as questionAction from '../../../ngrx/question/actions/question.action';
 import * as replyAction from '../../../ngrx/reply/actions/reply.action';
+import * as commentAction from '../../../ngrx/comment/actions/comment.action';
 
 @Component({
   selector: 'app-question-page',
@@ -40,7 +41,7 @@ export class QuestionPageComponent implements OnInit {
         this.question = q;
         console.log('question: ', q);
       });
-    this.replies$ = this._store.select(fromReply.getRepliesByCurrentSelectQuestionId)
+    this.replies$ = this._store.select(fromReply.getRepliesByCurrentSelectQuestionId);
     // .subscribe(replies => {
     //   console.log('replies: ', replies);
     // });
@@ -60,6 +61,7 @@ export class QuestionPageComponent implements OnInit {
         const questionId = params.get('id');
         this._store.dispatch(new questionAction.LoadOne(questionId, false));
         this._store.dispatch(new replyAction.Load(questionId));
+        this._store.dispatch(new commentAction.Load(questionId));
       });
     // .switchMap(p => this._httpClient.get(`http://localhost:3000/questions/${p.get('id')}`))
     // .filter((p: any) => p.success)

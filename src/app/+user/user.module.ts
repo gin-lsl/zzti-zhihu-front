@@ -8,6 +8,8 @@ import { UserHeaderComponent } from './components/user-header/user-header.compon
 import { UserBodyComponent } from './components/user-body/user-body.component';
 import { UserMainComponent } from './components/user-main/user-main.component';
 import { UserSideComponent } from './components/user-side/user-side.component';
+import { UserHeaderContainerComponent } from './containers/user-header-container/user-header-container.component';
+import { UserModifyPageComponent } from './components/user-modify-page/user-modify-page.component';
 
 @NgModule({
   imports: [
@@ -21,6 +23,8 @@ import { UserSideComponent } from './components/user-side/user-side.component';
     UserBodyComponent,
     UserMainComponent,
     UserSideComponent,
+    UserHeaderContainerComponent,
+    UserModifyPageComponent,
   ]
 })
 export class UserModule { }

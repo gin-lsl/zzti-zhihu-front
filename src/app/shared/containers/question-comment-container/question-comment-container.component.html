@@ -1,0 +1,4 @@
+<div class="QuestionCommentContainer">
+  <app-question-comment [commentList]="commentList$ | async"
+                        (submitComment)="onSubmitComment($event)"></app-question-comment>
+</div>

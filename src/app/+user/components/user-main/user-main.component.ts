@@ -15,25 +15,24 @@ export class UserMainComponent implements OnInit {
 
   public myPostQuestions$: Observable<any>;
 
+  public myPostReplies$: Observable<any>;
+
   constructor(
     private httpClient: HttpClient,
     private store: Store<fromCoreModule.State>,
     private activatedRoute: ActivatedRoute
   ) {
-    // this.myPostQuestions$ = store.select(fromCoreModule.selectUserState);
     this.myPostQuestions$ = store.select(fromCoreModule.getUserPostedQuestions);
-    this.myPostQuestions$.subscribe(state => {
-      console.log('state: ', state);
+    this.myPostReplies$ = store.select(fromCoreModule.getUserPostedReplies);
+    this.myPostQuestions$.subscribe(qs => {
+      console.log('qs: ', qs);
+    });
+    this.myPostReplies$.subscribe(rs => {
+      console.log('rs: ', rs);
     });
   }
 
   ngOnInit() {
-    // this.httpClient
-    //   .get('http://localhost:3000/questions')
-    //   .subscribe((r: any) => {
-    //     console.log('r: ', r);
-    //     // this.questions = r.successResult;
-    //   });
     this.activatedRoute
       .paramMap
       .subscribe(param => {
@@ -41,9 +40,9 @@ export class UserMainComponent implements OnInit {
       });
   }
 
-  onMyPostQuestionSortChange(newValue: string): void {
+  public onMyPostQuestionSortChange(newValue: string): void {
     console.log('newValue: ', newValue);
-    this.store.dispatch(new userAction.ChangePostedSort(newValue as any));
+    this.store.dispatch(new userAction.ChangePostedQuestionsSort(newValue as any));
   }
 
 }

@@ -3,16 +3,18 @@ import { User } from '../../../utils/index';
 
 export interface State {
   signedIn: boolean;
-  user: User | null;
+  user: any | null;
   loadFailureError: any;
-  postedSort: 'NEWER_TO_OLDER' | 'OLDER_TO_NEWER' | 'AGREE';
+  postedQuestionsSort: 'NEWER_TO_OLDER' | 'OLDER_TO_NEWER' | 'AGREE';
+  postedRepliesSort: 'NEWER_TO_OLDER' | 'OLDER_TO_NEWER' | 'AGREE';
 }
 
 const initialState: State = {
   signedIn: false,
   user: null,
   loadFailureError: null,
-  postedSort: 'NEWER_TO_OLDER',
+  postedQuestionsSort: 'NEWER_TO_OLDER',
+  postedRepliesSort: 'NEWER_TO_OLDER',
 };
 
 export function reducer(state = initialState, action: userAction.UserActions): State {
@@ -33,10 +35,41 @@ export function reducer(state = initialState, action: userAction.UserActions): S
     case userAction.UserActionTypesEnum.LoadFailure:
       return { ...initialState, loadFailureError: action.payload };
 
-    case userAction.UserActionTypesEnum.ChangePostedSort:
+    case userAction.UserActionTypesEnum.ChangePostedQuestionsSort:
       return {
         ...state,
-        postedSort: action.payload,
+        postedQuestionsSort: action.payload,
+      };
+
+    case userAction.UserActionTypesEnum.ChangePostedRepliesSort:
+      return {
+        ...state,
+        postedRepliesSort: action.payload,
+      };
+
+    case userAction.UserActionTypesEnum.FollowSuccess:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          base: {
+            ...state.user.base,
+            followHimIds: [...(state.user.base.followHimIds) || [], action.payload.currentUserId]
+          },
+        },
+        postedQuestionsSort: state.postedQuestionsSort,
+      };
+
+    case userAction.UserActionTypesEnum.CancelFollowSuccess:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          base: {
+            ...state.user.base,
+            followHimIds: state.user.base.followHimIds ? state.user.base.followHimIds.filter(p => p !== action.payload.currentUserId) : [],
+          }
+        }
       };
 
     default: {

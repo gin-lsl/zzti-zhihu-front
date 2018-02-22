@@ -15,7 +15,6 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class UserMainPageComponent implements OnInit, OnDestroy {
 
-  @Input()
   public user$: Observable<User>;
 
   private paramMapSubscription: Subscription;

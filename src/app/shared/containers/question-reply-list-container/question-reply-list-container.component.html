@@ -1,0 +1,4 @@
+<div class="QuestionReplyListContainer">
+  <app-question-reply-list [replies]="replies$ | async"
+                           (submitComment)="onSubmitComment($event)"></app-question-reply-list>
+</div>

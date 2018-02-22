@@ -1,0 +1,29 @@
+<div class="UserModifyPage">
+  <mat-form-field>
+    <input matInput
+           placeholder="新的用户名"
+           [(ngModel)]="user.username"
+           name="user.username">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           [(ngModel)]="user.password"
+           name="user.password"
+           placeholder="新的密码">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           [(ngModel)]="user.passwordRepeat"
+           name="user.passwordRepeat"
+           placeholder="重复新的密码">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           [(ngModel)]="user.profile"
+           name="user.profile"
+           placeholder="新的介绍">
+  </mat-form-field>
+  <button mat-raised-button
+          color="primary"
+          (click)="onSubmit()">提交更改</button>
+</div>

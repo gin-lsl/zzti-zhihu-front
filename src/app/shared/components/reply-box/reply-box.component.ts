@@ -27,7 +27,11 @@ export class ReplyBoxComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    if (!this.content) {
+      return;
+    }
     this.submit.emit(this.content);
+    this.content = '';
   }
 
 }

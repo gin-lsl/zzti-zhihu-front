@@ -34,6 +34,11 @@ import { QuestionAnswerListComponent } from './components/question-answer-list/q
 import { TopNavContainerComponent } from './containers/top-nav-container/top-nav-container.component';
 import { VotecellComponent } from './components/votecell/votecell.component';
 import { ReplyBoxComponent } from './components/reply-box/reply-box.component';
+import { QuestionCommentComponent } from './components/question-comment/question-comment.component';
+import { QuestionReplyListComponent } from './components/question-reply-list/question-reply-list.component';
+import { QuestionCommentContainerComponent } from './containers/question-comment-container/question-comment-container.component';
+import { QuestionReplyListContainerComponent } from './containers/question-reply-list-container/question-reply-list-container.component';
+import { QuestionReplyItemComponent } from './components/question-reply-item/question-reply-item.component';
 
 /**
  * Material 模块
@@ -67,9 +72,14 @@ const components = [
   NewQuestionBoxComponent,
   QuestionAnswerCardComponent,
   QuestionAnswerListComponent,
-  TopNavContainerComponent,
   VotecellComponent,
   ReplyBoxComponent,
+  QuestionCommentComponent,
+  QuestionReplyListComponent,
+  QuestionCommentContainerComponent,
+  QuestionReplyListContainerComponent,
+  QuestionReplyItemComponent,
+  TopNavContainerComponent,
 ];
 
 @NgModule({

@@ -10,7 +10,17 @@ export enum UserActionTypesEnum {
   Load = '[User] Load',
   LoadSuccess = '[User] LoadSuccess',
   LoadFailure = '[User] LoadFailure',
-  ChangePostedSort = '[User] Change Posted Sort',
+
+  ChangePostedQuestionsSort = '[User] Change Posted Questions Sort',
+  ChangePostedRepliesSort = '[User] Change Posted Replies Sort',
+
+  Follow = '[User] Follow',
+  FollowSuccess = '[User] Follow Success',
+  FollowFailure = '[User] Follow Failure',
+
+  CancelFollow = '[User] Cancel Follow',
+  CancelFollowSuccess = '[User] Cancel Follow Success',
+  CancelFollowFailure = '[User] Cancel Follow Failure',
 }
 
 export class SignIn implements Action {
@@ -51,9 +61,44 @@ export class LoadFailure implements Action {
   constructor(public payload: any) { }
 }
 
-export class ChangePostedSort implements Action {
-  readonly type = UserActionTypesEnum.ChangePostedSort;
+export class ChangePostedQuestionsSort implements Action {
+  readonly type = UserActionTypesEnum.ChangePostedQuestionsSort;
   constructor(public payload: 'NEWER_TO_OLDER' | 'OLDER_TO_NEWER' | 'AGREE') { }
+}
+
+export class ChangePostedRepliesSort implements Action {
+  readonly type = UserActionTypesEnum.ChangePostedRepliesSort;
+  constructor(public payload: 'NEWER_TO_OLDER' | 'OLDER_TO_NEWER' | 'AGREE') { }
+}
+
+export class Follow implements Action {
+  readonly type = UserActionTypesEnum.Follow;
+  constructor(public payload: string) { }
+}
+
+export class FollowSuccess implements Action {
+  readonly type = UserActionTypesEnum.FollowSuccess;
+  constructor(public payload: any) { }
+}
+
+export class FollowFailure implements Action {
+  readonly type = UserActionTypesEnum.FollowFailure;
+  constructor(public payload: ResponseError) { }
+}
+
+export class CancelFollow implements Action {
+  readonly type = UserActionTypesEnum.CancelFollow;
+  constructor(public payload: string) { }
+}
+
+export class CancelFollowSuccess implements Action {
+  readonly type = UserActionTypesEnum.CancelFollowSuccess;
+  constructor(public payload: any) { }
+}
+
+export class CancelFollowFailure implements Action {
+  readonly type = UserActionTypesEnum.CancelFollowFailure;
+  constructor(public payload: ResponseError) { }
 }
 
 export type UserActions
@@ -65,4 +110,9 @@ export type UserActions
   | Load
   | LoadSuccess
   | LoadFailure
-  | ChangePostedSort;
+  | ChangePostedQuestionsSort
+  | ChangePostedRepliesSort
+  | Follow
+  | FollowSuccess
+  | CancelFollow
+  | CancelFollowSuccess;

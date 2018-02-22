@@ -1,0 +1,42 @@
+<div class="QuestionComment">
+  <!-- <pre>{{ commentList | json }}</pre> -->
+  <mat-card class="CommentList">
+    <mat-card-header>
+      <div class="CommentList__header-wrapper">
+        <h5>{{ commentList?.length }} 条评论</h5>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="CommentItem m1"
+           *ngFor="let comment of commentList">
+        <div class="CommentItem__user mb05">
+          <div class="CommentItem__user-avatar">
+            <a [routerLink]="['/user/', comment?.userId]">
+              <img src="http://placehold.it/25x25"
+                   alt="xxx">
+            </a>
+          </div>
+          <div class="CommentItem__user-name ml1">{{ comment?.user?.username }}</div>
+        </div>
+        <div class="CommentItem__content mb05">{{ comment?.content }}</div>
+      </div>
+    </mat-card-content>
+    <mat-card-footer class="w100per m0">
+      <div class="CommentList__editor-wrapper">
+        <mat-form-field class="w100per ml1 mr1"
+                        style="flex-grow: 1;">
+          <input matInput
+                 (keyup.enter)="onSubmit()"
+                 [(ngModel)]="content"
+                 name="content"
+                 type="text"
+                 placeholder="添加评论">
+        </mat-form-field>
+        <button mat-raised-button
+                (click)="onSubmit()"
+                color="primary"
+                style="height: 40px;">评论</button>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</div>

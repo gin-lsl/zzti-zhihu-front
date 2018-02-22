@@ -7,14 +7,14 @@ export interface State extends EntityState<Question> {
 }
 
 export const adapter: EntityAdapter<Question> = createEntityAdapter<Question>({
-  sortComparer: false
+  sortComparer: false,
 });
 
-export const initailState: State = adapter.getInitialState({
+export const initialState: State = adapter.getInitialState({
   currentQuestionId: null,
 });
 
-export function reducer(state = initailState, action: QuestionActions): State {
+export function reducer(state = initialState, action: QuestionActions): State {
   switch (action.type) {
 
     case QuestionActionTypesEnum.LoadSuccess:

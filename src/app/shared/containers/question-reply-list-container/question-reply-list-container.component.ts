@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ReplyList } from '../../../utils/index';
 import * as replyAction from '../../../ngrx/reply/actions/reply.action';
+import * as commentAction from '../../../ngrx/comment/actions/comment.action';
 import * as fromReplyModule from '../../../ngrx/reply/reducers/index';
 
 @Component({
@@ -14,7 +15,9 @@ export class QuestionReplyListContainerComponent {
 
   public replies$: Observable<ReplyList>;
 
-  constructor(private _store: Store<fromReplyModule.State>) {
+  constructor(
+    private _store: Store<fromReplyModule.State>,
+  ) {
     this.replies$ = _store.select(fromReplyModule.getRepliesByCurrentSelectQuestionId);
   }
 

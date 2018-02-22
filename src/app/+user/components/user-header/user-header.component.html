@@ -1,25 +1,34 @@
 <div class="UserHeader">
   <mat-card>
     <mat-card-header>
-      <!-- <div mat-card-avatar
-           style="background: url(http://temp.im/100x100)"></div> -->
       <mat-card-title-group class="UserHeader__avatar m0">
+        <input #inputAvatar
+               hidden
+               type="file"
+               name="avatar"
+               id="avatar"
+               (change)="onChangeAvatar($event)">
         <img mat-lg-image
+             (click)="inputAvatar.click()"
              src="http://temp.im/100x100"
              alt="avatar">
       </mat-card-title-group>
       <mat-card-title-group class="UserHeader__profile m0">
         <mat-card-title>
-          <h2>荷兰酒</h2>
+          <h2>{{ user?.username }}</h2>
         </mat-card-title>
-        <mat-card-subtitle>好,支持,有希望了xxxxxxxxxxxxx</mat-card-subtitle>
+        <mat-card-subtitle>{{ user?.profile }}</mat-card-subtitle>
+        <div>
+          <span>{{ user | json }}</span>
+          <button *ngIf="user && !user.isSelf"
+                  mat-raised-button
+                  [color]="(user.hasFollowHim) ? 'default' : 'accent'"
+                  (click)="onToggleFollow(user.hasFollowHim)">{{ (user.hasFollowHim) ? '取消关注' : '关注用户' }}</button>
+        </div>
       </mat-card-title-group>
       <!-- <mat-card-title-group>
       </mat-card-title-group> -->
     </mat-card-header>
 
   </mat-card>
-  <!-- <div>
-    <img src="http://placehold.it/1152x200" alt="">
-  </div> -->
 </div>

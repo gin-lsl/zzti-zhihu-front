@@ -12,7 +12,7 @@
         <div class="List__header">
           <h3>我的回答</h3>
         </div>
-        <app-question-answer-list></app-question-answer-list>
+        <app-question-reply-list [replies]="myPostReplies$ | async"></app-question-reply-list>
       </mat-tab>
       <mat-tab label="提问">
         <div class="List__header">
