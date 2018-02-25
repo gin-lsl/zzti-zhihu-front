@@ -1,4 +1,7 @@
-<div class="RecommendList mt05">
+<div class="RecommendList mt05"
+     *ngIf="questions && questions.length"
+     infiniteScroll
+     (scrolled)="onScroll()">
   <article *ngFor="let question of questions"
            class="RecommendCard mb05">
     <mat-card>

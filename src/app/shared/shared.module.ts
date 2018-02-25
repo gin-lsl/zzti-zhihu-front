@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
   MatButtonModule,
@@ -24,6 +24,7 @@ import {
 } from '@angular/material';
 
 import { QuillModule } from 'ngx-quill';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { TopNavComponent } from './components/top-nav/top-nav.component';
 import { CommonOperationComponent } from './components/common-operation/common-operation.component';
@@ -90,6 +91,7 @@ const components = [
     FormsModule,
     ReactiveFormsModule,
     QuillModule,
+    InfiniteScrollModule,
     ...materialModules,
   ],
   declarations: [
@@ -104,6 +106,7 @@ const components = [
     FormsModule,
     ReactiveFormsModule,
     QuillModule,
+    InfiniteScrollModule,
     ...materialModules,
     ...components,
   ]

@@ -19,7 +19,7 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new questionAction.Load(10));
+    this.store.dispatch(new questionAction.Load(0));
   }
 
   public onUpOrCancelQuestion(payload: QuestionActionPayload): void {
@@ -32,6 +32,10 @@ export class HomePageComponent implements OnInit {
 
   public onLikeOrUnlikeQuestion(payload: QuestionActionPayload): void {
     this.store.dispatch(payload.isTrue ? new questionAction.Like(payload.id) : new questionAction.UnLike(payload.id));
+  }
+
+  public loadMoreQuestions(count: number): void {
+    this.store.dispatch(new questionAction.Load(count));
   }
 
 }

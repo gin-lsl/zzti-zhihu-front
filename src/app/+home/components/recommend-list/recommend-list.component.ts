@@ -46,6 +46,12 @@ export class RecommendListComponent implements OnInit {
   @Output()
   public likeOrUnlikeAction: EventEmitter<QuestionActionPayload> = new EventEmitter();
 
+  /**
+   * 加载更多
+   */
+  @Output()
+  public loadMoreAction: EventEmitter<number> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
@@ -76,6 +82,10 @@ export class RecommendListComponent implements OnInit {
    */
   public onLikeOrUnlikeQuestion(id: string, isLike: boolean): void {
     this.likeOrUnlikeAction.emit({ id, isTrue: isLike });
+  }
+
+  public onScroll(): void {
+    this.loadMoreAction.emit((this.questions.length || 0));
   }
 
 }

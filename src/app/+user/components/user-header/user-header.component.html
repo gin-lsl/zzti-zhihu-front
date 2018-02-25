@@ -2,16 +2,22 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title-group class="UserHeader__avatar m0">
-        <input #inputAvatar
-               hidden
-               type="file"
-               name="avatar"
-               id="avatar"
-               (change)="onChangeAvatar($event)">
         <img mat-lg-image
              (click)="inputAvatar.click()"
              src="http://temp.im/100x100"
              alt="avatar">
+        <div class="FORM_HIDDEN_AVATAR_UPLOAD">
+          <form #formAvatar
+                method="POST"
+                enctype="multipart/form-data">
+            <input #inputAvatar
+                   hidden
+                   type="file"
+                   name="avatar"
+                   id="avatar"
+                   (change)="onChangeAvatar(formAvatar)">
+          </form>
+        </div>
       </mat-card-title-group>
       <mat-card-title-group class="UserHeader__profile m0">
         <mat-card-title>

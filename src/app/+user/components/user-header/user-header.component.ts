@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { User } from '../../../utils/index';
+import { User, API_HOST, parseUserStorage, API } from '../../../utils/index';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-header',
@@ -14,7 +15,7 @@ export class UserHeaderComponent implements OnInit {
   @Output()
   public follow: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor(private _httpClient: HttpClient) { }
 
   ngOnInit() {
   }
@@ -27,8 +28,15 @@ export class UserHeaderComponent implements OnInit {
     });
   }
 
-  public onChangeAvatar(event: any): void {
-    console.log('event: ', event);
+  onChangeAvatar(form: HTMLFormElement): void {
+    const formData = new FormData(form);
+    const user = parseUserStorage();
+    this._httpClient.post<API>(API_HOST + '/users/modify-avatar', formData, {
+      headers: new HttpHeaders().append('Authorization', user ? user.access_token : null)
+    })
+      .subscribe(res => {
+        console.log('res: ', res);
+      });
   }
 
 }

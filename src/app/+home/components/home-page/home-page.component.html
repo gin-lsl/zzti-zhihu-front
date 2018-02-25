@@ -4,7 +4,8 @@
     <app-recommend-list [questions]="questions$ | async"
                         (upOrCancelAction)="onUpOrCancelQuestion($event)"
                         (downOrCancelAction)="onDownOrCancelQuestion($event)"
-                        (likeOrUnlikeAction)="onLikeOrUnlikeQuestion($event)"></app-recommend-list>
+                        (likeOrUnlikeAction)="onLikeOrUnlikeQuestion($event)"
+                        (loadMoreAction)="loadMoreQuestions($event)"></app-recommend-list>
   </main>
   <aside class="Home-page__aside ml05">
     <app-my-service-card></app-my-service-card>

@@ -19,7 +19,7 @@ export function reducer(state = initialState, action: QuestionActions): State {
 
     case QuestionActionTypesEnum.LoadSuccess:
       return {
-        ...adapter.addAll(action.payload.map(item => ({ ...item, id: item._id })), state),
+        ...adapter.addMany(action.payload.map(item => ({ ...item, id: item._id })), state),
         currentQuestionId: null,
       };
 

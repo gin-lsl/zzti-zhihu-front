@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Action, Store } from '@ngrx/store';
 import { Actions, Effect } from '@ngrx/effects';
 import 'rxjs/add/observable/of';
@@ -34,10 +34,12 @@ export class QuestionEffects {
   @Effect()
   loadMany$: Observable<Action> = this._actions$
     .ofType(questionAction.QuestionActionTypesEnum.Load)
-    .map((action: questionAction.Load) => action.payload)
+    .map((action: questionAction.Load) => action.payload as string)
     .exhaustMap(_ => (
       this._httpClient
-        .get(this.apiLoad)
+        .get(this.apiLoad, {
+          params: new HttpParams().append('count', _)
+        })
         .map((data: API) => (
           data.success
             ? new questionAction.LoadSuccess(data.successResult)

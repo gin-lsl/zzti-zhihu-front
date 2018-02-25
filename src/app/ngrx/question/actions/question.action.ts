@@ -40,11 +40,9 @@ export enum QuestionActionTypesEnum {
 export class Load implements Action {
   readonly type = QuestionActionTypesEnum.Load;
   /**
-   * @todo 此方法需要完善
-   *
    * @param payload 条目数
    */
-  constructor(public payload?: number) { }
+  constructor(public payload?: number | string) { }
 }
 
 export class Loading implements Action {
