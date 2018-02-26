@@ -28,6 +28,8 @@ export class QuestionPageComponent implements OnInit {
 
   public replies$: Observable<any>;
 
+  public relates$: Observable<any>;
+
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _httpClient: HttpClient,
@@ -39,12 +41,13 @@ export class QuestionPageComponent implements OnInit {
       .select(fromQuestion.getCurrentSelectQuestion)
       .subscribe(q => {
         this.question = q;
+        if (q) {
+          this._store.dispatch(new questionAction.LoadRelates({ like: q.title, excludeId: q.id }));
+        }
         console.log('question: ', q);
       });
     this.replies$ = this._store.select(fromReply.getRepliesByCurrentSelectQuestionId);
-    // .subscribe(replies => {
-    //   console.log('replies: ', replies);
-    // });
+    this.relates$ = this._store.select(fromQuestion.getRelates);
     this._activatedRoute
       .paramMap
       // .map(p => this._httpClient.get(`http://localhost:3000/questions/${p.get('id')}`))

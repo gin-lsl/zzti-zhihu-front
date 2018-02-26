@@ -1,28 +1,40 @@
 <div class="QuestionPage"
      *ngIf="question">
-  <div class="QuestionPage__header">
-    <h2>{{ question.title }}</h2>
-    <hr>
-  </div>
-  <div class="QuestionPage__body">
-    <div class="QuestionPage__main">
-      <app-question-detail-description [question]="question"></app-question-detail-description>
-      <!-- <app-question-answer-list [answers]="replies$ | async"></app-question-answer-list> -->
-      <app-question-reply-list-container></app-question-reply-list-container>
-      <app-reply-box (submit)="onSubmitReply($event)"></app-reply-box>
-    </div>
-    <div class="QuestionPage__sidebar">
-      <div class="QuestionPage__profiles">
-        <p>提问:
-          <span>{{ question.postDateTime }}</span>
-        </p>
-        <p>访问:
-          <span>{{ question.upCount }}</span>
-        </p>
-        <p>编辑:
-          <span>{{ 11 }} months ago </span>
-        </p>
+  <mat-card>
+    <mat-card-header>
+      <div class="QuestionPage__header">
+        <h2>{{ question.title }}</h2>
+        <hr>
       </div>
-    </div>
-  </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="QuestionPage__body">
+        <div class="QuestionPage__main">
+          <app-question-detail-description [question]="question"></app-question-detail-description>
+          <!-- <app-question-answer-list [answers]="replies$ | async"></app-question-answer-list> -->
+          <app-question-reply-list-container></app-question-reply-list-container>
+          <app-reply-box (submit)="onSubmitReply($event)"></app-reply-box>
+        </div>
+        <div class="QuestionPage__sidebar">
+          <div class="QuestionPage__profiles">
+            <p>提问:
+              <span>{{ question.postDateTime }}</span>
+            </p>
+            <p>访问:
+              <span>{{ question.upCount }}</span>
+            </p>
+            <p>编辑:
+              <span>{{ 11 }} months ago </span>
+            </p>
+          </div>
+          <div class="QuestionPage__relates">
+            <div class="QuestionPage__relates-item"
+                 *ngFor="let relate of relates$ | async">
+              <a [routerLink]="['/question', relate.id]">{{ relate.title }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

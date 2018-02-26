@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { ResponseError } from '../../../utils/index';
 
 interface QuestionAndUser {
   questionId: string;
@@ -14,6 +15,10 @@ export enum QuestionActionTypesEnum {
   LoadOne = '[Question] Load One',
   LoadOneSuccess = '[Question] Load One Success',
   LoadOneFailure = '[Question] Load One Failure',
+
+  LoadRelates = '[Question] Load Relates',
+  LoadRelatesSuccess = '[Question] Load Relates Success',
+  LoadRelatesFailure = '[Question] Load Relates Failure',
 
   Up = '[Question] Up',
   UpSuccess = '[Question] Up Success',
@@ -83,6 +88,21 @@ export class LoadOneSuccess implements Action {
 export class LoadOneFailure implements Action {
   readonly type = QuestionActionTypesEnum.LoadOneFailure;
   constructor(public paylaod: any) { }
+}
+
+export class LoadRelates implements Action {
+  readonly type = QuestionActionTypesEnum.LoadRelates;
+  constructor(public payload: any) { }
+}
+
+export class LoadRelatesSuccess implements Action {
+  readonly type = QuestionActionTypesEnum.LoadRelatesSuccess;
+  constructor(public payload: any) { }
+}
+
+export class LoadRelatesFailure implements Action {
+  readonly type = QuestionActionTypesEnum.LoadRelatesFailure;
+  constructor(public payload: ResponseError) { }
 }
 
 export class Up implements Action {
@@ -202,6 +222,10 @@ export type QuestionActions
   | LoadOne
   | LoadOneSuccess
   | LoadOneFailure
+
+  | LoadRelates
+  | LoadRelatesSuccess
+  | LoadRelatesFailure
 
   | Up
   | UpSuccess

@@ -18,6 +18,7 @@ import { API, ResponseError, parseUserStorage, ErrorCodeEnum, API_HOST, NO_AUTH_
 export class QuestionEffects {
 
   private readonly apiLoad: string = API_HOST + '/questions';
+  private readonly apiRelate: string = API_HOST + '/questions/relate';
 
   private readonly apiUp: string = API_HOST + '/questions/up/';
   private readonly apiCancelUp: string = API_HOST + '/questions/cancel-up/';
@@ -32,27 +33,47 @@ export class QuestionEffects {
    * 加载多条问题信息
    */
   @Effect()
-  loadMany$: Observable<Action> = this._actions$
+  LoadMany$: Observable<Action> = this._actions$
     .ofType(questionAction.QuestionActionTypesEnum.Load)
     .map((action: questionAction.Load) => action.payload as string)
     .exhaustMap(_ => (
       this._httpClient
-        .get(this.apiLoad, {
+        .get<API>(this.apiLoad, {
           params: new HttpParams().append('count', _)
         })
-        .map((data: API) => (
+        .map(data => (
           data.success
             ? new questionAction.LoadSuccess(data.successResult)
             : new questionAction.LoadFailure(new ResponseError(data.errorCode, data.errorMessage))
         ))
-        .catch((error) => Observable.of(new questionAction.LoadFailure(ResponseError.UNDEFINED_ERROR)))
+        .catch(error => Observable.of(new questionAction.LoadFailure(ResponseError.UNDEFINED_ERROR)))
+    ));
+
+  /**
+   * 加载跟此问题相似的问题
+   */
+  @Effect()
+  LoadRelates$: Observable<Action> = this._actions$
+    .ofType(questionAction.QuestionActionTypesEnum.LoadRelates)
+    .map((action: questionAction.LoadRelates) => action.payload)
+    .exhaustMap(_ => (
+      this._httpClient
+        .get<API>(this.apiRelate, {
+          params: new HttpParams().append('excludeId', _.excludeId).append('like', _.like)
+        })
+        .map(data => (
+          data.success
+            ? new questionAction.LoadRelatesSuccess(data.successResult)
+            : new questionAction.LoadRelatesFailure(new ResponseError(data.errorCode, data.errorMessage))
+        ))
+        .catch(error => Observable.of(new questionAction.LoadRelatesFailure(ResponseError.UNDEFINED_ERROR)))
     ));
 
   /**
    * 点赞
    */
   @Effect()
-  up$: Observable<Action> = this._actions$
+  Up$: Observable<Action> = this._actions$
     .ofType(questionAction.QuestionActionTypesEnum.Up)
     .map((action: questionAction.Up) => action.payload)
     .exhaustMap(id => {
@@ -80,7 +101,7 @@ export class QuestionEffects {
    * 取消点赞
    */
   @Effect()
-  cancelUp$: Observable<Action> = this._actions$
+  CancelUp$: Observable<Action> = this._actions$
     .ofType(questionAction.QuestionActionTypesEnum.CancelUp)
     .map((action: questionAction.CancelUp) => action.payload)
     .exhaustMap(id => {
@@ -109,7 +130,7 @@ export class QuestionEffects {
    * 反对
    */
   @Effect()
-  down$: Observable<Action> = this._actions$
+  Down$: Observable<Action> = this._actions$
     .ofType(questionAction.QuestionActionTypesEnum.Down)
     .map((action: questionAction.Down) => action.payload)
     .exhaustMap(id => {
@@ -137,7 +158,7 @@ export class QuestionEffects {
    * 取消反对
    */
   @Effect()
-  cancelDown$: Observable<Action> = this._actions$
+  CancelDown$: Observable<Action> = this._actions$
     .ofType(questionAction.QuestionActionTypesEnum.CancelDown)
     .map((action: questionAction.CancelDown) => action.payload)
     .exhaustMap(id => {
@@ -166,7 +187,7 @@ export class QuestionEffects {
    * 收藏
    */
   @Effect()
-  like$: Observable<Action> = this._actions$
+  Like$: Observable<Action> = this._actions$
     .ofType(questionAction.QuestionActionTypesEnum.Like)
     .map((action: questionAction.Like) => action.payload)
     .exhaustMap(id => {
@@ -194,7 +215,7 @@ export class QuestionEffects {
    * 取消收藏
    */
   @Effect()
-  unLike$: Observable<Action> = this._actions$
+  UnLike$: Observable<Action> = this._actions$
     .ofType(questionAction.QuestionActionTypesEnum.UnLike)
     .map((action: questionAction.UnLike) => action.payload)
     .exhaustMap(id => {
@@ -222,7 +243,7 @@ export class QuestionEffects {
    * 加载某个问题信息
    */
   @Effect()
-  loadOne$: Observable<Action> = this._actions$
+  LoadOne$: Observable<Action> = this._actions$
     .ofType(questionAction.QuestionActionTypesEnum.LoadOne)
     .map((action: questionAction.LoadOne) => action.payload)
     .exhaustMap(payload => {

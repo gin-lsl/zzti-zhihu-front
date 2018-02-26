@@ -4,6 +4,7 @@ import { Question } from '../../../utils/index';
 
 export interface State extends EntityState<Question> {
   currentQuestionId: string | null;
+  relates: Array<any> | null;
 }
 
 export const adapter: EntityAdapter<Question> = createEntityAdapter<Question>({
@@ -12,6 +13,7 @@ export const adapter: EntityAdapter<Question> = createEntityAdapter<Question>({
 
 export const initialState: State = adapter.getInitialState({
   currentQuestionId: null,
+  relates: [],
 });
 
 export function reducer(state = initialState, action: QuestionActions): State {
@@ -35,6 +37,12 @@ export function reducer(state = initialState, action: QuestionActions): State {
         currentQuestionId: action.payload.id,
       };
     }
+
+    case QuestionActionTypesEnum.LoadRelatesSuccess:
+      return {
+        ...state,
+        relates: action.payload
+      };
 
     case QuestionActionTypesEnum.UpSuccess: {
       const id = action.payload.questionId;
@@ -127,3 +135,4 @@ export function reducer(state = initialState, action: QuestionActions): State {
 }
 
 export const getCurrentQuestionId = (state: State) => state.currentQuestionId;
+export const getRelates = (state: State) => state.relates;

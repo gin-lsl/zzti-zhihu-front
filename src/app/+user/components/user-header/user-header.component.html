@@ -2,9 +2,12 @@
   <mat-card>
     <mat-card-header>
       <mat-card-title-group class="UserHeader__avatar m0">
+        <!-- http://temp.im/100x100 -->
         <img mat-lg-image
+             width="100"
+             height="100"
              (click)="inputAvatar.click()"
-             src="http://temp.im/100x100"
+             [src]="'http://localhost:3000/users/avatar/' + user.avatar"
              alt="avatar">
         <div class="FORM_HIDDEN_AVATAR_UPLOAD">
           <form #formAvatar
@@ -25,7 +28,6 @@
         </mat-card-title>
         <mat-card-subtitle>{{ user?.profile }}</mat-card-subtitle>
         <div>
-          <span>{{ user | json }}</span>
           <button *ngIf="user && !user.isSelf"
                   mat-raised-button
                   [color]="(user.hasFollowHim) ? 'default' : 'accent'"

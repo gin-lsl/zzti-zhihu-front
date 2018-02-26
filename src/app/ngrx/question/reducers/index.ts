@@ -43,7 +43,7 @@ export const getCurrentSelectQuestion = cs(
   getQuestionEntities,
   getCurrentSelectQuestionId,
   (entities, currId) => {
-    console.log('entities: ', entities  );
+    console.log('entities: ', entities);
     return entities[currId];
   }
 );
@@ -63,4 +63,12 @@ export const getLoadedQuestions = cs(
         downCount: s.downUserIds ? s.downUserIds.length : 0,
       }));
   },
+);
+
+/**
+ * 获取相关问题信息
+ */
+export const getRelates = cs(
+  getQuestionEntitiesState,
+  state => state.relates,
 );
