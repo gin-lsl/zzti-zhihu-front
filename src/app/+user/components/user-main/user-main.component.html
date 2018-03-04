@@ -1,22 +1,22 @@
 <div class="UserMain">
   <mat-card class="p0">
-    <mat-tab-group>
+    <mat-tab-group [selectedIndex]="selectedIndex">
       <mat-tab label="动态">
         <div class="List__header">
-          <h3>我的动态</h3>
+          <div class="is-active">我的动态</div>
         </div>
         <!-- <div>{{ myPostQuestions$ | async | json }}</div> -->
-        <app-question-answer-list></app-question-answer-list>
+        <app-question-answer-list [answers]="myActivities$ | async"></app-question-answer-list>
       </mat-tab>
       <mat-tab label="回答">
         <div class="List__header">
-          <h3>我的回答</h3>
+          <div class="is-active">我的回答</div>
         </div>
-        <app-question-reply-list [replies]="myPostReplies$ | async"></app-question-reply-list>
+        <app-question-reply-list [replies]="myPostedReplies$ | async"></app-question-reply-list>
       </mat-tab>
       <mat-tab label="提问">
-        <div class="List__header">
-          <h3>我的提问</h3>
+        <div class="List__header List__header--has-select">
+          <div class="is-active">我的提问</div>
           <mat-form-field class="w-auto">
             <mat-select value="NEWER_TO_OLDER"
                         (valueChange)="onMyPostQuestionSortChange($event)">
@@ -26,19 +26,50 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <app-question-answer-list [answers]="myPostQuestions$ | async"></app-question-answer-list>
+        <app-question-answer-list [answers]="myPostedQuestions$ | async"></app-question-answer-list>
       </mat-tab>
       <mat-tab label="收藏">
         <div class="List__header">
-          <h3>我收藏的</h3>
+          <div class="is-active">我收藏的</div>
         </div>
-        <app-question-answer-list></app-question-answer-list>
+        <div class="List__saved-questions mb1">
+          <div class="List__saved-question"
+               [class.List__saved-question--not-found]="sq.notFound"
+               *ngFor="let sq of mySavedQuestions$ | async">
+            <a [routerLink]="['/question', sq.id]"
+               *ngIf="!sq.notFound">{{ sq.title }}</a>
+            <a *ngIf="sq.notFound">{{ sq.title }}</a>
+          </div>
+        </div>
+        <!-- <app-question-answer-list [answers]="mySavedQuestions$ | async"></app-question-answer-list> -->
       </mat-tab>
       <mat-tab label="关注">
         <div class="List__header">
-          <h3>我关注的</h3>
+          <span class="List__sub-header"
+                [ngClass]="{ 'is-active': followIndex === 0 }"
+                (click)="changeFollowPaneIndex(0)">我关注的</span>
+          <span class="List__sub-header"
+                [ngClass]="{ 'is-active': followIndex === 1 }"
+                (click)="changeFollowPaneIndex(1)">关注我的</span>
         </div>
-        <app-question-answer-list></app-question-answer-list>
+        <div *ngFor="let u of (userBase$ | async)[followIndex === 0 ? 'followHimUsers' : 'hisFollowUsers']">
+          <mat-card>
+            <mat-card-header>
+              <div mat-card-avatar
+                   style="background-image: url('/users/avatar/{{u.avatar}}')"></div>
+              <mat-card-title>
+                <a [routerLink]="['/user', u.id]"
+                   [title]="u.username">{{ u.username }}</a>
+              </mat-card-title>
+              <mat-card-subtitle>{{ u.profile }}</mat-card-subtitle>
+              <mat-card-subtitle>
+                <span>{{ u.followHimCount }} 人关注了Ta</span>
+                <span>Ta关注了 {{ u.hisFollowCount }} 人</span>
+              </mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+        </div>
+        <!-- <app-question-answer-list></app-question-answer-list> -->
       </mat-tab>
     </mat-tab-group>
   </mat-card>

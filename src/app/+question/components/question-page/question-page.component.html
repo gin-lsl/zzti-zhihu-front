@@ -1,21 +1,38 @@
 <div class="QuestionPage"
      *ngIf="question">
   <mat-card>
-    <mat-card-header>
-      <div class="QuestionPage__header">
+    <mat-card-content>
+      <div class="Question-detail-description__tags">
+        <mat-chip-list>
+          <mat-chip *ngFor="let tag of question.tags"
+                    selected="true"
+                    color="primary">{{ tag }}</mat-chip>
+        </mat-chip-list>
+      </div>
+    </mat-card-content>
+    <mat-card-content>
+      <div class="QuestionPage__header mb1">
         <h2>{{ question.title }}</h2>
         <hr>
       </div>
-    </mat-card-header>
+    </mat-card-content>
     <mat-card-content>
-      <div class="QuestionPage__body">
+      <div class="QuestionPage__body m1">
         <div class="QuestionPage__main">
           <app-question-detail-description [question]="question"></app-question-detail-description>
           <!-- <app-question-answer-list [answers]="replies$ | async"></app-question-answer-list> -->
-          <app-question-reply-list-container></app-question-reply-list-container>
-          <app-reply-box (submit)="onSubmitReply($event)"></app-reply-box>
         </div>
         <div class="QuestionPage__sidebar">
+          <mat-card class="QuestionPage__sidebar-user">
+            <mat-card-content>
+              <span>提问者信息:</span>
+            </mat-card-content>
+            <mat-card-header>
+              <div mat-card-avatar></div>
+              <mat-card-title>{{ question.user.username || '匿名用户' }}</mat-card-title>
+              <mat-card-subtitle>{{ question.user.profile }}</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
           <div class="QuestionPage__profiles">
             <p>提问:
               <span>{{ question.postDateTime }}</span>
@@ -28,12 +45,18 @@
             </p>
           </div>
           <div class="QuestionPage__relates">
+            <div class="QuestionPage__relates-header">相关问题</div>
             <div class="QuestionPage__relates-item"
                  *ngFor="let relate of relates$ | async">
-              <a [routerLink]="['/question', relate.id]">{{ relate.title }}</a>
+              <a [routerLink]="['/question', relate.id]"
+                 [title]="relate.title">{{ relate.title }}</a>
             </div>
           </div>
         </div>
+      </div>
+      <div class="QuestionPage__reply">
+        <app-question-reply-list-container></app-question-reply-list-container>
+        <app-reply-box (submit)="onSubmitReply($event)"></app-reply-box>
       </div>
     </mat-card-content>
   </mat-card>

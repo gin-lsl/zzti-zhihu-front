@@ -14,6 +14,8 @@
                formControlName="password"
                placeholder="Password">
       </mat-form-field>
+      <div *ngIf="errorMessage"
+           class="has-error">{{ errorMessage }}</div>
       <div class="mb1 btn-submit">
         <button mat-raised-button
                 class="w100per"

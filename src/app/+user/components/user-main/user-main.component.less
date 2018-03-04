@@ -1,5 +1,31 @@
 .List__header {
   display: flex;
-  justify-content: space-between;
+  height: 3rem;
+  justify-content: flex-start;
+  align-items: center;
   padding: 0 1.15rem;
+  cursor: pointer;
+  &.List__header--has-select {
+    justify-content: space-between;
+  }
+  .List__sub-header {
+    display: flex;
+    width: 100px;
+    text-align: center;
+  }
+  .is-active {
+    font-weight: bolder;
+  }
+}
+
+.List__saved-questions {
+  padding: 0 1.15rem;
+  .List__saved-question {
+    height: 28px;
+    line-height: 28px;
+    &.List__saved-question--not-found {
+      color: grey;
+      font-style: italic;
+    }
+  }
 }

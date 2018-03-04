@@ -15,11 +15,7 @@
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: local('Material Icons'),
-       local('MaterialIcons-Regular'),
-       url(/assets/fonts/MaterialIcons-Regular.woff2) format('woff2'),
-       url(/assets/fonts/MaterialIcons-Regular.woff) format('woff'),
-       url(/assets/fonts/MaterialIcons-Regular.ttf) format('truetype');
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(/assets/fonts/MaterialIcons-Regular.woff2) format('woff2'), url(/assets/fonts/MaterialIcons-Regular.woff) format('woff'), url(/assets/fonts/MaterialIcons-Regular.ttf) format('truetype');
 }
 
 body .material-icons {
@@ -35,7 +31,6 @@ body .material-icons {
   white-space: nowrap;
   direction: ltr;
   width: 1.5rem;
-
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
   /* Support for Safari and Chrome. */
@@ -132,6 +127,13 @@ body {
   .w-auto {
     width: auto;
   }
+  .has-error {
+    color: red;
+  }
+  em {
+    // 搜索高亮
+    color: black;
+  }
 }
 
 body {
@@ -146,11 +148,14 @@ body {
     color: black;
     background: #eaeaea;
     padding: 0.5rem;
-    overflow: scroll;
+    overflow: auto;
   }
   a.highlight-link:hover,
   .highlight-link a:hover {
     text-decoration: underline;
+  }
+  .TopNav__auto-complete--popover {
+    height: 400px;
   }
 }
 
@@ -164,8 +169,7 @@ a {
 
 ::-webkit-scrollbar {
   width: 7px;
-  height: 7px;
-  // background: lightgrey;
+  height: 7px; // background: lightgrey;
 }
 
 ::-webkit-scrollbar-thumb {

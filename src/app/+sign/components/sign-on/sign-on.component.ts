@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 export class SignOnComponent {
 
   public email: string;
+
+  @Input()
+  public errorMessage: string;
 
   @Output()
   private submit: EventEmitter<string> = new EventEmitter();

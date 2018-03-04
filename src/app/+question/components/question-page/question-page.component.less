@@ -1,13 +1,52 @@
 .QuestionPage__body {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .QuestionPage__main {
-  flex-grow: 1;
-  margin-right: 3rem;
+  overflow: auto;
+}
+
+.QuestionPage__sidebar {
+  width: 100%;
 }
 
 .QuestionPage__relates {
-  width: 20rem;
+  padding: 0.5rem;
+  .QuestionPage__relates-header {
+    height: 30px;
+    font-size: large;
+    font-weight: 600;
+  }
+  .QuestionPage__relates-item {
+    height: 28px;
+    line-break: 28px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+mat-card.QuestionPage__sidebar-user {
+  box-shadow: none;
+  border: 1px solid lightgrey;
+  padding: 5px 0;
+  mat-card-content {
+    padding: 5px;
+    border-bottom: 1px solid lightgrey;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .QuestionPage__main {
+    width: 70%;
+    overflow: auto;
+  }
+  .QuestionPage__sidebar {
+    width: 27%;
+  }
+  .QuestionPage__reply {
+    width: 70%;
+  }
 }

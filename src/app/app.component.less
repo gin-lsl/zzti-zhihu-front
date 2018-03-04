@@ -3,6 +3,8 @@
 }
 
 .App__container {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 3.5rem;
   bottom: 0;
@@ -19,6 +21,7 @@
 }
 
 .App__body {
+  flex-grow: 1;
   padding: 1rem 20%;
 }
 
@@ -36,7 +39,7 @@
 
 .App__footer {
   height: 1rem;
-  margin-top: 5rem;
+  margin-top: 1rem;
   padding: 3.5rem;
   background-color: #FFFFFF;
   color: #9E9E9E;

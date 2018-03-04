@@ -29,6 +29,8 @@ export class QuestionEffects {
   private readonly apiLike: string = API_HOST + '/questions/like/';
   private readonly apiUnLike: string = API_HOST + '/questions/unlike/';
 
+  private readonly apiSearch: string = API_HOST + '/questions/search';
+
   /**
    * 加载多条问题信息
    */
@@ -263,6 +265,28 @@ export class QuestionEffects {
             return new questionAction.LoadOneFailure(new ResponseError(data.errorCode, data.errorMessage));
           }
         });
+    });
+
+  /**
+   * 搜索
+   */
+  @Effect()
+  Search$: Observable<Action> = this._actions$
+    .ofType(questionAction.QuestionActionTypesEnum.Search)
+    .map((action: questionAction.Search) => action.payload)
+    .exhaustMap(text => {
+      if (text.trim() === '') {
+        return Observable.of(new questionAction.SearchSuccess([]));
+      }
+      return this._httpClient
+        .get<API>(this.apiSearch, {
+          params: new HttpParams().append('search', text)
+        })
+        .map(data => (
+          data.success
+            ? new questionAction.SearchSuccess(data.successResult)
+            : new questionAction.SearchFailure(new ResponseError(data.errorCode, data.errorMessage))
+        ));
     });
 
   constructor(

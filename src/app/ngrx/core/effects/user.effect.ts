@@ -31,9 +31,9 @@ export class UserEffects {
     .map((action: userAction.Load) => action.payload)
     .exhaustMap(_ => {
       const user = parseUserStorage();
-      const headers = new HttpHeaders();
+      let headers = new HttpHeaders();
       if (user) {
-        headers.append('Authorization', user.access_token);
+        headers = headers.append('Authorization', user.access_token);
       }
       // this._userService.loadPlainUserInformation(_)
       return this._httpClient
@@ -49,6 +49,9 @@ export class UserEffects {
         });
     });
 
+  /**
+   * 关注用户
+   */
   @Effect()
   Follow$: Observable<Action> = this._actions$
     .ofType(userAction.UserActionTypesEnum.Follow)
@@ -72,6 +75,9 @@ export class UserEffects {
         });
     });
 
+  /**
+   * 取消关注
+   */
   @Effect()
   CancelFollow$: Observable<Action> = this._actions$
     .ofType(userAction.UserActionTypesEnum.CancelFollow)

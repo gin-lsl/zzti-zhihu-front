@@ -13,21 +13,34 @@ import * as userAction from '../../../ngrx/core/actions/user.action';
 })
 export class UserMainComponent implements OnInit {
 
-  public myPostQuestions$: Observable<any>;
+  public myPostedQuestions$: Observable<any>;
 
-  public myPostReplies$: Observable<any>;
+  public myPostedReplies$: Observable<any>;
+
+  public userBase$: Observable<any>;
+
+  public myActivities$: Observable<any>;
+
+  public mySavedQuestions$: Observable<any>;
+
+  public followIndex: number = 0;
+
+  public selectedIndex: number = 0;
 
   constructor(
     private httpClient: HttpClient,
     private store: Store<fromCoreModule.State>,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {
-    this.myPostQuestions$ = store.select(fromCoreModule.getUserPostedQuestions);
-    this.myPostReplies$ = store.select(fromCoreModule.getUserPostedReplies);
-    this.myPostQuestions$.subscribe(qs => {
+    this.myPostedQuestions$ = store.select(fromCoreModule.getUserPostedQuestions);
+    this.myPostedReplies$ = store.select(fromCoreModule.getUserPostedReplies);
+    this.userBase$ = store.select(fromCoreModule.getUserBase);
+    this.myActivities$ = store.select(fromCoreModule.getUserActivities);
+    this.mySavedQuestions$ = store.select(fromCoreModule.getUserSavedQuestions);
+    this.myPostedQuestions$.subscribe(qs => {
       console.log('qs: ', qs);
     });
-    this.myPostReplies$.subscribe(rs => {
+    this.myPostedReplies$.subscribe(rs => {
       console.log('rs: ', rs);
     });
   }
@@ -43,6 +56,10 @@ export class UserMainComponent implements OnInit {
   public onMyPostQuestionSortChange(newValue: string): void {
     console.log('newValue: ', newValue);
     this.store.dispatch(new userAction.ChangePostedQuestionsSort(newValue as any));
+  }
+
+  public changeFollowPaneIndex(index: number) {
+    this.followIndex = index;
   }
 
 }

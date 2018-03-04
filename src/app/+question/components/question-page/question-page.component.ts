@@ -44,44 +44,20 @@ export class QuestionPageComponent implements OnInit {
         if (q) {
           this._store.dispatch(new questionAction.LoadRelates({ like: q.title, excludeId: q.id }));
         }
-        console.log('question: ', q);
       });
     this.replies$ = this._store.select(fromReply.getRepliesByCurrentSelectQuestionId);
     this.relates$ = this._store.select(fromQuestion.getRelates);
     this._activatedRoute
       .paramMap
-      // .map(p => this._httpClient.get(`http://localhost:3000/questions/${p.get('id')}`))
-      // .subscribe(r => {
-      //   console.log('r: ', r);
-      //   r.subscribe(r1 => console.log('r1: ', r1));
-      // });
-      // .map(p => this._httpClient.get(`http://localhost:3000/questions/${p.get('id')}`))
-      // .switch()
-      // .subscribe(r => {
-      //   console.log('r: ', r);
-      // });
       .subscribe(params => {
         const questionId = params.get('id');
         this._store.dispatch(new questionAction.LoadOne(questionId, false));
         this._store.dispatch(new replyAction.Load(questionId));
         this._store.dispatch(new commentAction.Load(questionId));
       });
-    // .switchMap(p => this._httpClient.get(`http://localhost:3000/questions/${p.get('id')}`))
-    // .filter((p: any) => p.success)
-    // .subscribe((p: any) => this.question = p.successResult);
-    // .switchMap(p => this._httpClient.get(`http://localhost:3000/questions/${p.get('id')}`))
-    // .subscribe(r => {
-    //   console.log('p: ', r);
-    // });
-    // .map(p => p.get('id')).subscribe(p => {
-    //   this._httpClient
-    //     .get(`http://localhost:3000/questions/${p}`)
-    //     .subscribe(r => console.log(r));
-    // });
   }
 
   public onSubmitReply(content: any): void {
-    console.log('content: ', content);
     this._store.dispatch(new replyAction.Post({ questionId: this.question.id, content }));
   }
 

@@ -1,3 +1,13 @@
 <div class="SignOnResultPage">
-  我们给您的邮箱发送了一封激活邮件, 请点击邮件中的激活链接完成用户注册.
+  <div class="active active-email"
+       *ngIf="isEmailActiveKey">
+    我们给您的邮箱发送了一封激活邮件, 请点击邮件中的激活链接完成用户注册.
+  </div>
+  <div class="active"
+       *ngIf="!isEmailActiveKey">
+    <span>点击
+      <a [routerLink]="['/sign', 'active']"
+         [queryParams]="{key: key}">激活链接</a>
+      完成注册</span>
+  </div>
 </div>

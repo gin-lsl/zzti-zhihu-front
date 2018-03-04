@@ -37,9 +37,9 @@ export class AuthService {
    *
    * @param email 邮箱
    */
-  public signOn(email: string): Observable<API<ISignIn | User>> {
+  public signOn(email: string): Observable<API<string>> {
 
-    return (this._httpClient.post(this.apiSignOn, { email }) as Observable<API<ISignIn | User>>);
+    return this._httpClient.post(this.apiSignOn, { email }) as Observable<API<string>>;
   }
 
   /**

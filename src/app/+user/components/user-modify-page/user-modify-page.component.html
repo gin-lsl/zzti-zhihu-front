@@ -1,4 +1,5 @@
 <div class="UserModifyPage">
+  <div class="has-error">{{ apiMsg$ | async }}</div>
   <mat-form-field>
     <input matInput
            placeholder="新的用户名"
@@ -24,6 +25,9 @@
            placeholder="新的介绍">
   </mat-form-field>
   <button mat-raised-button
+          class="mb05"
           color="primary"
           (click)="onSubmit()">提交更改</button>
+  <button mat-raised-button
+          (click)="onCancel()">取消</button>
 </div>

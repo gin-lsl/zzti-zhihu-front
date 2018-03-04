@@ -1,16 +1,16 @@
 <div class="QuestionReplyItem">
   <article class="QuestionReplyList__item">
     <mat-card>
-      <mat-card-content *ngIf="reply?.aboutMe"
+      <mat-card-content *ngIf="reply?.activity"
                         class="about-me">
         <span>赞同了回答</span>
         <span>1个月前</span>
       </mat-card-content>
       <mat-card-header>
         <div mat-card-avatar
-             style="background: url(http://placehold.it/40x40)"></div>
+             [style.backgroundImage]="'url(' + reply?.user?.avatar + ')'"></div>
         <mat-card-title>{{ reply?.user?.username }}</mat-card-title>
-        <mat-card-subtitle>用户签名，用户签名</mat-card-subtitle>
+        <mat-card-subtitle>{{ reply?.user?.profile }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <div [innerHTML]="reply?.content"></div>

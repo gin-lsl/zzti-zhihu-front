@@ -1,10 +1,13 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { QuestionActions, QuestionActionTypesEnum } from '../actions/question.action';
-import { Question } from '../../../utils/index';
+import { Question, API_HOST } from '../../../utils/index';
 
 export interface State extends EntityState<Question> {
   currentQuestionId: string | null;
   relates: Array<any> | null;
+  sort: 'NEWER_TO_OLDER' | 'OLDER_TO_NEWER';
+  searchResults: Array<any> | null;
+  searchBoxFocus: boolean;
 }
 
 export const adapter: EntityAdapter<Question> = createEntityAdapter<Question>({
@@ -14,26 +17,47 @@ export const adapter: EntityAdapter<Question> = createEntityAdapter<Question>({
 export const initialState: State = adapter.getInitialState({
   currentQuestionId: null,
   relates: [],
-});
+  sort: 'NEWER_TO_OLDER',
+  searchResults: [],
+  searchBoxFocus: false,
+}) as State;
 
 export function reducer(state = initialState, action: QuestionActions): State {
   switch (action.type) {
 
     case QuestionActionTypesEnum.LoadSuccess:
       return {
-        ...adapter.addMany(action.payload.map(item => ({ ...item, id: item._id })), state),
+        ...adapter.addMany(action.payload.map(q => ({
+          ...q,
+          user: {
+            ...q.user,
+            avatar: API_HOST + '/users/avatar/' + q.user.avatar,
+          }
+        })), state),
         currentQuestionId: null,
       };
 
     case QuestionActionTypesEnum.LoadOneSuccess: {
       if ((state.ids as string[]).includes(action.payload.id)) {
         return {
-          ...adapter.updateOne(action.payload, state),
+          ...adapter.updateOne({
+            ...action.payload,
+            user: {
+              ...action.payload.user,
+              avatar: API_HOST + '/users/avatar/' + action.payload.user.avatar,
+            }
+          }, state),
           currentQuestionId: action.payload.id,
         };
       }
       return {
-        ...adapter.addOne(action.payload, state),
+        ...adapter.addOne({
+          ...action.payload,
+          user: {
+            ...action.payload.user,
+            avatar: API_HOST + '/users/avatar/' + action.payload.user.avatar,
+          }
+        }, state),
         currentQuestionId: action.payload.id,
       };
     }
@@ -128,6 +152,25 @@ export function reducer(state = initialState, action: QuestionActions): State {
         }, state)
       };
     }
+
+    case QuestionActionTypesEnum.SearchSuccess: {
+      return {
+        ...state,
+        searchResults: action.payload,
+      };
+    }
+
+    case QuestionActionTypesEnum.SearchBoxFocusChange:
+      return {
+        ...state,
+        searchBoxFocus: action.payload,
+      };
+
+    case QuestionActionTypesEnum.ChangeSort:
+      return {
+        ...state,
+        sort: action.payload,
+      };
 
     default:
       return state;

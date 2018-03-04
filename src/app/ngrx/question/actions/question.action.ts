@@ -40,6 +40,13 @@ export enum QuestionActionTypesEnum {
   UnLike = '[Question] UnLike',
   UnLikeSuccess = '[Question] UnLike Success',
   UnLikeFailure = '[Question] UnLike Failure',
+
+  Search = '[Question] Search',
+  SearchSuccess = '[Question] Search Success',
+  SearchFailure = '[Question] Search Failure',
+  SearchBoxFocusChange = '[Question] Search Box Focus Change',
+
+  ChangeSort = '[Question] Change Sort',
 }
 
 export class Load implements Action {
@@ -213,6 +220,31 @@ export class UnLikeFailure implements Action {
   constructor(public payload: any) { }
 }
 
+export class ChangeSort implements Action {
+  readonly type = QuestionActionTypesEnum.ChangeSort;
+  constructor(public payload: 'NEWER_TO_OLDER' | 'OLDER_TO_NEWER') { }
+}
+
+export class Search implements Action {
+  readonly type = QuestionActionTypesEnum.Search;
+  constructor(public payload: string) { }
+}
+
+export class SearchSuccess implements Action {
+  readonly type = QuestionActionTypesEnum.SearchSuccess;
+  constructor(public payload: any) { }
+}
+
+export class SearchFailure implements Action {
+  readonly type = QuestionActionTypesEnum.SearchFailure;
+  constructor(public payload: ResponseError) { }
+}
+
+export class SearchBoxFocusChange implements Action {
+  readonly type = QuestionActionTypesEnum.SearchBoxFocusChange;
+  constructor(public payload: boolean) { }
+}
+
 export type QuestionActions
   = Load
   | Loading
@@ -246,4 +278,11 @@ export type QuestionActions
   | LikeFailure
   | UnLike
   | UnLikeSuccess
-  | UnLikeFailure;
+  | UnLikeFailure
+
+  | Search
+  | SearchSuccess
+  | SearchFailure
+  | SearchBoxFocusChange
+
+  | ChangeSort;

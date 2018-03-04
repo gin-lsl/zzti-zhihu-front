@@ -40,6 +40,18 @@ export const getSignOnError = cs(selectAuthState, fromAuth.getSignOnError);
 
 export const getSignInError = cs(selectAuthState, fromAuth.getSignInError);
 
+export const getSignOnErrorMessage = cs(selectAuthState, fromAuth.getSignOnError,
+  (state, error) => {
+    return state.signOnError && (state.signOnError.errorMessage || '未知错误, 请重试!');
+  });
+
+export const getSignInErrorMessage = cs(selectAuthState, fromAuth.getSignInError,
+  (state, error) => {
+    return state.signInError && (state.signInError.errorMessage || '未知错误, 请重试!');
+  });
+
+export const getAuthActiveKey = cs(selectAuthState, state => state.activeKey);
+
 export const getUser = cs(selectUserState, fromUser.getUser);
 
 /**
@@ -49,8 +61,8 @@ export const getUserPostedQuestions = cs(selectCoreModuleState, getUserPostedQue
   if (!state.user.user) {
     return [];
   }
-  const postedQuestions = ((state.user.user as any).postedQuestions as Array<any>)
-    .map((q: Question) => ({
+  const postedQuestions = ((state.user.user as any).postedQuestions as Array<Question>)
+    .map(q => ({
       ...q,
       hasUp: q.upUserIds ? q.upUserIds.includes(auth.id) : false,
       hasDown: q.downUserIds ? q.downUserIds.includes(auth.id) : false,
@@ -76,8 +88,8 @@ export const getUserPostedReplies = cs(selectCoreModuleState, getUserPostedRepli
   if (!state.user.user) {
     return [];
   }
-  const postedReplies = ((state.user.user as any).postedReplies as Array<any>)
-    .map((r: Reply) => ({
+  const postedReplies = ((state.user.user as any).postedReplies as Array<Reply>)
+    .map(r => ({
       ...r,
       hasUp: r.upUserIds ? r.upUserIds.includes(auth.id) : false,
       hasDown: r.downUserIds ? r.downUserIds.includes(auth.id) : false,
@@ -96,10 +108,47 @@ export const getUserPostedReplies = cs(selectCoreModuleState, getUserPostedRepli
 });
 
 /**
+ * 获取用户动态
+ */
+export const getUserActivities = cs(getUser, getLogedUser, (user, logedUser) => {
+  if (!user) {
+    return [];
+  }
+  const postedQuestions = ((user as any).postedQuestions as Array<any>).map(q => ({
+    ...q,
+    activity: {
+      text: '提出了问题',
+      date: q.createAt,
+    }
+  }));
+  const postedReplies = ((user as any).postedReplies as Array<any>).map(r => ({
+    ...r,
+    activity: {
+      text: '回答了问题',
+      date: r.createAt,
+    }
+  }));
+  const qrs = [...postedQuestions, ...postedReplies];
+  return qrs.map(qr => ({
+    ...qr,
+  }));
+});
+
+/**
+ * 获取用户收藏的问题
+ */
+export const getUserSavedQuestions = cs(selectCoreModuleState, getLogedUser, (state, auth) => {
+  if (!state.user.user) {
+    return [];
+  }
+  const savedQuestions = (state.user.user.savedQuestions as Array<Question>);
+  return savedQuestions;
+});
+
+/**
  * 获取用户基本信息
  */
 export const getUserBase = cs(getUser, getLogedUser, (user, logedUser) => {
-  console.log('user: ', user, ', logedUser: ', logedUser);
   if (!(user && logedUser)) {
     return {};
   }
@@ -115,11 +164,11 @@ export const getUserBase = cs(getUser, getLogedUser, (user, logedUser) => {
     /**
      * 当前登录用户是否已关注此用户
      */
-    hasFollowHim: base.followHimIds && (base.followHimIds as Array<string>).includes(logedUser.id),
+    hasFollowHim: base.followHimUsers && (base.followHimUsers as Array<any>).find(f => f.id === logedUser.id),
 
     /**
      * 此用户是否关注当前已登录用户
      */
-    hasFollowMe: base.hisFollowIds && (base.hisFollowIds as Array<string>).includes(logedUser.id),
+    hasFollowMe: base.hisFollowUsers && (base.hisFollowUsers as Array<any>).find(f => f.id === logedUser.id),
   };
 });

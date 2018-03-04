@@ -1,0 +1,44 @@
+.SearchResult {
+  overflow: hidden;
+  max-height: 100vh;
+  border-top: 1px solid lavender;
+  margin-top: 0.5rem;
+  height: 100vh;
+  background: white;
+}
+
+.SearchResult__list {
+  position: relative;
+  overflow: scroll;
+  height: 80vh;
+  z-index: 200;
+}
+
+.SearchResult__item {
+  height: 3rem;
+  line-height: 3rem;
+  padding: 0 0.5rem;
+  background: white;
+  border-bottom: 1px solid lavender;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.SearchResult__footer {
+  position: relative;
+  bottom: 0;
+  margin: 0 auto;
+  width: 100%;
+  height: 20vh;
+  z-index: 200;
+  background: white;
+}
+button {
+  position: absolute;
+  bottom: 0;
+  top: 1rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}

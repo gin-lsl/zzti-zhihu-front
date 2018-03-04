@@ -46,7 +46,7 @@ export class AuthEffects {
       this._authService.signOn(_)
         .map(data => (
           data.success
-            ? new authAction.SignOnSuccess(data.successResult.access_token)
+            ? new authAction.SignOnSuccess(data.successResult)
             : new authAction.SignOnFailure(new ResponseError(data.errorCode, data.errorMessage))
         ))
         .catch((error: API) => Observable.of(new authAction.SignOnFailure(new ResponseError(error.errorCode, error.errorMessage))))

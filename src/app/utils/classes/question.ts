@@ -57,6 +57,11 @@ export class Question {
    * 是否是匿名用户提问
    */
   isAnonymous: boolean;
+
+  /**
+   * 访问次数
+   */
+  lookCount: number;
 }
 
 /**

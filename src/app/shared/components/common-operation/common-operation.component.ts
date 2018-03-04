@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { NewQuestionBoxComponent } from '../new-question-box/new-question-box.component';
 import { UserService } from '../../../core/services/user.service';
+import * as questionAction from '../../../ngrx/question/actions/question.action';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-common-operation',
@@ -15,6 +17,7 @@ export class CommonOperationComponent implements OnInit {
     private _matDialog: MatDialog,
     private _userService: UserService,
     private _router: Router,
+    private _store: Store<any>,
   ) { }
 
   ngOnInit() {
@@ -35,6 +38,10 @@ export class CommonOperationComponent implements OnInit {
       .subscribe(res => {
         console.log('Dialog result: ', res);
       });
+  }
+
+  public onChangeQuestionsSort(value: any): void {
+    this._store.dispatch(new questionAction.ChangeSort(value));
   }
 
 }

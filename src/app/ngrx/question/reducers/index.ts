@@ -27,6 +27,17 @@ export const getQuestionEntitiesState = cs(
   state => state ? state.questions : null
 );
 
+const getQuestionSortMethod = cs(getQuestionEntitiesState, state => state ? state.sort : 'NEWER_TO_OLDER');
+
+export const getSearchResults = cs(getQuestionEntitiesState, state => {
+  console.log('-----------search: ', state.searchResults);
+  return state.searchResults;
+});
+
+export const getSearchBoxFocus = cs(getQuestionEntitiesState, state => {
+  return state.searchBoxFocus;
+});
+
 export const getCurrentSelectQuestionId = cs(
   getQuestionEntitiesState,
   fromQuestion.getCurrentQuestionId,
@@ -42,17 +53,15 @@ export const {
 export const getCurrentSelectQuestion = cs(
   getQuestionEntities,
   getCurrentSelectQuestionId,
-  (entities, currId) => {
-    console.log('entities: ', entities);
-    return entities[currId];
-  }
+  (entities, currId) => entities[currId]
 );
 
 export const getLoadedQuestions = cs(
   getQuestionEntities,
   fromAuth.getLogedUser,
-  (state, auth) => {
-    return Object
+  getQuestionSortMethod,
+  (state, auth, sort) => {
+    const questions = Object
       .values(state)
       .map(s => ({
         ...s,
@@ -62,6 +71,10 @@ export const getLoadedQuestions = cs(
         upCount: s.upUserIds ? s.upUserIds.length : 0,
         downCount: s.downUserIds ? s.downUserIds.length : 0,
       }));
+    if (sort === 'OLDER_TO_NEWER') {
+      return questions.sort((p, c) => ((new Date(p.createAt) as any) - (new Date(c.createAt) as any)));
+    }
+    return questions.sort((p, c) => ((new Date(c.createAt) as any) - (new Date(p.createAt) as any)));
   },
 );
 

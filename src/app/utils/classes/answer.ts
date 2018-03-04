@@ -21,9 +21,9 @@ export class Answer {
   public answerer: User;
 
   /**
-   * 跟我相关的一些信息
+   * 活动信息
    */
-  public aboutMe?: any;
+  public activity?: any;
 }
 
 /**

@@ -1,5 +1,5 @@
 import * as userAction from '../actions/user.action';
-import { User } from '../../../utils/index';
+import { User, API_HOST } from '../../../utils/index';
 
 export interface State {
   signedIn: boolean;
@@ -30,7 +30,15 @@ export function reducer(state = initialState, action: userAction.UserActions): S
       return initialState;
 
     case userAction.UserActionTypesEnum.LoadSuccess:
-      return { ...state, user: { ...action.payload } };
+      return {
+        ...state, user: {
+          ...action.payload,
+          base: {
+            ...action.payload.base,
+            avatar: API_HOST + '/users/avatar/' + action.payload.base.avatar,
+          }
+        }
+      };
 
     case userAction.UserActionTypesEnum.LoadFailure:
       return { ...initialState, loadFailureError: action.payload };

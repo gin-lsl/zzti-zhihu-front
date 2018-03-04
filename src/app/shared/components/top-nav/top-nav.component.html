@@ -6,32 +6,47 @@
       <a mat-button
          routerLink="/home">首页</a>
       <a mat-button
-         routerLink="/home/explore">发现</a>
-      <a mat-button
-         routerLink="/sign">话题</a>
+         routerLink="/ask/pre">提问</a>
     </div>
     <!-- 搜索框 -->
-    <div class="Search-wrap">
-      <input type="search"
-             matInput
-             placeholder="Search">
-      <a class="Icon-wrap"
-         role="button">
-        <i class="material-icons">search</i>
-      </a>
+    <div class="Search-wrap"
+         [class.Search-wrap--searching]="searching$ | async">
+      <mat-form-field>
+        <input type="text"
+               #searchBox
+               (input)="onSearch(searchBox.value)"
+               matInput
+               aria-label="Search"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" class="TopNav__auto-complete--popover">
+          <mat-optgroup *ngIf="(searchResults$ | async).byTitle"
+                        label="标题">
+            <mat-option *ngFor="let result of (searchResults$ | async).byTitle"
+                        [value]="searchBox.value"
+                        (onSelectionChange)="onAutoCompleteSelectedOption(result.id)">
+              <a mat-list-item
+                 class="SearchResult__item"
+                 [routerLink]="['/question', result.id]"
+                 [innerHTML]="result._highlight.title[0]"></a>
+            </mat-option>
+          </mat-optgroup>
+          <mat-optgroup *ngIf="(searchResults$ | async).byDescription"
+                        label="内容">
+            <mat-option *ngFor="let result of (searchResults$ | async).byDescription"
+                        [value]="searchBox.value"
+                        (onSelectionChange)="onAutoCompleteSelectedOption(result.id)">
+              <a mat-list-item
+                 class="SearchResult__item"
+                 [routerLink]="['/question', result.id]"
+                 [innerHTML]="result._highlight.description[0]"></a>
+            </mat-option>
+          </mat-optgroup>
+        </mat-autocomplete>
+      </mat-form-field>
     </div>
     <!-- 用户 -->
     <div *ngIf="loginedUser"
          class="User-wrap">
-      <a class="Icon-wrap"
-         role="button">
-        <mat-icon>notifications_black</mat-icon>
-      </a>
-      <a class="Icon-wrap"
-         role="button">
-        <mat-icon>question_answer_black</mat-icon>
-      </a>
-      <!-- [routerLink]="['/user', loginedUser.id]" -->
       <a mat-button
          [matMenuTriggerFor]="topNavUserMenu"
          class="User-wrap__avatar"
@@ -48,7 +63,8 @@
           <mat-icon>person_outline_black</mat-icon>
           <span>我的主页</span>
         </a>
-        <a mat-menu-item  role="button"
+        <a mat-menu-item
+           role="button"
            (click)="onExit()">
           <mat-icon>exit_to_app_black</mat-icon>
           <span>退出</span>

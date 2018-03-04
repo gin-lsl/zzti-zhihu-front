@@ -1,0 +1,18 @@
+<div class="SearchResult"
+     *ngIf="results && results.length">
+  <mat-nav-list class="SearchResult__list">
+    <a mat-list-item
+       class="SearchResult__item"
+       *ngFor="let result of results"
+       [routerLink]="['/question', result.id]">{{ result.title }}</a>
+  </mat-nav-list>
+  <!-- <div class="SearchResult__list">
+    <div class="SearchResult__item"
+         *ngFor="let result of results">{{ result.title }}</div>
+  </div> -->
+  <div class="SearchResult__footer">
+    <button mat-mini-fab>
+      <mat-icon aria-label="Example icon-button with a heart icon">favorite</mat-icon>
+    </button>
+  </div>
+</div>

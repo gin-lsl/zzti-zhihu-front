@@ -48,6 +48,7 @@ export function reducer(state = initialState, action: authAction.AuthActions): S
       return {
         ...state,
         activeKey: action.payload,
+        signOnError: null,
       };
 
     case authAction.AuthActionTypesEnum.SignOnFailure:

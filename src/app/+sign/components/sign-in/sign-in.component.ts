@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 export class SignInModel {
@@ -12,6 +12,9 @@ export class SignInModel {
   styleUrls: ['./sign-in.component.less']
 })
 export class SignInComponent {
+
+  @Input()
+  public errorMessage: string;
 
   @Output()
   private submit: EventEmitter<SignInModel> = new EventEmitter<SignInModel>();

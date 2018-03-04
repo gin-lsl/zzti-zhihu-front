@@ -10,14 +10,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class UserHeaderComponent implements OnInit {
 
   @Input()
-  public user: User;
+  public user: User & any;
 
   @Output()
   public follow: EventEmitter<any> = new EventEmitter();
 
+  public hasLogin: boolean = false;
+
   constructor(private _httpClient: HttpClient) { }
 
   ngOnInit() {
+    const user = parseUserStorage();
+    if (user && user.id === this.user.id) {
+      this.hasLogin = true;
+    } else {
+      this.hasLogin = false;
+    }
   }
 
   public onToggleFollow(hasFollowHim: boolean = false): void {

@@ -1,10 +1,10 @@
 <div class="QuestionAnswerCard mb05">
   <article class="Question-answer">
     <mat-card>
-      <mat-card-content *ngIf="answer?.aboutMe"
+      <mat-card-content *ngIf="answer?.activity"
                         class="about-me">
-        <span>赞同了回答</span>
-        <span>1个月前</span>
+        <span>{{ answer.activity.text }}</span>
+        <span>{{ answer.activity.date }}</span>
       </mat-card-content>
       <mat-card-header>
         <div mat-card-avatar

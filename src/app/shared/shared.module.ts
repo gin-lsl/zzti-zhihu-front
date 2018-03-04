@@ -40,6 +40,8 @@ import { QuestionReplyListComponent } from './components/question-reply-list/que
 import { QuestionCommentContainerComponent } from './containers/question-comment-container/question-comment-container.component';
 import { QuestionReplyListContainerComponent } from './containers/question-reply-list-container/question-reply-list-container.component';
 import { QuestionReplyItemComponent } from './components/question-reply-item/question-reply-item.component';
+import { SearchResultContainerComponent } from './containers/search-result-container/search-result-container.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
 
 /**
  * Material 模块
@@ -77,10 +79,12 @@ const components = [
   ReplyBoxComponent,
   QuestionCommentComponent,
   QuestionReplyListComponent,
+  QuestionReplyItemComponent,
+  SearchResultComponent,
+  TopNavContainerComponent,
+  SearchResultContainerComponent,
   QuestionCommentContainerComponent,
   QuestionReplyListContainerComponent,
-  QuestionReplyItemComponent,
-  TopNavContainerComponent,
 ];
 
 @NgModule({

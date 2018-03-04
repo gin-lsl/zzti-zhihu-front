@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_HOST, parseUserStorage, API } from '../../../utils/index';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/timeoutWith';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-modify-page',
@@ -12,10 +16,14 @@ export class UserModifyPageComponent implements OnInit {
 
   public user: any = {};
 
+  public apiMsg$: Subject<string> = new Subject();
+
   constructor(
     private _httpClient: HttpClient,
     private _router: Router,
-  ) { }
+    private _location: Location,
+  ) {
+  }
 
   ngOnInit() {
   }
@@ -23,7 +31,7 @@ export class UserModifyPageComponent implements OnInit {
   onSubmit(): void {
     const user = parseUserStorage();
     if (!user) {
-      console.log('用户没有登录');
+      this.apiMsg$.next('请先登录');
       return;
     }
     this._httpClient
@@ -34,9 +42,13 @@ export class UserModifyPageComponent implements OnInit {
         if (res.success) {
           this._router.navigateByUrl('/user/' + res.successResult.id);
         } else {
-          console.log('更新失败');
+          this.apiMsg$.next(res.errorMessage);
         }
       });
+  }
+
+  onCancel(): void {
+    this._location.back();
   }
 
 }

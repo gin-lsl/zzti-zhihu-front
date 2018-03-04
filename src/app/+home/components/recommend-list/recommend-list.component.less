@@ -32,3 +32,25 @@ a {
     }
   }
 }
+
+.mat-card-avatar {
+  background-size: 40px;
+  background-repeat: no-repeat;
+}
+
+.Recommend__description {
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 6rem;
+  line-height: 1rem;
+  position: relative;
+  >div {
+    height: 100%;
+  }
+  &::after {
+    position: absolute;
+    content: '...';
+    bottom: 0;
+    right: 0;
+  }
+}

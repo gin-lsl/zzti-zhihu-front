@@ -1,0 +1,4 @@
+<div class="SearchResultContainer"
+     *ngIf="searching$ | async">
+  <app-search-result [results]="searchResults$ | async"></app-search-result>
+</div>
