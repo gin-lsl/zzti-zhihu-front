@@ -1,7 +1,10 @@
 import { Component, AfterViewInit, ChangeDetectorRef, OnInit } from '@angular/core';
-import { UserService } from './core/services/user.service';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { UserService } from './core/services/user.service';
 import * as userAction from './ngrx/core/actions/user.action';
+import * as authAction from './ngrx/core/actions/auth.action';
+import * as messageAction from './ngrx/message/actions/message.action';
 import { parseUserStorage } from './utils';
 
 @Component({
@@ -17,6 +20,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     private _userService: UserService,
     private _changeDetectorRef: ChangeDetectorRef,
     private _store: Store<any>,
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router,
   ) { }
 
   ngOnInit() {
@@ -24,6 +29,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (user) {
       this._store.dispatch(new userAction.Load(user.id));
     }
+    this._router.events.filter(e => e instanceof NavigationEnd).subscribe(() => {
+      this._store.dispatch(new messageAction.Load());
+      // this._store.dispatch(new authAction.LoadUserInformation());
+    });
   }
 
   ngAfterViewInit() {

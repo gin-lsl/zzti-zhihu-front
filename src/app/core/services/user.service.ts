@@ -101,7 +101,7 @@ export class UserService {
     if (!user) {
       return Observable.of(null);
     }
-    return this._httpClient.get(this.apiLoadUserInformation,
+    return this._httpClient.get(this.apiLoadUserInformation + '/' + user.id,
       { headers: new HttpHeaders().append('Authorization', user.access_token) }) as Observable<API<any>>;
   }
 

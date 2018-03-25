@@ -30,7 +30,13 @@ export function reducer(state = initialState, action: replyAction.ReplyActions):
 
     case replyAction.ReplyActionTypesEnum.PostSuccess:
       return {
-        ...adapter.addOne(action.payload, state),
+        ...adapter.addOne({
+          ...action.payload,
+          user: {
+            ...action.payload.user,
+            avatar: API_HOST + '/users/avatar/' + action.payload.user.avatar,
+          }
+        }, state),
         currrentReplyId: state.currrentReplyId,
       };
 

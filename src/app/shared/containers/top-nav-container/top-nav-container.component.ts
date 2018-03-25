@@ -19,6 +19,9 @@ export class TopNavContainerComponent implements OnInit, AfterViewInit {
     this.user$ = store
       .select(fromAuth.getLogedUser)
       .map(user => Object.keys(user).length > 0 ? user : null);
+    this.user$.subscribe(user => {
+      console.log('---------------------------------------------', user);
+    });
   }
 
   ngOnInit() {

@@ -12,29 +12,33 @@
   width: 100%;
 }
 
-.QuestionPage__relates {
-  padding: 0.5rem;
-  .QuestionPage__relates-header {
-    height: 30px;
-    font-size: large;
-    font-weight: 600;
-  }
-  .QuestionPage__relates-item {
-    height: 28px;
-    line-break: 28px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+// .QuestionPage__relates {
+//   .QuestionPage__relates-header {
+//     height: 30px;
+//     font-size: large;
+//     font-weight: 600;
+//   }
+// }
+.QuestionPage__relates-item {
+  height: 28px;
+  line-break: 28px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-mat-card.QuestionPage__sidebar-user {
+mat-card.QuestionPage__sidebar-card {
   box-shadow: none;
   border: 1px solid lightgrey;
   padding: 5px 0;
   mat-card-content {
     padding: 5px;
     border-bottom: 1px solid lightgrey;
+  }
+  &.relates {
+    padding-bottom: 0;
+    border-bottom: none;
+    margin-top: 5px;
   }
 }
 

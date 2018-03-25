@@ -5,15 +5,15 @@
     </mat-card-content>
     <mat-card-content class="item">
       <mat-icon>thumb_up</mat-icon>
-      <span class="ml05">获得n次赞同</span>
+      <span class="ml05">获得 {{ userInformationTotal.totalPostedQuestionsUp || 0 }} 次赞同</span>
     </mat-card-content>
     <mat-card-content class="item">
       <mat-icon>favorite_black</mat-icon>
-      <span class="ml05">获得n次收藏</span>
+      <span class="ml05">获得 {{ userInformationTotal.totalPostedQuestionsSave || 0 }} 次收藏</span>
     </mat-card-content>
     <mat-card-content class="item">
       <mat-icon>border_color_black</mat-icon>
-      <span class="ml05">回答了n个问题</span>
+      <span class="ml05">回答了 {{ userInformationTotal.totalPostedReplies }} 个问题</span>
     </mat-card-content>
   </mat-card>
 </div>

@@ -61,6 +61,7 @@ export function reducer(state = initialState, action: authAction.AuthActions): S
       return initialState;
 
     case authAction.AuthActionTypesEnum.LoadUserInformationSuccess:
+      console.log('====================: ', action.payload);
       return {
         ...state,
         user: { ...action.payload },

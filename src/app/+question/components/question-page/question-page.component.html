@@ -23,7 +23,7 @@
           <!-- <app-question-answer-list [answers]="replies$ | async"></app-question-answer-list> -->
         </div>
         <div class="QuestionPage__sidebar">
-          <mat-card class="QuestionPage__sidebar-user">
+          <mat-card class="QuestionPage__sidebar-card">
             <mat-card-content>
               <span>提问者信息:</span>
             </mat-card-content>
@@ -33,7 +33,7 @@
               <mat-card-subtitle>{{ question.user.profile }}</mat-card-subtitle>
             </mat-card-header>
           </mat-card>
-          <div class="QuestionPage__profiles">
+          <!-- <div class="QuestionPage__profiles">
             <p>提问:
               <span>{{ question.postDateTime }}</span>
             </p>
@@ -43,15 +43,20 @@
             <p>编辑:
               <span>{{ 11 }} months ago </span>
             </p>
-          </div>
-          <div class="QuestionPage__relates">
-            <div class="QuestionPage__relates-header">相关问题</div>
-            <div class="QuestionPage__relates-item"
-                 *ngFor="let relate of relates$ | async">
-              <a [routerLink]="['/question', relate.id]"
-                 [title]="relate.title">{{ relate.title }}</a>
-            </div>
-          </div>
+          </div> -->
+          <mat-card class="QuestionPage__sidebar-card relates">
+            <mat-card-content>
+              <span>相关问题</span>
+            </mat-card-content>
+            <mat-card-content>
+              <div class="QuestionPage__relates-item"
+                   *ngFor="let relate of relates$ | async">
+                <a [routerLink]="['/question', relate.id]"
+                   [title]="relate.title">{{ relate.title }}</a>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          <!-- <div class="QuestionPage__relates-header">相关问题</div> -->
         </div>
       </div>
       <div class="QuestionPage__reply">

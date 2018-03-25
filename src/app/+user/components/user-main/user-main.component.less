@@ -22,10 +22,15 @@
   padding: 0 1.15rem;
   .List__saved-question {
     height: 28px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     line-height: 28px;
     &.List__saved-question--not-found {
       color: grey;
       font-style: italic;
+    }
+    a {
+      white-space: nowrap;
     }
   }
 }

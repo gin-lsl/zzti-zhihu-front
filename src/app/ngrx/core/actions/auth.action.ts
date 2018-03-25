@@ -2,19 +2,19 @@ import { Action } from '@ngrx/store';
 import { User, ResponseError, API, ISignIn } from '../../../utils/index';
 
 export enum AuthActionTypesEnum {
-  SignIn = '[Auth] SignIn',
-  SignOn = '[Auth] SignOn',
-  SignOut = '[Auth] SignOut',
-  SignInSuccess = '[Auth] SignInSuccess',
-  SignInFailure = '[Auth] SignInFailure',
-  SignInRedirect = '[Auth] SignInRedirect',
-  SignOnSuccess = '[Auth] SignOnSuccess',
-  SignOnFailure = '[Auth] SignOnFailure',
-  CheckSignState = '[Auth] CheckSignState',
-  AuthInitial = '[Auth] AuthInitial',
-  LoadUserInformation = '[Auth] LoadUserInformation',
-  LoadUserInformationSuccess = '[Auth] LoadUserInformationSuccess',
-  LoadUserInformationFailure = '[Auth] LoadUserInformationFailure',
+  SignIn = '[Auth] Sign In',
+  SignOn = '[Auth] Sign On',
+  SignOut = '[Auth] Sign Out',
+  SignInSuccess = '[Auth] Sign In Success',
+  SignInFailure = '[Auth] Sign In Failure',
+  SignInRedirect = '[Auth] Sign In Redirect',
+  SignOnSuccess = '[Auth] Sign On Success',
+  SignOnFailure = '[Auth] Sign On Failure',
+  CheckSignState = '[Auth] Check Sign State',
+  AuthInitial = '[Auth] Auth Initial',
+  LoadUserInformation = '[Auth] Load User Information',
+  LoadUserInformationSuccess = '[Auth] Load User Information Success',
+  LoadUserInformationFailure = '[Auth] Load User Information Failure',
   ClearLogedUserState = '[Auth] Clear Loged User State',
   ClearLogedUserStateSuccess = '[Auth] Clear Loged User State Success',
 }
@@ -70,12 +70,16 @@ export class LoadUserInformation implements Action {
   readonly type = AuthActionTypesEnum.LoadUserInformation;
 
   /** @param payload 用户id */
-  constructor(public payload: string) { }
+  constructor(public payload?: string) {
+    console.log('load================: ', payload);
+  }
 }
 
 export class LoadUserInformationSuccess implements Action {
   readonly type = AuthActionTypesEnum.LoadUserInformationSuccess;
-  constructor(public payload: User) { }
+  constructor(public payload: User) {
+    console.log('---------------: ', payload);
+  }
 }
 
 export class LoadUserInformationFailure implements Action {

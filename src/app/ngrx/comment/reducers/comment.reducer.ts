@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import * as commentAction from '../actions/comment.action';
-import { Comment } from '../../../utils/index';
+import { Comment, API_HOST } from '../../../utils/index';
 
 export interface State extends EntityState<Comment> {
   currentCommentId: string | null;
@@ -18,13 +18,25 @@ export function reducer(state = initialState, action: commentAction.CommentActio
   switch (action.type) {
     case commentAction.CommentActionTypesEnum.LoadSuccess:
       return {
-        ...adapter.addMany(action.payload, state),
+        ...adapter.addMany(action.payload.map(c => ({
+          ...c,
+          user: {
+            ...c.user,
+            avatar: API_HOST + '/users/avatar/' + c.user.avatar,
+          },
+        })), state),
         currentCommentId: null,
       };
 
     case commentAction.CommentActionTypesEnum.PostSuccess:
       return {
-        ...adapter.addOne(action.payload, state),
+        ...adapter.addOne({
+          ...action.payload,
+          user: {
+            ...action.payload.user,
+            avatar: API_HOST + '/users/avatar/' + action.payload.user.avatar,
+          }
+        }, state),
         currentCommentId: state.currentCommentId,
       };
 

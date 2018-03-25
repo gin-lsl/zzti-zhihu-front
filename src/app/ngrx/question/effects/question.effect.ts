@@ -13,11 +13,12 @@ import { Observable } from 'rxjs/Observable';
 import * as questionAction from '../actions/question.action';
 import * as authAction from '../../../ngrx/core/actions/auth.action';
 import { API, ResponseError, parseUserStorage, ErrorCodeEnum, API_HOST, NO_AUTH_POP_ALITER } from '../../../utils/index';
+import { HttpService } from '../../../core/services/http.service';
 
 @Injectable()
 export class QuestionEffects {
 
-  private readonly apiLoad: string = API_HOST + '/questions';
+  private readonly apiLoad: string = '/questions';
   private readonly apiRelate: string = API_HOST + '/questions/relate';
 
   private readonly apiUp: string = API_HOST + '/questions/up/';
@@ -39,16 +40,18 @@ export class QuestionEffects {
     .ofType(questionAction.QuestionActionTypesEnum.Load)
     .map((action: questionAction.Load) => action.payload as string)
     .exhaustMap(_ => (
-      this._httpClient
-        .get<API>(this.apiLoad, {
-          params: new HttpParams().append('count', _)
-        })
-        .map(data => (
-          data.success
-            ? new questionAction.LoadSuccess(data.successResult)
-            : new questionAction.LoadFailure(new ResponseError(data.errorCode, data.errorMessage))
-        ))
-        .catch(error => Observable.of(new questionAction.LoadFailure(ResponseError.UNDEFINED_ERROR)))
+      // this._httpClient
+      //   .get<API>(this.apiLoad, {
+      //     params: new HttpParams().append('count', _)
+      //   })
+      //   .map(data => (
+      //     data.success
+      //       ? new questionAction.LoadSuccess(data.successResult)
+      //       : new questionAction.LoadFailure(new ResponseError(data.errorCode, data.errorMessage))
+      //   ))
+      //   .catch(error => Observable.of(new questionAction.LoadFailure(ResponseError.UNDEFINED_ERROR)))
+      this._httpService
+        .get(this.apiLoad, new HttpParams().append('count', _), questionAction.LoadSuccess, questionAction.LoadFailure)
     ));
 
   /**
@@ -79,24 +82,25 @@ export class QuestionEffects {
     .ofType(questionAction.QuestionActionTypesEnum.Up)
     .map((action: questionAction.Up) => action.payload)
     .exhaustMap(id => {
-      const user = parseUserStorage();
-      if (!user) {
-        this.checkShowAuthPop();
-        return Observable.empty();
-      }
-      return this._httpClient
-        .get(this.apiUp + id, {
-          headers: new HttpHeaders().append('Authorization', user.access_token)
-        })
-        .map((data: API) => {
-          if (data.success) {
-            return new questionAction.UpSuccess(id, user.id);
-          } else {
-            this.checkShowAuthPop(data.errorCode);
-            return new questionAction.CancelUpFailure(new ResponseError(data.errorCode, data.errorMessage));
-          }
-        })
-        .catch((error) => Observable.of(new questionAction.UpFailure(ResponseError.UNDEFINED_ERROR)));
+      return this._httpService.get(this.apiUp + id, null, questionAction.UpSuccess, questionAction.UpFailure);
+      // const user = parseUserStorage();
+      // if (!user) {
+      //   this.checkShowAuthPop();
+      //   return Observable.empty();
+      // }
+      // return this._httpClient
+      //   .get(this.apiUp + id, {
+      //     headers: new HttpHeaders().append('Authorization', user.access_token)
+      //   })
+      //   .map((data: API) => {
+      //     if (data.success) {
+      //       return new questionAction.UpSuccess(id, user.id);
+      //     } else {
+      //       this.checkShowAuthPop(data.errorCode);
+      //       return new questionAction.UpFailure(new ResponseError(data.errorCode, data.errorMessage));
+      //     }
+      //   })
+      //   .catch((error) => Observable.of(new questionAction.UpFailure(ResponseError.UNDEFINED_ERROR)));
     });
 
   /**
@@ -254,7 +258,7 @@ export class QuestionEffects {
       if (user) {
         headers.append('Authorization', user.access_token);
       }
-      return this._httpClient.get(`${this.apiLoad}/${payload.questionId}`, { headers })
+      return this._httpClient.get(API_HOST + `${this.apiLoad}/${payload.questionId}`, { headers })
         .map((data: API) => {
           if (data.success) {
             if (payload.isWannaNativateTo) {
@@ -295,6 +299,7 @@ export class QuestionEffects {
     private _snackBar: MatSnackBar,
     private _store: Store<any>,
     private _router: Router,
+    private _httpService: HttpService,
   ) { }
 
   /**

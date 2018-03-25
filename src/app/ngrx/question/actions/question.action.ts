@@ -9,8 +9,8 @@ interface QuestionAndUser {
 export enum QuestionActionTypesEnum {
   Load = '[Question] Load',
   Loading = '[Question] Loading',
-  LoadSuccess = '[Question] LoadSuccess',
-  LoadFailure = '[Question] LoadFailure',
+  LoadSuccess = '[Question] Load Success',
+  LoadFailure = '[Question] Load Failure',
 
   LoadOne = '[Question] Load One',
   LoadOneSuccess = '[Question] Load One Success',

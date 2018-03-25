@@ -15,8 +15,8 @@
       <mat-card-content>
         <div [innerHTML]="reply?.content"></div>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>
+      <mat-card-actions style="display: flex; flex-direction: row-reverse;">
+        <!-- <button mat-button>
           <i class="material-icons"
              [class.has-true]="reply.hasUp">thumb_up</i>
           <span>{{ reply.upCount }}</span>
@@ -26,7 +26,7 @@
              [class.has-true]="reply.hasDown">thumb_down</i>
           <span>{{ reply.downCount }}</span>
         </button>
-        <button mat-button>Like</button>
+        <button mat-button>Like</button> -->
         <button mat-button
                 (click)="toggleShowCommentList()">
           <i class="material-icons">chat_bubble_outline_black</i>

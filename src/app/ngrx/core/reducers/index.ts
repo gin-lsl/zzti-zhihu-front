@@ -54,6 +54,24 @@ export const getAuthActiveKey = cs(selectAuthState, state => state.activeKey);
 
 export const getUser = cs(selectUserState, fromUser.getUser);
 
+export const getUserInformationTotal = cs(selectUserState, fromUser.getUser, state => {
+  if (state && state.user) {
+    const u = state.user;
+    let _ups = 0;
+    let _saves = 0;
+    (u.postedQuestions as Array<any>).forEach(_ => {
+      _saves += _.saveUserIds.length || 0;
+      _ups += _.upUserIds.length || 0;
+    });
+    return {
+      totalPostedQuestionsUp: _ups,
+      totalPostedReplies: u.postedReplies.length,
+      totalPostedQuestionsSave: _saves,
+    };
+  }
+  return {};
+});
+
 /**
  * 获取用户发布的问题
  */

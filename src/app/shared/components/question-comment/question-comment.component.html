@@ -12,8 +12,8 @@
         <div class="CommentItem__user mb05">
           <div class="CommentItem__user-avatar">
             <a [routerLink]="['/user/', comment?.userId]">
-              <img src="http://placehold.it/25x25"
-                   alt="xxx">
+              <img class="CommentItem__user-avatar-img" src="{{ comment?.user?.avatar }}"
+                   alt="{{ comment?.user?.username }}">
             </a>
           </div>
           <div class="CommentItem__user-name ml1">{{ comment?.user?.username }}</div>

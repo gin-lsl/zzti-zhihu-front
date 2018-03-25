@@ -2,14 +2,14 @@ import { Action } from '@ngrx/store';
 import { User, ResponseError } from '../../../utils/index';
 
 export enum UserActionTypesEnum {
-  SignIn = '[User] SignIn',
-  SignOut = '[User] SignOut',
-  SignSuccess = '[User] SignSuccess',
-  SignFailure = '[User] SignFailure',
-  SignInRedirect = '[User] SignInRedirect',
+  SignIn = '[User] Sign In',
+  SignOut = '[User] Sign Out',
+  SignSuccess = '[User] Sign Success',
+  SignFailure = '[User] Sign Failure',
+  SignInRedirect = '[User] Sign InRedirect',
   Load = '[User] Load',
-  LoadSuccess = '[User] LoadSuccess',
-  LoadFailure = '[User] LoadFailure',
+  LoadSuccess = '[User] Load Success',
+  LoadFailure = '[User] Load Failure',
 
   ChangePostedQuestionsSort = '[User] Change Posted Questions Sort',
   ChangePostedRepliesSort = '[User] Change Posted Replies Sort',

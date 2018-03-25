@@ -37,7 +37,8 @@
                [class.List__saved-question--not-found]="sq.notFound"
                *ngFor="let sq of mySavedQuestions$ | async">
             <a [routerLink]="['/question', sq.id]"
-               *ngIf="!sq.notFound">{{ sq.title }}</a>
+               *ngIf="!sq.notFound"
+               [title]="sq.title">{{ sq.title }}</a>
             <a *ngIf="sq.notFound">{{ sq.title }}</a>
           </div>
         </div>
