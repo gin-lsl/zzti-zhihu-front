@@ -19,7 +19,7 @@ export function reducer(state = initialState, action: searchResultAction.SearchR
   switch (action.type) {
     case searchResultAction.SearchResultActionTypesEnum.LoadSuccess: {
       return {
-        ...adapter.addAll(action.payload, state),
+        ...adapter.addAll(action.payload.byTitle, state),
       };
     }
 

@@ -2,6 +2,7 @@
   position: relative;
   padding-top: 0;
 }
+
 :host {
    ::ng-deep {
     .mat-list-item-content {
@@ -20,7 +21,6 @@
 //   top: 0;
 //   z-index: 100;
 // }
-
 .search-unfocus {}
 
 // .search-box-wrapper.brace-container {
@@ -32,9 +32,26 @@
 //   z-index: 0;
 //   background: white;
 // }
-
 // .Search-card {
 //   // p0 mb05 pb05 pl05
 //   padding: 0 .5rem;
 //   margin-bottom: .5rem;
 // }
+.Search-card {
+  mat-card-content {
+    display: flex;
+    flex-direction: row;
+  }
+  mat-form-field {
+    flex-grow: 1;
+  }
+  button {
+    flex-grow: 0;
+    align-self: center;
+    margin-left: 16px;
+  }
+}
+
+.SearchResult__list {
+  overflow: hidden;
+}

@@ -17,9 +17,6 @@ export class AskPrePageContainerComponent implements OnInit {
     private store: Store<fromAskModule.State>,
   ) {
     this.searchResult$ = store.select(fromAskModule.getAllSearchResult);
-    this.searchResult$.subscribe(state => {
-      console.log('searchResult$: ', state);
-    });
   }
 
   ngOnInit() {

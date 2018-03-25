@@ -55,6 +55,9 @@ export class AskPreComponent implements OnInit {
   }
 
   public onSearchTextChange(text: string): void {
+    if (!text || text.trim().length === 0) {
+      return;
+    }
     this.searchTextChange.emit(text);
   }
 }
