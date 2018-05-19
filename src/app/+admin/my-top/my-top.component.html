@@ -1,0 +1,15 @@
+<div class="QuestionList__container">
+  <mat-list role="list"
+            *ngIf="questions && questions.length; else topNoQuestionsTpl">
+    <mat-list-item *ngFor="let question of questions">
+      <a class="operator_up"
+         role="button"
+         (click)="onCancelTopIt(question.id)">取消置顶</a>
+      <a [routerLink]="['/question/', question.id]"
+         class="Top__question-title">{{ question.title }}</a>
+    </mat-list-item>
+  </mat-list>
+  <ng-template #topNoQuestionsTpl>
+    <div>暂未置顶任何问题</div>
+  </ng-template>
+</div>

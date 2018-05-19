@@ -21,6 +21,9 @@ const routes: Routes = [
     path: 'ask', loadChildren: 'app/+ask/ask.module#AskModule'
   },
   {
+    path: 'admin', loadChildren: 'app/+admin/admin.module#AdminModule',
+  },
+  {
     path: '**', redirectTo: '/home', pathMatch: 'full'
   }
 ];

@@ -21,7 +21,11 @@ export enum AuthActionTypesEnum {
 
 export class SignIn implements Action {
   readonly type = AuthActionTypesEnum.SignIn;
-  constructor(public payload: { email: string, password: string }) { }
+  constructor(public payload: {
+    email: string;
+    password: string;
+    isAdmin?: boolean;
+  }) { }
 }
 
 export class SignOn implements Action {
@@ -77,7 +81,7 @@ export class LoadUserInformation implements Action {
 
 export class LoadUserInformationSuccess implements Action {
   readonly type = AuthActionTypesEnum.LoadUserInformationSuccess;
-  constructor(public payload: User) {
+  constructor(public payload: any) {
     console.log('---------------: ', payload);
   }
 }

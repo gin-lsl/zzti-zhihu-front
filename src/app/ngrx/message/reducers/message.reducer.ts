@@ -25,6 +25,12 @@ export function reducer(state = initialState, action: messageAction.MessageActio
       };
     }
 
+    case messageAction.MessageActionTypesEnum.RemoveSuccess:
+      return adapter.removeOne(action.payload, state);
+
+    case messageAction.MessageActionTypesEnum.ClearSuccess:
+      return adapter.removeAll(state);
+
     default: {
       return state;
     }

@@ -24,7 +24,6 @@ export class SignPageComponent implements OnDestroy {
     this.authSignOnError$ = store.select(fromCore.getSignOnErrorMessage);
     this.authSignInError$ = store.select(fromCore.getSignInErrorMessage);
     this.authSignOnActiveKeySubscription = store.select(fromCore.getAuthActiveKey).subscribe(res => {
-      console.log('res: ', res);
       if (res) {
         router.navigate(['/sign/init'], {
           queryParams: {
@@ -35,7 +34,7 @@ export class SignPageComponent implements OnDestroy {
     });
   }
 
-  onSignInSubmit(event: { email: string, password: string }): void {
+  onSignInSubmit(event: { email: string, password: string, isAdmin?: boolean }): void {
     this.store.dispatch(new authAction.SignIn(event));
   }
 

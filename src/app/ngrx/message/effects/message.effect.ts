@@ -13,6 +13,8 @@ export class MessageEffects {
 
   private readonly apiLoad: string = API_HOST + '/messages';
 
+  private readonly apiRemove: string = API_HOST + '/messages/';
+
   /**
    * 加载消息
    */
@@ -21,10 +23,11 @@ export class MessageEffects {
     .ofType(messageAction.MessageActionTypesEnum.Load)
     // .map((action: messageAction.Load) => action.payload as any)
     .exhaustMap(_ => {
+      console.log('messages');
       const user = parseUserStorage();
-      const headers = new HttpHeaders();
+      let headers = new HttpHeaders();
       if (user) {
-        headers.append('Authorization', user.access_token);
+        headers = headers.append('Authorization', user.access_token);
       }
       return this._httpClient
         .get<API>(this.apiLoad, { headers })
@@ -35,6 +38,41 @@ export class MessageEffects {
         ));
     })
     .catch(error => Observable.of(new messageAction.LoadFailure(ResponseError.UNDEFINED_ERROR)));
+
+  @Effect()
+  Remove$: Observable<Action> = this._actions$.ofType(messageAction.MessageActionTypesEnum.Remove)
+    .map((action: messageAction.Remove) => action.payload)
+    .exhaustMap(_ => {
+      const user = parseUserStorage();
+      let headers = new HttpHeaders();
+      if (user) {
+        headers = headers.append('Authorization', user.access_token);
+      }
+      return this._httpClient.delete<API>(this.apiRemove + _, { headers })
+        .map(data => (
+          data.success
+            ? new messageAction.RemoveSuccess(_)
+            : new messageAction.RemoveFailure(new ResponseError(data.errorCode, data.errorMessage))
+        ));
+    })
+    .catch(error => Observable.of(new messageAction.RemoveFailure(ResponseError.UNDEFINED_ERROR)));
+
+  @Effect()
+  Clear$: Observable<Action> = this._actions$.ofType(messageAction.MessageActionTypesEnum.Clear)
+    .exhaustMap(_ => {
+      const user = parseUserStorage();
+      let headers = new HttpHeaders();
+      if (user) {
+        headers = headers.append('Authorization', user.access_token);
+      }
+      return this._httpClient.delete<API>(this.apiRemove, { headers })
+        .map(data => (
+          data.success
+            ? new messageAction.ClearSuccess()
+            : new messageAction.ClearFailure(new ResponseError(data.errorCode, data.errorMessage))
+        ));
+    })
+    .catch(error => Observable.of(new messageAction.ClearFailure(ResponseError.UNDEFINED_ERROR)));
 
   constructor(
     private _actions$: Actions,

@@ -16,9 +16,6 @@ export class HomePageComponent implements OnInit {
 
   constructor(private store: Store<fromQuestion.State>) {
     this.questions$ = store.select(fromQuestion.getLoadedQuestions);
-    this.questions$.subscribe(q => {
-      console.log('q: ', q);
-    });
   }
 
   ngOnInit() {

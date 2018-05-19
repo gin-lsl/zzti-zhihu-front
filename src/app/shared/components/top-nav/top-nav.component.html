@@ -18,7 +18,8 @@
                matInput
                aria-label="Search"
                [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" class="TopNav__auto-complete--popover">
+        <mat-autocomplete #auto="matAutocomplete"
+                          class="TopNav__auto-complete--popover">
           <mat-optgroup *ngIf="(searchResults$ | async).byTitle"
                         label="标题">
             <mat-option *ngFor="let result of (searchResults$ | async).byTitle"
@@ -51,9 +52,12 @@
          [matMenuTriggerFor]="topNavUserMenu"
          class="User-wrap__avatar"
          role="button"
-         title="{{ loginedUser.username }}">我的
-        <!-- <img src="http://spacehold.it/40x40"
-             alt="{{ loginedUser.id }}"> -->
+         title="{{ loginedUser.username }}">
+        <span *ngIf="!loginedUser.avatar">{{ loginedUser.username }}</span>
+        <img *ngIf="loginedUser.avatar"
+             style="width: 60px; height: 60px;"
+             [src]="loginedUser.avatar"
+             alt="{{ loginedUser.username }}">
       </a>
       <mat-menu #topNavUserMenu="matMenu"
                 [overlapTrigger]="false">
@@ -78,6 +82,26 @@
          routerLink="/sign">
         <span>登录</span>
       </a>
+    </div>
+    <div *ngIf="loginedUser && messages && messages.length > 0">
+      <a class="Icon-wrap"
+         role="button"
+         mat-button
+         [matMenuTriggerFor]="topNavUserMessageMenu">有新消息</a>
+      <mat-menu #topNavUserMessageMenu="matMenu"
+                [overlapTrigger]="false">
+        <div>
+          <mat-card style="box-shadow: none;">
+            <mat-card-content>
+              <p *ngFor="let msg of messages">
+                <a class="MessageList__item"
+                   [routerLink]="[msg.link]"
+                   (click)="onClickMessage(msg.id)">{{ msg.content }}</a>
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </mat-menu>
     </div>
   </mat-toolbar>
 </nav>

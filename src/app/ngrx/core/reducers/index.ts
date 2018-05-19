@@ -52,6 +52,8 @@ export const getSignInErrorMessage = cs(selectAuthState, fromAuth.getSignInError
 
 export const getAuthActiveKey = cs(selectAuthState, state => state.activeKey);
 
+export const getAuthUserInfo = cs(selectAuthState, state => state.user);
+
 export const getUser = cs(selectUserState, fromUser.getUser);
 
 export const getUserInformationTotal = cs(selectUserState, fromUser.getUser, state => {

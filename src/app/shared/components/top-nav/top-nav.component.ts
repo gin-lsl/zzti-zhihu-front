@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { User, ISignIn } from '../../../utils/index';
 import * as questionAction from '../../../ngrx/question/actions/question.action';
 import * as fromQuestionModule from '../../../ngrx/question/reducers/index';
+import * as messageAction from '../../../ngrx/message/actions/message.action';
 
 @Component({
   selector: 'app-top-nav',
@@ -18,6 +19,9 @@ export class TopNavComponent {
    */
   @Input()
   public loginedUser: User | ISignIn | any = {};
+
+  @Input()
+  public messages: Array<any>;
 
   @Output()
   public signOut: EventEmitter<any> = new EventEmitter();
@@ -52,6 +56,14 @@ export class TopNavComponent {
         (this.searchBoxRef.nativeElement as HTMLInputElement).blur();
       }
     });
+  }
+
+  onClickMessage(messageId: string) {
+    this._store.dispatch(new messageAction.Remove(messageId));
+  }
+
+  onClearMessage() {
+    this._store.dispatch(new messageAction.Clear());
   }
 
 }

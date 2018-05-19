@@ -23,7 +23,7 @@ export class AskPrePageContainerComponent implements OnInit {
   }
 
   public onSearchTextChange(text: string): void {
-    console.log('onSearchTextChange: ', text);
+    // console.log('onSearchTextChange: ', text);
     this.store.dispatch(new searchTextAction.Search(text));
   }
 

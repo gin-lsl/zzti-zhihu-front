@@ -10,7 +10,7 @@
     "src/assets/.gitkeep": true,
     "src/typings.d.ts": true,
     "src/environments": true,
-    "src/main.ts": true,
+    // "src/main.ts": true,
     // "src/polyfills.ts": true,
     "src/test.ts": true,
     "src/tsconfig.app.json": true,

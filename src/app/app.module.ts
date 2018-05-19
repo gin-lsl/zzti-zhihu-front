@@ -15,6 +15,12 @@ import { AppComponent } from './app.component';
 import { reducers, metaReducers } from './ngrx/root/reducers/index';
 import { CustomRouterStateSerializer } from './utils/index';
 import { EffectsModule } from '@ngrx/effects';
+import { environment } from '../environments/environment';
+
+/**
+ * 可选模块, 在产品模式将不会被编译到项目中
+ */
+const optionalModules = environment.production ? [] : [StoreDevtoolsModule.instrument()];
 
 @NgModule({
   declarations: [
@@ -31,9 +37,8 @@ import { EffectsModule } from '@ngrx/effects';
     StoreRouterConnectingModule.forRoot({
       stateKey: 'routerState',
     }),
-    StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([]),
-  ],
+  ].concat(optionalModules),
   providers: [
     {
       provide: RouterStateSerializer,

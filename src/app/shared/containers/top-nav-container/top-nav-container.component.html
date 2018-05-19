@@ -1,1 +1,3 @@
-<app-top-nav [loginedUser]="user$ | async" (signOut)="onSignOut()"></app-top-nav>
+<app-top-nav [loginedUser]="user$ | async"
+             [messages]="message$ | async"
+             (signOut)="onSignOut()"></app-top-nav>

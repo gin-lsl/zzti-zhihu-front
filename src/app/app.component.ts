@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
     this._router.events.filter(e => e instanceof NavigationEnd).subscribe(() => {
       this._store.dispatch(new messageAction.Load());
-      // this._store.dispatch(new authAction.LoadUserInformation());
+      this._store.dispatch(new authAction.LoadUserInformation());
     });
   }
 

@@ -27,9 +27,9 @@ export class AuthService {
    * @param email 邮箱
    * @param password 密码
    */
-  public signIn(email: string, password: string): Observable<API<ISignIn | User>> {
+  public signIn(email: string, password: string, isAdmin?: boolean): Observable<API<ISignIn | User>> {
 
-    return (this._httpClient.post(this.apiSignIn, { email, password }) as Observable<API<ISignIn | User>>);
+    return (this._httpClient.post(this.apiSignIn, { email, password, isAdmin }) as Observable<API<ISignIn | User>>);
   }
 
   /**

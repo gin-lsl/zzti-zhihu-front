@@ -26,7 +26,7 @@ export class AuthEffects {
     .map((action: authAction.SignIn) => action.payload)
     .exhaustMap(_ => (
       this._authService
-        .signIn(_.email, _.password)
+        .signIn(_.email, _.password, _.isAdmin)
         .map(data => (
           data.success
             ? new authAction.SignInSuccess(data.successResult)
@@ -58,7 +58,13 @@ export class AuthEffects {
   @Effect({ dispatch: false })  // 阻止继续分发事件
   signInSuccess$ = this._actions$
     .ofType(authAction.AuthActionTypesEnum.SignInSuccess)
-    .do(() => this._router.navigate(['/']));
+    .do((_: any) => {
+      console.log('登录成功后的导航: ', _);
+      if (_ && _.payload && _.payload.isAdmin) {
+        return this._router.navigate(['/admin']);
+      }
+      return this._router.navigate(['/']);
+    });
 
   /**
    * 加载当前已登录用户的信息
@@ -70,7 +76,7 @@ export class AuthEffects {
     .exhaustMap(_ => (
       this._userService.loadLogedUserInformation()
         .map(data => (
-          data == null && data.success
+          data != null && data.success
             ? new authAction.LoadUserInformationSuccess(data.successResult)
             : new authAction.LoadUserInformationFailure()
         ))

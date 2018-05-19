@@ -31,7 +31,12 @@ const getQuestionSortMethod = cs(getQuestionEntitiesState, state => state ? stat
 
 export const getSearchResults = cs(getQuestionEntitiesState, state => {
   console.log('-----------search: ', state.searchResults);
-  return state.searchResults;
+  // return state.searchResults as any && {
+  // };
+  return state.searchResults && (<any>state.searchResults).byTitle && {
+    byTitle: ((<any>state.searchResults).byTitle || []).sort((a, b) => !a.isTop),
+    byDescription: ((<any>state.searchResults).byDescription || []).sort((a, b) => !a.isTop),
+  } || [];
 });
 
 export const getSearchBoxFocus = cs(getQuestionEntitiesState, state => {

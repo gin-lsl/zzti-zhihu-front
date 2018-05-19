@@ -18,6 +18,27 @@ export class HttpService {
   ) { }
 
   /**
+   * GET请求
+   * @param url url
+   * @param params params
+   */
+  public curringGet(url: string, params?: HttpParams | {
+    [key: string]: string | string[]
+  }) {
+    /**
+     * @param actionSuccess 成功
+     * @param actionFailure 失败
+     */
+    return (actionSuccess: any, actionFailure: any) => {
+      const headers = this.getAuthorizationHeaders();
+      return this._httpClient
+        .get(this.formatUrl(url), { params, headers })
+        .map(this.handleResponseData(actionSuccess, actionFailure))
+        .catch(this.handleResponseError(actionFailure));
+    };
+  }
+
+  /**
    * GET 请求
    *
    * @param url 请求地址, 有无 `API_HOST` 和 `/` 前缀都可以, 会自动判断并添加
@@ -62,7 +83,7 @@ export class HttpService {
     const user = parseUserStorage();
     const headers = new HttpHeaders();
     if (user) {
-      headers.append('Authorization', user.access_token);
+      return headers.append('Authorization', user.access_token);
     }
     return headers;
   }

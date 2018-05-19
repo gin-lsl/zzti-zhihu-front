@@ -1,5 +1,5 @@
 import * as authAction from '../actions/auth.action';
-import { User, API, ISignIn, ResponseError } from '../../../utils/index';
+import { User, API, ISignIn, ResponseError, API_HOST } from '../../../utils/index';
 import { cacheUserStorage, parseUserStorage, clearUserStorage } from '../../../utils/functions/localstorage.function';
 
 export interface State {
@@ -62,13 +62,18 @@ export function reducer(state = initialState, action: authAction.AuthActions): S
 
     case authAction.AuthActionTypesEnum.LoadUserInformationSuccess:
       console.log('====================: ', action.payload);
+      const { id, email, username } = action.payload.base;
+      let avatar = action.payload.base.avatar;
+      if (avatar) {
+        avatar = API_HOST + '/users/avatar/' + avatar;
+      }
       return {
         ...state,
-        user: { ...action.payload },
+        user: { id, email, username, avatar },
       };
 
     case authAction.AuthActionTypesEnum.LoadUserInformationFailure:
-      clearUserStorage();
+      // clearUserStorage();
       return initialState;
 
     default: {

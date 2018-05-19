@@ -50,6 +50,8 @@ export class QuestionEffects {
       //       : new questionAction.LoadFailure(new ResponseError(data.errorCode, data.errorMessage))
       //   ))
       //   .catch(error => Observable.of(new questionAction.LoadFailure(ResponseError.UNDEFINED_ERROR)))
+      // this._httpService
+      //   .curringGet(this.apiLoad, new HttpParams().append('count', _))(questionAction.LoadSuccess, questionAction.LoadFailure)
       this._httpService
         .get(this.apiLoad, new HttpParams().append('count', _), questionAction.LoadSuccess, questionAction.LoadFailure)
     ));
@@ -82,25 +84,25 @@ export class QuestionEffects {
     .ofType(questionAction.QuestionActionTypesEnum.Up)
     .map((action: questionAction.Up) => action.payload)
     .exhaustMap(id => {
-      return this._httpService.get(this.apiUp + id, null, questionAction.UpSuccess, questionAction.UpFailure);
-      // const user = parseUserStorage();
-      // if (!user) {
-      //   this.checkShowAuthPop();
-      //   return Observable.empty();
-      // }
-      // return this._httpClient
-      //   .get(this.apiUp + id, {
-      //     headers: new HttpHeaders().append('Authorization', user.access_token)
-      //   })
-      //   .map((data: API) => {
-      //     if (data.success) {
-      //       return new questionAction.UpSuccess(id, user.id);
-      //     } else {
-      //       this.checkShowAuthPop(data.errorCode);
-      //       return new questionAction.UpFailure(new ResponseError(data.errorCode, data.errorMessage));
-      //     }
-      //   })
-      //   .catch((error) => Observable.of(new questionAction.UpFailure(ResponseError.UNDEFINED_ERROR)));
+      // return this._httpService.get(this.apiUp + id, null, questionAction.UpSuccess, questionAction.UpFailure);
+      const user = parseUserStorage();
+      if (!user) {
+        this.checkShowAuthPop();
+        return Observable.empty();
+      }
+      return this._httpClient
+        .get(this.apiUp + id, {
+          headers: new HttpHeaders().append('Authorization', user.access_token)
+        })
+        .map((data: API) => {
+          if (data.success) {
+            return new questionAction.UpSuccess(id, user.id);
+          } else {
+            this.checkShowAuthPop(data.errorCode);
+            return new questionAction.UpFailure(new ResponseError(data.errorCode, data.errorMessage));
+          }
+        })
+        .catch((error) => Observable.of(new questionAction.UpFailure(ResponseError.UNDEFINED_ERROR)));
     });
 
   /**

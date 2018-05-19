@@ -1,6 +1,6 @@
 import {
   Component, OnInit, ViewChild, ElementRef,
-  Input, EventEmitter, Output, ChangeDetectionStrategy
+  Input, EventEmitter, Output, ChangeDetectionStrategy, OnDestroy
 } from '@angular/core';
 import { ESCAPE } from '@angular/cdk/keycodes';
 
@@ -10,7 +10,7 @@ import { ESCAPE } from '@angular/cdk/keycodes';
   styleUrls: ['./ask-pre.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AskPreComponent implements OnInit {
+export class AskPreComponent implements OnInit, OnDestroy {
 
   // public search: string;
 
@@ -59,5 +59,9 @@ export class AskPreComponent implements OnInit {
       return;
     }
     this.searchTextChange.emit(text);
+  }
+
+  ngOnDestroy() {
+    this.searchResult = [];
   }
 }

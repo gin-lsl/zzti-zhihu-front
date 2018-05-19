@@ -1,0 +1,28 @@
+<!-- <mat-sidenav-container>
+  <mat-sidenav opened>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    内容
+  </mat-sidenav-content>
+</mat-sidenav-container> -->
+
+<mat-drawer-container autosize
+                      class="example-container">
+  <mat-drawer mode="side"
+              opened
+              class="example-sidenav">
+    <mat-nav-list>
+      <a [routerLink]="['top']"
+         routerLinkActive="active"
+         mat-list-item>置顶问题</a>
+      <a [routerLink]="['my-top']"
+         routerLinkActive="active"
+         mat-list-item>我的置顶</a>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>

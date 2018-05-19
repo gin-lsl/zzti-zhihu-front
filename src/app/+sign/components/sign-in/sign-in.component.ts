@@ -22,6 +22,7 @@ export class SignInComponent {
   public formGroup: FormGroup = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
+    isAdmin: new FormControl(''),
   });
 
   constructor() { }

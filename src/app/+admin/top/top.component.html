@@ -1,0 +1,22 @@
+<mat-form-field class="w100per">
+  <input type="text"
+         matInput
+         #searchInputRef
+         placeholder="查找问题"
+         (input)="onSearch(searchInputRef.value)">
+</mat-form-field>
+<div class="QuestionList__container">
+  <mat-list role="list"
+            *ngIf="questions && questions.length; else topNoQuestionsTpl">
+    <mat-list-item *ngFor="let question of questions">
+      <a class="operator_up"
+         role="button"
+         (click)="onTopIt(question.id, question.isTop)">{{ question.isTop ? '取消置顶' : '置顶此问题' }}</a>
+      <a [routerLink]="['/question/', question.id]"
+         class="Top__question-title">{{ question.title }}</a>
+    </mat-list-item>
+  </mat-list>
+  <ng-template #topNoQuestionsTpl>
+    <div>暂无问题, 请在上方输入框中搜索</div>
+  </ng-template>
+</div>

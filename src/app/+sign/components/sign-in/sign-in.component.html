@@ -14,6 +14,10 @@
                formControlName="password"
                placeholder="Password">
       </mat-form-field>
+      <!-- <mat-form-field> -->
+      <mat-checkbox style="padding-bottom: 15px; text-align: right;"
+                    formControlName="isAdmin">管理员身份</mat-checkbox>
+      <!-- </mat-form-field> -->
       <div *ngIf="errorMessage"
            class="has-error">{{ errorMessage }}</div>
       <div class="mb1 btn-submit">
