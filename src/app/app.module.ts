@@ -28,7 +28,6 @@ const optionalModules = environment.production ? [] : [StoreDevtoolsModule.instr
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     NoopAnimationsModule,
     SharedModule,
     CoreModule,
@@ -38,7 +37,9 @@ const optionalModules = environment.production ? [] : [StoreDevtoolsModule.instr
       stateKey: 'routerState',
     }),
     EffectsModule.forRoot([]),
-  ].concat(optionalModules),
+    AppRoutingModule,
+    ...optionalModules,
+  ],
   providers: [
     {
       provide: RouterStateSerializer,

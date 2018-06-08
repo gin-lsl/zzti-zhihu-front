@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { User, API_HOST, parseUserStorage, API } from '../../../utils/index';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { API, API_HOST, User, parseUserStorage } from '../../../utils/index';
 
 @Component({
   selector: 'app-user-header',
@@ -9,11 +9,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class UserHeaderComponent implements OnInit {
 
+  _newAvatar: string;
+
   @Input()
   public user: User & any;
 
   @Output()
   public follow: EventEmitter<any> = new EventEmitter();
+
+  @ViewChild('inputAvatar')
+  public inputAvatar: ElementRef;
 
   public hasLogin: boolean = false;
 
@@ -36,6 +41,10 @@ export class UserHeaderComponent implements OnInit {
     });
   }
 
+  onClickAvatar() {
+    this.inputAvatar && this.inputAvatar.nativeElement.click();
+  }
+
   onChangeAvatar(form: HTMLFormElement): void {
     const formData = new FormData(form);
     const user = parseUserStorage();
@@ -43,7 +52,14 @@ export class UserHeaderComponent implements OnInit {
       headers: new HttpHeaders().append('Authorization', user ? user.access_token : null)
     })
       .subscribe(res => {
-        console.log('res: ', res);
+        // console.log('res: ', res);
+        // if (res.success && res.successResult) {
+        //   this._newAvatar = 'preavatar';
+        //   setTimeout(() => {
+        //     this._newAvatar = API_HOST + '/users/avatar/' + res.successResult.avatar;
+        //   });
+        // }
+        location.reload();
       });
   }
 

@@ -21,6 +21,17 @@ const initialState: State = {
 export function reducer(state = initialState, action: authAction.AuthActions): State {
   switch (action.type) {
 
+    case authAction.AuthActionTypesEnum.LoadSuccess:
+      return {
+        ...state, user: {
+          ...action.payload,
+          base: {
+            ...action.payload.base,
+            avatar: API_HOST + '/users/avatar/' + action.payload.base.avatar,
+          }
+        }
+      };
+
     case authAction.AuthActionTypesEnum.AuthInitial:
       return { ...initialState };
 
@@ -61,7 +72,7 @@ export function reducer(state = initialState, action: authAction.AuthActions): S
       return initialState;
 
     case authAction.AuthActionTypesEnum.LoadUserInformationSuccess:
-      console.log('====================: ', action.payload);
+      // console.log('====================: ', action.payload);
       const { id, email, username } = action.payload.base;
       let avatar = action.payload.base.avatar;
       if (avatar) {

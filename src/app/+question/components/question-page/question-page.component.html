@@ -28,8 +28,14 @@
               <span>提问者信息:</span>
             </mat-card-content>
             <mat-card-header>
-              <div mat-card-avatar></div>
-              <mat-card-title>{{ question.user.username || '匿名用户' }}</mat-card-title>
+              <div mat-card-avatar
+                   role="link"
+                   title="{{ question?.user?.username }}"
+                   [routerLink]="['/user', question.user.id]"
+                   [style.backgroundImage]="'url(' + question?.user?.avatar + ')'"></div>
+              <mat-card-title role="link"
+                              title="{{ question?.user?.username }}"
+                              [routerLink]="['/user', question.user.id]">{{ question.user.username || '匿名用户' }}</mat-card-title>
               <mat-card-subtitle>{{ question.user.profile }}</mat-card-subtitle>
             </mat-card-header>
           </mat-card>

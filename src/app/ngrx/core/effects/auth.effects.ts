@@ -11,11 +11,38 @@ import 'rxjs/add/operator/do';
 import * as authAction from '../actions/auth.action';
 import { AuthService } from '../../../core/services/auth.service';
 import { UserService } from '../../../core/services/user.service';
-import { ResponseError, API, clearUserStorage } from '../../../utils/index';
+import { ResponseError, API, clearUserStorage, API_HOST } from '../../../utils/index';
 import { parseUserStorage } from '../../../utils/functions/localstorage.function';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AuthEffects {
+
+  private readonly apiUserInformation: string = API_HOST + '/users/';
+
+  @Effect()
+  Load$: Observable<Action> = this._actions$
+    .ofType(authAction.AuthActionTypesEnum.Load)
+    .map((action: authAction.Load) => action.payload)
+    .exhaustMap(_ => {
+      const user = parseUserStorage();
+      let headers = new HttpHeaders();
+      if (user) {
+        headers = headers.append('Authorization', user.access_token);
+      }
+      // this._userService.loadPlainUserInformation(_)
+      return this._httpClient
+        .get(this.apiUserInformation + _, { headers })
+        .map((data: API) => (
+          data.success
+            ? new authAction.LoadSuccess(data.successResult)
+            : new authAction.LoadFailure(new ResponseError(data.errorCode, data.errorMessage))
+        ))
+        .catch((error: API) => {
+          console.log(error);
+          return Observable.of(new authAction.LoadFailure(new ResponseError(error.errorCode, error.errorMessage)));
+        });
+    });
 
   /**
    * 登录
@@ -103,6 +130,7 @@ export class AuthEffects {
   constructor(
     private _router: Router,
     private _actions$: Actions,
+    private _httpClient: HttpClient,
     private _authService: AuthService,
     private _userService: UserService,
   ) { }

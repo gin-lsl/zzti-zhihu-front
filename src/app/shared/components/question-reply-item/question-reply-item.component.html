@@ -8,8 +8,13 @@
       </mat-card-content>
       <mat-card-header>
         <div mat-card-avatar
+             role="link"
+             title="{{ reply?.user?.username }}"
+             [routerLink]="['/user', reply?.user?.id]"
              [style.backgroundImage]="'url(' + reply?.user?.avatar + ')'"></div>
-        <mat-card-title>{{ reply?.user?.username }}</mat-card-title>
+        <mat-card-title role="link"
+                        title="{{ reply?.user?.username }}"
+                        [routerLink]="['/user', reply?.user?.id]">{{ reply?.user?.username }}</mat-card-title>
         <mat-card-subtitle>{{ reply?.user?.profile }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>

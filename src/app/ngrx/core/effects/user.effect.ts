@@ -101,6 +101,22 @@ export class UserEffects {
         });
     });
 
+  @Effect({dispatch: true})
+  FollowSuccess$: Observable<Action> = this._actions$
+    .ofType(userAction.UserActionTypesEnum.FollowSuccess)
+    .map((action: userAction.FollowSuccess) => action.payload)
+    .exhaustMap(_ => {
+      return Observable.of(new userAction.Load(_.toUserId));
+    });
+
+  @Effect({dispatch: true})
+  CancelFollowSuccess$: Observable<Action> = this._actions$
+    .ofType(userAction.UserActionTypesEnum.CancelFollowSuccess)
+    .map((action: userAction.CancelFollowSuccess) => action.payload)
+    .exhaustMap(_ => {
+      return Observable.of(new userAction.Load(_.toUserId));
+    });
+
   constructor(
     private _actions$: Actions,
     private _httpClient: HttpClient,

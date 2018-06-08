@@ -17,6 +17,24 @@ export enum AuthActionTypesEnum {
   LoadUserInformationFailure = '[Auth] Load User Information Failure',
   ClearLogedUserState = '[Auth] Clear Loged User State',
   ClearLogedUserStateSuccess = '[Auth] Clear Loged User State Success',
+  Load = '[Auth] Load',
+  LoadSuccess = '[Auth] Load Success',
+  LoadFailure = '[Auth] Load Failure',
+}
+
+export class Load implements Action {
+  readonly type = AuthActionTypesEnum.Load;
+  constructor(public payload: string) { }
+}
+
+export class LoadSuccess implements Action {
+  readonly type = AuthActionTypesEnum.LoadSuccess;
+  constructor(public payload: any) { }
+}
+
+export class LoadFailure implements Action {
+  readonly type = AuthActionTypesEnum.LoadFailure;
+  constructor(public payload: any) { }
 }
 
 export class SignIn implements Action {
@@ -113,4 +131,7 @@ export type AuthActions
   | LoadUserInformationSuccess
   | LoadUserInformationFailure
   | ClearLogedUserState
-  | ClearLogedUserStateSuccess;
+  | ClearLogedUserStateSuccess
+  | Load
+  | LoadSuccess
+  | LoadFailure;

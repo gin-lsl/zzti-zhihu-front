@@ -42,12 +42,12 @@ export const getSignInError = cs(selectAuthState, fromAuth.getSignInError);
 
 export const getSignOnErrorMessage = cs(selectAuthState, fromAuth.getSignOnError,
   (state, error) => {
-    return state.signOnError && (state.signOnError.errorMessage || '未知错误, 请重试!');
+    return state.signOnError && (state.signOnError.errorMessage || '登录失败, 请重试!');
   });
 
 export const getSignInErrorMessage = cs(selectAuthState, fromAuth.getSignInError,
   (state, error) => {
-    return state.signInError && (state.signInError.errorMessage || '未知错误, 请重试!');
+    return state.signInError && (state.signInError.errorMessage || '登录失败, 请重试!');
   });
 
 export const getAuthActiveKey = cs(selectAuthState, state => state.activeKey);
@@ -169,7 +169,7 @@ export const getUserSavedQuestions = cs(selectCoreModuleState, getLogedUser, (st
  * 获取用户基本信息
  */
 export const getUserBase = cs(getUser, getLogedUser, (user, logedUser) => {
-  if (!(user && logedUser)) {
+  if (!(user)) {
     return {};
   }
   const base = user.base;
@@ -179,16 +179,16 @@ export const getUserBase = cs(getUser, getLogedUser, (user, logedUser) => {
     /**
      * 是否已登录的本人
      */
-    isSelf: base.id && base.id === logedUser.id,
+    isSelf: base.id && base.id === (logedUser && logedUser.id),
 
     /**
      * 当前登录用户是否已关注此用户
      */
-    hasFollowHim: base.followHimUsers && (base.followHimUsers as Array<any>).find(f => f.id === logedUser.id),
+    hasFollowHim: base.followHimUsers && (base.followHimUsers as Array<any>).find(f => f.id === (logedUser && logedUser.id)),
 
     /**
      * 此用户是否关注当前已登录用户
      */
-    hasFollowMe: base.hisFollowUsers && (base.hisFollowUsers as Array<any>).find(f => f.id === logedUser.id),
+    hasFollowMe: base.hisFollowUsers && (base.hisFollowUsers as Array<any>).find(f => f.id === (logedUser && logedUser.id)),
   };
 });

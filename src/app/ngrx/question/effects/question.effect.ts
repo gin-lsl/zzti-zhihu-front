@@ -57,7 +57,7 @@ export class QuestionEffects {
     ));
 
   /**
-   * 加载跟此问题相似的问题
+   * 加载跟此问题相似的问题 相关问题
    */
   @Effect()
   LoadRelates$: Observable<Action> = this._actions$

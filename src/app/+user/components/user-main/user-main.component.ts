@@ -37,12 +37,12 @@ export class UserMainComponent implements OnInit {
     this.userBase$ = store.select(fromCoreModule.getUserBase);
     this.myActivities$ = store.select(fromCoreModule.getUserActivities);
     this.mySavedQuestions$ = store.select(fromCoreModule.getUserSavedQuestions);
-    this.myPostedQuestions$.subscribe(qs => {
-      console.log('qs: ', qs);
-    });
-    this.myPostedReplies$.subscribe(rs => {
-      console.log('rs: ', rs);
-    });
+    // this.myPostedQuestions$.subscribe(qs => {
+    //   console.log('qs: ', qs);
+    // });
+    // this.myPostedReplies$.subscribe(rs => {
+    //   console.log('rs: ', rs);
+    // });
   }
 
   ngOnInit() {

@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     const user = parseUserStorage();
     if (user) {
-      this._store.dispatch(new userAction.Load(user.id));
+      this._store.dispatch(new authAction.Load(user.id));
     }
     this._router.events.filter(e => e instanceof NavigationEnd).subscribe(() => {
       this._store.dispatch(new messageAction.Load());
